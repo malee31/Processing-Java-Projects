@@ -5,7 +5,7 @@ void setup()
   size(500,600);
   background(48, 51, 56);
   strokeWeight(5);
-  frameRate(60);
+  noLoop();
 }
 void draw()
 {
@@ -28,18 +28,22 @@ void lightningStrike()
     line(startX,startY,endX,endY);
     startX=endX;
     startY=endY;
-    print("Done");
+    print("Line part");
   }
+  print("Line end");
 }
 int rand(int min,int max)
 {
-  return (int)((Math.random()*(max-min+1))+min);
+  int result=(int)((Math.random()*(max-min+1))+min);
+  print("Random: "+result);
+  return result;
 }
 void clearScreen()
 {
   noStroke();
   fill(48,51,56);
   rect(0,0,500,600);
+  print("Screen Clear");
 }
 void mousePressed()
 {
@@ -48,5 +52,6 @@ void mousePressed()
   startY=150;
   endX=0;
   endY=150;
-  print("clicked"+strike);
+  draw();
+  print("Drawing");
 }
