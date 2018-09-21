@@ -1,8 +1,10 @@
 boolean strike=false;
+int startX=0, startY=150, endX=0, endY=150;
 void setup()
 {
   size(500,600);
   background(48, 51, 56);
+  endY=600;
   frameRate(60);
 }
 void draw()
