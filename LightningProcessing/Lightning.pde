@@ -1,23 +1,39 @@
-boolean strike=false;
+int strike=0;
 int startX=0, startY=150, endX=0, endY=150;
 void setup()
 {
   size(500,600);
   background(48, 51, 56);
+  strokeWeight(5);
   frameRate(60);
 }
 void draw()
 {
   clearScreen();
-  if (strike)
+  while (strike>0)
   {
     lightningStrike();
+    strike--;
   }
 }
-void lightningStrike(startX,startY)
+void lightningStrike()
 {
-  
-  strike=false;
+  stroke(rand(0,255),rand(0,255),rand(0,255));
+  startX=rand(0,9);
+  startY=rand(-9,9);
+  while (startX<=600)
+  {
+    endX=rand(0,9);
+    endY=rand(-9,9);
+    line(startX,startY,endX,endY);
+    startX=endX;
+    startY=endY;
+    print("Done");
+  }
+}
+int rand(int min,int max)
+{
+  return (int)((Math.random()*(max-min+1))+min);
 }
 void clearScreen()
 {
@@ -27,6 +43,10 @@ void clearScreen()
 }
 void mousePressed()
 {
-  strike=true;
+  strike++;
+  startX=0;
+  startY=150;
+  endX=0;
+  endY=150;
+  print("clicked"+strike);
 }
-
