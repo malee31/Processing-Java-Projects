@@ -1,13 +1,31 @@
+boolean strike=false;
 void setup()
 {
-  size(300,300);
+  size(500,600);
+  background(48, 51, 56);
+  frameRate(60);
 }
 void draw()
 {
-
+  clearScreen();
+  if (strike)
+  {
+    lightningStrike();
+  }
+}
+void lightningStrike(startX,startY)
+{
+  
+  strike=false;
+}
+void clearScreen()
+{
+  noStroke();
+  fill(48,51,56);
+  rect(0,0,500,600);
 }
 void mousePressed()
 {
-
+  strike=true;
 }
 
