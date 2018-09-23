@@ -1,10 +1,18 @@
 void setup()
 {
+	size(500,500)
+	background(0,0,0);
 	noLoop();
 }
 void draw()
 {
-	//your code here
+	clearScreen();
+	
+}
+void clearScreen()
+{
+	fill(0,0,0);
+	rect(0,0,500,500);
 }
 void mousePressed()
 {
