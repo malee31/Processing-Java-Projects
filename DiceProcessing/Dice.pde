@@ -7,9 +7,16 @@ void setup()
 void draw()
 {
 	clearScreen();
-	Die a=new Die(200,200);
-	a.roll();
-	a.show();
+	Die[][] die = new Die[5][5];
+	for (int row=0; row<=500; row+=100)
+	{
+		for (int col=0; col<=500; col+=100)
+		{
+			die[underZero(row/100-1)][underZero(col/100-1)]=new Die(row,col);
+			((Die)die[underZero(row/100-1)][underZero(col/100-1)]).roll();
+			((Die)die[underZero(row/100-1)][underZero(col/100-1)]).show();
+		}
+	}
 }
 void clearScreen()
 {
@@ -20,7 +27,18 @@ void mousePressed()
 {
 	redraw();
 }
-class Die //models one single dice cube
+int underZero(int num)
+{
+	if (num<0)
+	{
+		return 0;
+	}
+	else
+	{
+		return num;
+	}
+}
+class Die
 {
 	int diceNum,xPos,yPos;
 	Die(int x, int y)
@@ -71,7 +89,6 @@ class Die //models one single dice cube
 			dotDrawer(xPos+65,yPos+25);
 			dotDrawer(xPos+65,yPos+75);
 		}
-		print(diceNum);
 	}
 	void dotDrawer(int x,int y)
 	{
