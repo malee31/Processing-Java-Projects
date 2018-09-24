@@ -8,7 +8,8 @@ void draw()
 {
 	clearScreen();
 	Die a=new Die(200,200);
-	
+	a.roll();
+	a.show();
 }
 void clearScreen()
 {
@@ -22,8 +23,7 @@ void mousePressed()
 class Die //models one single dice cube
 {
 	int diceNum,xPos,yPos;
-	
-	Die(int x, int y) //constructor
+	Die(int x, int y)
 	{
 		xPos=x;
 		yPos=y;
@@ -40,37 +40,38 @@ class Die //models one single dice cube
 		rect(xPos,yPos,100,100);
 		if (diceNum%2==1)
 		{
-			dotDrawer(50,50);
+			dotDrawer(xPos+50,yPos+50);
 		}
-		else if (diceNum%2==1&&diceNum!=4)
+		else if (diceNum==6||diceNum==2)
 		{
-			dotDrawer(35,50);
-			dotDrawer(65,50);
+			dotDrawer(xPos+35,yPos+50);
+			dotDrawer(xPos+65,yPos+50);
 		}
 		if (diceNum==3||diceNum==5)
 		{
-			dotDrawer(20,20);
-			dotDrawer(80,80);
+			dotDrawer(xPos+20,yPos+20);
+			dotDrawer(xPos+80,yPos+80);
 		}
 		if (diceNum==5)
 		{
-			dotDrawer(20,80);
-			dotDrawer(80,20);
+			dotDrawer(xPos+20,yPos+80);
+			dotDrawer(xPos+80,yPos+20);
 		}
 		if (diceNum==4)
 		{
-			dotDrawer(35,35);
-			dotDrawer(35,65);
-			dotDrawer(65,35);
-			dotDrawer(65,65);
+			dotDrawer(xPos+35,yPos+35);
+			dotDrawer(xPos+35,yPos+65);
+			dotDrawer(xPos+65,yPos+35);
+			dotDrawer(xPos+65,yPos+65);
 		}
 		if (diceNum==6)
 		{
-			dotDrawer(35,25);
-			dotDrawer(35,75);
-			dotDrawer(65,25);
-			dotDrawer(65,75);
+			dotDrawer(xPos+35,yPos+25);
+			dotDrawer(xPos+35,yPos+75);
+			dotDrawer(xPos+65,yPos+25);
+			dotDrawer(xPos+65,yPos+75);
 		}
+		print(diceNum);
 	}
 	void dotDrawer(int x,int y)
 	{
