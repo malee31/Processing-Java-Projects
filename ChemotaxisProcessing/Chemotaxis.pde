@@ -1,4 +1,7 @@
-//declare bacteria variables here
+int goalX=(int)(Math.random()*501);
+int goalY=(int)(Math.random()*501);
+final int BACTERIA_NUM=	1;
+Bacteria[] petriDish=new Bacteria[];
  void setup()   
  {
  	size(500,500);
@@ -7,9 +10,12 @@
  {
  	screenClearer();
  	//Bacteria params: x, y, red, green, blue...
- 	Bacteria bac=new Bacteria(250,250,255,0,0);
- 	bac.move();
- 	bac.show();
+ 	for (int i=0; i<BACTERIA_NUM; i++)
+ 	{
+	 	petriDish.push(new Bacteria(250,250,255,0,0));
+	 	petriDish[i].move();
+	 	petriDish[i].show();
+	}
  }
  void screenClearer()
  {
@@ -31,8 +37,23 @@
  	}
  	void move()
  	{
- 		x+=(int)(Math.random()*10+1);
- 		y+=(int)(Math.random()*10+1);
+ 		if (goalX>x)
+ 		{
+ 			x+=(int)(Math.random()*10+1);
+ 		}
+ 		else
+ 		{
+ 			x-=(int)(Math.random()*10+1);
+ 		}
+ 		if (goalY>y)
+ 		{
+ 			y+=(int)(Math.random()*10+1);
+ 		}
+ 		else
+ 		{
+ 			y-=(int)(Math.random()*10+1);	
+ 		}
+ 		print(x+", "+y);
  	}
  	void show()
  	{
@@ -40,4 +61,9 @@
  		fill(colour[0],colour[1],colour[2],277);
  		ellipse(x,y,10,10);
  	}
+ }
+ void mousePressed()
+ {
+ 	goalX=mouseX;
+ 	goalY=mouseY;
  }
