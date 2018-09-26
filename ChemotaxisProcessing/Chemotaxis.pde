@@ -1,20 +1,38 @@
 int goalX=(int)(Math.random()*501);
 int goalY=(int)(Math.random()*501);
-final int BACTERIA_NUM=	1;
-Bacteria[] petriDish=new Bacteria[];
+final int START_BACTERIA_NUM=5;
+Bacteria[] petriDish=new Bacteria[300];
  void setup()   
  {
  	size(500,500);
  }
  void draw()   
  {
+ 	//make them follow mouse
+	goalX=mouseX;
+ 	goalY=mouseY;
  	screenClearer();
- 	//Bacteria params: x, y, red, green, blue...
- 	for (int i=0; i<BACTERIA_NUM; i++)
+ 	if (petriDish[0]==null)
  	{
-	 	petriDish.push(new Bacteria(250,250,255,0,0));
-	 	petriDish[i].move();
-	 	petriDish[i].show();
+	 	//Bacteria params: x, y, red, green, blue...
+	 	for (int i=0; i<START_BACTERIA_NUM; i++)
+	 	{
+		 	petriDish[i]=new Bacteria(randPos(),randPos(),randColor(),randColor(),randColor());
+		 	petriDish[i].move();
+		 	petriDish[i].show();
+		}
+	}
+	for (int go=0; go<petriDish.length; go++)
+	{
+		if (petriDish[go]==null)
+		{
+			break;
+		}
+		else
+		{
+			petriDish[go].move();
+			petriDish[go].show();
+		}
 	}
  }
  void screenClearer()
@@ -53,7 +71,6 @@ Bacteria[] petriDish=new Bacteria[];
  		{
  			y-=(int)(Math.random()*10+1);	
  		}
- 		print(x+", "+y);
  	}
  	void show()
  	{
@@ -62,8 +79,35 @@ Bacteria[] petriDish=new Bacteria[];
  		ellipse(x,y,10,10);
  	}
  }
+ int randColor()
+ {
+ 	return (int)(Math.random()*256);
+ }
+ void aNewBac()
+ {
+ 	for (int i=0; i<petriDish.length; i++)
+ 	{
+ 		if(petriDish[i]==null)
+ 		{
+ 			print("new!");
+ 			petriDish[i]=new Bacteria(randPos(),randPos(),randColor(),randColor(),randColor());
+ 			break;
+ 		}
+ 	}
+ }
+ int randPos()
+ {
+ 	return (int)(Math.random()*500);
+ }
+ /*
  void mousePressed()
  {
  	goalX=mouseX;
  	goalY=mouseY;
+ }
+No longer in use since the mouse moving part.
+ */
+ void mousePressed()
+ {
+ 	aNewBac();
  }
