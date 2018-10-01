@@ -10,6 +10,15 @@ void draw()
 class NormalParticle
 {
 	//your code here
+	double x,y,angle,speed;
+	int[] color=new int[3];
+	NormalParticle(int red, int green, int blue, double xPos, double yPos)
+	{
+		color[0]=red;
+		color[1]=green;
+		color[2]=blue;
+		
+	}
 }
 interface Particle
 {
