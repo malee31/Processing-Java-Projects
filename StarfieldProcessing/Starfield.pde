@@ -1,6 +1,6 @@
 final int particleCount=100;
 Particle[] particles=new Particle[particleCount];
-NormalParticle test=new NormalParticle(255,255,255,500,500,20);
+NormalParticle test=new NormalParticle(255,255,255,375,375,20,20);
 void setup()
 {
 	size(750,750);
@@ -16,6 +16,7 @@ void draw()
 {
 	reset();
 	test.show();
+	test.move();
 	/*
 	for(var i=0; i<particleCount; i++)
 	{
@@ -29,7 +30,7 @@ class NormalParticle
 	//variables required
 	double x,y,angleRad,speed;
 	int[] colorArr=new int[3];
-	NormalParticle(int red, int green, int blue, double xPos, double yPos, double angleS)
+	NormalParticle(int red, int green, int blue, double xPos, double yPos, double angleS, double sped)
 	{
 		//sets colors in array in rgb format from index 0-2
 		colorArr[0]=red;
@@ -38,15 +39,24 @@ class NormalParticle
 		//sets start position
 		x=xPos;
 		y=yPos;
+		//set start speed
+		speed=sped;
 		//makes the angle used become radians
 		angleRad=Math.toRadians(angleS);
 	}
-	void move()
+	public void move()
 	{
-
+		if(x>1000||x<-100||y>1000||y<-100)
+		{
+			x=375;
+			y=375;
+		}
+		x+=(double)(cos((float)angleRad)*(float)speed);
+		y+=(double)(sin((float)angleRad)*(float)speed);
 	}
-	void show()
+	public void show()
 	{
+		//draws particle
 		stroke(0,0,0);
 		fill(colorArr[0],colorArr[1],colorArr[2]);
 		ellipse((float)x,(float)y, 100, 100);
