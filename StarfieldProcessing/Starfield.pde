@@ -1,11 +1,12 @@
-Particle[] particles=new Particle[100];
+final int particleCount=100;
+Particle[] particles=new Particle[particleCount];
 NormalParticle test=new NormalParticle(255,255,255,500,500,20);
 void setup()
 {
 	size(750,750);
 	background(19,24,98);
 	/*
-	for(var i=0; i<100; i++)
+	for(var i=0; i<particleCount; i++)
 	{
 		particle[i]=new Particle(255,255,255,500,500);
 	}
@@ -14,22 +15,31 @@ void setup()
 void draw()
 {
 	reset();
-	//your code here
 	test.show();
+	/*
+	for(var i=0; i<particleCount; i++)
+	{
+		particle[i].move();
+		particle[i].show();
+	}
+	*/
 }
 class NormalParticle
 {
-	//your code here
-	double x,y,angle,speed;
+	//variables required
+	double x,y,angleRad,speed;
 	int[] colorArr=new int[3];
 	NormalParticle(int red, int green, int blue, double xPos, double yPos, double angleS)
 	{
+		//sets colors in array in rgb format from index 0-2
 		colorArr[0]=red;
 		colorArr[1]=green;
 		colorArr[2]=blue;
+		//sets start position
 		x=xPos;
 		y=yPos;
-		angle=angleS;
+		//makes the angle used become radians
+		angleRad=Math.toRadians(angleS);
 	}
 	void move()
 	{
@@ -56,6 +66,7 @@ class JumboParticle //uses inheritance
 }
 void reset()
 {
+	//clears screen
 	noStroke();
 	fill(19,24,98);
 	rect(0,0,750,750);
