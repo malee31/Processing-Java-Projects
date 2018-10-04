@@ -64,9 +64,10 @@ class NormalParticle
 }
 interface Particle
 {
-	//your code here
+	void move();
+	void show();
 }
-class OddballParticle //uses an interface
+class OddballParticle implements Particle
 {
 	//your code here
 }
