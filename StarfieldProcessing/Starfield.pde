@@ -1,36 +1,32 @@
-final int particleCount=100;
-Particle[] particles=new Particle[particleCount];
-NormalParticle test=new NormalParticle(255,255,255,375,375,20,20);
+final int PARTICLE_COUNT=362;
+Particle[] particles=new Particle[PARTICLE_COUNT];
+boolean triggered=false;
 void setup()
 {
 	size(750,750);
 	background(19,24,98);
-	/*
-	for(var i=0; i<particleCount; i++)
-	{
-		particle[i]=new Particle(255,255,255,500,500);
-	}
-	*/
+	fillArray();
 }
 void draw()
 {
 	reset();
-	test.show();
-	test.move();
-	/*
-	for(var i=0; i<particleCount; i++)
+	for(int i=0; i<PARTICLE_COUNT; i++)
 	{
-		particle[i].move();
-		particle[i].show();
+		if (particles[i]!=null)
+		{
+			particles[i].move();
+			particles[i].show();
+		}
 	}
-	*/
+	coverCenter();
 }
-class NormalParticle
+class NormalParticle implements Particle
 {
 	//variables required
-	double x,y,angleRad,speed;
-	int[] colorArr=new int[3];
-	NormalParticle(int red, int green, int blue, double xPos, double yPos, double angleS, double sped)
+	protected double x,y,angleRad,speed;
+	protected int[] colorArr=new int[3];
+	protected int moved=0;
+	protected NormalParticle(int red, int green, int blue, double xPos, double yPos, double angleS, double sped)
 	{
 		//sets colors in array in rgb format from index 0-2
 		colorArr[0]=red;
@@ -46,20 +42,25 @@ class NormalParticle
 	}
 	public void move()
 	{
-		if(x>1000||x<-100||y>1000||y<-100)
+		if(moved>530||(triggered&&(x>800||x<-50||y>800||y<-50)))
 		{
 			x=375;
 			y=375;
+			moved=0;
 		}
-		x+=(double)(cos((float)angleRad)*(float)speed);
-		y+=(double)(sin((float)angleRad)*(float)speed);
+		else
+		{
+			x+=(double)(cos((float)angleRad)*(float)speed);
+			y+=(double)(sin((float)angleRad)*(float)speed);
+			moved+=speed;
+		}
 	}
 	public void show()
 	{
 		//draws particle
 		stroke(0,0,0);
 		fill(colorArr[0],colorArr[1],colorArr[2]);
-		ellipse((float)x,(float)y, 100, 100);
+		ellipse((float)x,(float)y, 20, 20);
 	}
 }
 interface Particle
@@ -69,11 +70,38 @@ interface Particle
 }
 class OddballParticle implements Particle
 {
-	//your code here
+	OddballParticle()
+	{
+
+	}
+	void move()
+	{
+
+	}
+	void show()
+	{
+
+	}
 }
-class JumboParticle //uses inheritance
+class JumboParticle extends NormalParticle
 {
-	//your code here
+	JumboParticle(int r, int g, int b, double xJ, double yJ, double angleJ, double spedJ)
+	{
+		super(r,g,b,xJ,yJ,angleJ,spedJ);
+	}
+	void show()
+	{
+		if(!triggered)
+		{
+			stroke(0,0,0);
+			fill(colorArr[0],colorArr[1],colorArr[2]);
+			ellipse((float)x,(float)y, 100, 100);
+		}
+		if (x==375)
+		{
+			angleRad=Math.toRadians(Math.random()*360);
+		}
+	}
 }
 void reset()
 {
@@ -82,4 +110,29 @@ void reset()
 	fill(19,24,98);
 	rect(0,0,750,750);
 
+}
+void coverCenter()
+{
+	noStroke();
+	ellipse(375, 375, 20, 20);
+}
+void fillArray()
+{
+	for(int i=0; i<PARTICLE_COUNT&&i<360; i++)
+	{
+		particles[i]=new NormalParticle(255,255,255,375,375,i,10);
+	}
+	particles[360]=new JumboParticle(255,255,255,375,375,0,15);
+	//particles[360]=new OddballParticle(255,255,255,375,375,20,20);
+}
+void mousePressed()
+{
+	fillArray();
+}
+void keyPressed()
+{
+	if (key==' ')
+	{
+		triggered=!triggered;
+	}
 }
