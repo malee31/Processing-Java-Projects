@@ -72,15 +72,15 @@ class OddballParticle implements Particle
 {
 	OddballParticle()
 	{
-
+		
 	}
 	void move()
 	{
-
+		
 	}
 	void show()
 	{
-
+		
 	}
 }
 class JumboParticle extends NormalParticle
