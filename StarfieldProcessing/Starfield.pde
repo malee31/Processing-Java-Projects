@@ -121,7 +121,7 @@ class JumboParticle extends NormalParticle
 		}
 		if (x==375)
 		{
-			angleRad=Math.toRadians(Math.random()*360);
+			angleRad=radians(Math.random()*360);
 		}
 	}
 }
