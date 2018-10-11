@@ -38,7 +38,7 @@ class NormalParticle implements Particle
 		//set start speed
 		speed=sped;
 		//makes the angle used become radians
-		angleRad=Math.toRadians(angleS);
+		angleRad=radians(angleS);
 	}
 	public void move()
 	{
