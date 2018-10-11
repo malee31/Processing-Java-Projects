@@ -70,27 +70,27 @@ interface Particle
 }
 class OddballParticle implements Particle
 {
-	int telelimit, phase=1;
+	int phase=1, phaseCount=0;
 	int[] colorOdd=new int[3];
 	float x, y;
-	OddballParticle(int red, int green, int blue, int telemax, float xPos, float yPos)
+	OddballParticle(int red, int green, int blue, float xPos, float yPos)
 	{
 		x=xPos;
 		y=yPos;
 		colorOdd[0]=red;
 		colorOdd[1]=blue;
 		colorOdd[2]=green;
-		telelimit=telemax;
 	}
 	void move()
 	{
+		phase=phaseSetter(phaseCount, phase);
 		//changes x and y if phase is 1, may go off screen. To be fixed at end if I remember
 		if(phase==1)
 		{
-			x+=inLimit(signChoose(telelimit));
-			y+=inLimit(signChoose(telelimit));
+			x=(int)(Math.random()*698+26);
+			y=(int)(Math.random()*698+26);
 		}
-		phase++;
+		phaseCount++;
 	}
 	void show()
 	{
@@ -98,9 +98,9 @@ class OddballParticle implements Particle
 		{
 			stroke(0,0,0);
 			fill(colorOdd[0],colorOdd[1],colorOdd[2]);
-			if(phase==1)
+			if(phase>=2)
 			{
-				ellipse(x, y, 5, 5);
+				rect(x-13,y-(phase/2),26,1);
 			}
 		}
 	}
@@ -145,7 +145,7 @@ void fillArray()
 		particles[i]=new NormalParticle(255,255,255,375,375,i,10);
 	}
 	particles[360]=new JumboParticle(255,255,255,375,375,0,15);
-	//particles[360]=new OddballParticle(255,255,255,50,375,375);
+	//particles[360]=new OddballParticle(255,255,255,375,375);
 }
 void mousePressed()
 {
@@ -158,34 +158,26 @@ void keyPressed()
 		triggered=!triggered;
 	}
 }
-int signChoose(int num)
-{
-	if (Math.random()<0.5)
-	{
-		return num*(-1);
-	}
-	else
-	{
-		return num;
-	}
-}
-double inLimit(double numb)
-{
-	return Math.random()*(numb-1)+1;
-}
 int phaseSetter(int phaseCounter, int phaseNow)
 {
-	switch(phaseCounter)
+	switch(phaseCounter%200)
 	{
 		case 0:
 			phaseNow=1;
+			//recalculate pos phase
 		break;
-		case 60:
+		case 10:
 			phaseNow=2;
+			//start drawing growing square
 		break;
-		case 120:
-			
-		break;	
+		case 70:
+			phaseNow=3;
+			//start shrinking square
+		break;
+		case 130:
+			phaseNow=4;
+			//only the ball
+		break;
 	}
 	return phaseNow;
 }
