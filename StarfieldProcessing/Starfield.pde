@@ -38,7 +38,7 @@ class NormalParticle implements Particle
 		//set start speed
 		speed=sped;
 		//makes the angle used become radians
-		angleRad=radians(angleS);
+		angleRad=radians((float)angleS);
 	}
 	public void move()
 	{
@@ -90,6 +90,7 @@ class OddballParticle implements Particle
 			x=(int)(Math.random()*698+26);
 			y=(int)(Math.random()*698+26);
 		}
+		phaseCount%=200;
 		phaseCount++;
 	}
 	void show()
@@ -98,9 +99,14 @@ class OddballParticle implements Particle
 		{
 			stroke(0,0,0);
 			fill(colorOdd[0],colorOdd[1],colorOdd[2]);
-			if(phase>=2)
+			//fill and color now set
+			switch(phase)
 			{
-				rect(x-13,y-(phase/2),26,1);
+				case 2:
+					rect(x-13,y-(phaseCount-18)/6,26,(phaseCount-16)/3);
+					println(y-(phaseCount-18)/6+", "+((float)phaseCount-18)/3);
+				break;
+
 			}
 		}
 	}
@@ -121,7 +127,7 @@ class JumboParticle extends NormalParticle
 		}
 		if (x==375)
 		{
-			angleRad=radians(Math.random()*360);
+			angleRad=radians((float)Math.random()*360);
 		}
 	}
 }
@@ -145,7 +151,7 @@ void fillArray()
 		particles[i]=new NormalParticle(255,255,255,375,375,i,10);
 	}
 	particles[360]=new JumboParticle(255,255,255,375,375,0,15);
-	//particles[360]=new OddballParticle(255,255,255,375,375);
+	particles[361]=new OddballParticle(255,255,255,375,375);
 }
 void mousePressed()
 {
@@ -160,7 +166,7 @@ void keyPressed()
 }
 int phaseSetter(int phaseCounter, int phaseNow)
 {
-	switch(phaseCounter%200)
+	switch(phaseCounter)
 	{
 		case 0:
 			phaseNow=1;
