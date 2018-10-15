@@ -89,9 +89,10 @@ class OddballParticle implements Particle
 		{
 			x=(int)(Math.random()*698+26);
 			y=(int)(Math.random()*698+26);
+			println("rand");
 		}
-		phaseCount%=200;
 		phaseCount++;
+		phaseCount%=200;
 	}
 	void show()
 	{
@@ -100,13 +101,23 @@ class OddballParticle implements Particle
 			stroke(0,0,0);
 			fill(colorOdd[0],colorOdd[1],colorOdd[2]);
 			//fill and color now set
+			int counter;
 			switch(phase)
 			{
 				case 2:
-					rect(x-13,y-(phaseCount-18)/6,26,(phaseCount-16)/3);
-					println(y-(phaseCount-18)/6+", "+((float)phaseCount-18)/3);
+					counter=phaseCount-9;
+					rect(x-13,y-counter/5,26,counter/2.5);
 				break;
-
+				
+				case 3:
+					counter=phaseCount-69;
+					ellipse(x,y,24,24);
+					rect(x-13,y+counter/5-11.3,26,26-counter/2.5);
+				break;
+				case 4:
+					counter=phaseCount-129;
+					ellipse(x,y,26-counter/2.5,26-counter/2.5);
+				break;
 			}
 		}
 	}
@@ -135,14 +146,17 @@ void reset()
 {
 	//clears screen
 	noStroke();
-	fill(19,24,98);
+	//fill(19,24,98);
+	fill(0,0,0);
 	rect(0,0,750,750);
 
 }
 void coverCenter()
 {
 	noStroke();
+	fill(0,0,0);
 	ellipse(375, 375, 20, 20);
+	fill(255,255,255);
 }
 void fillArray()
 {
