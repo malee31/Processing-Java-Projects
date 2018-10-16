@@ -89,7 +89,6 @@ class OddballParticle implements Particle
 		{
 			x=(int)(Math.random()*698+26);
 			y=(int)(Math.random()*698+26);
-			println("rand");
 		}
 		phaseCount++;
 		phaseCount%=200;
