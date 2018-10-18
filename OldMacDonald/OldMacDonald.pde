@@ -1,7 +1,7 @@
-
 void setup()
 {
 	//your variable declarations and
-	//System.out.println() statements here
+	Cow mo= new Cow();
+	System.out.println(Farm.getSounds());
 }
 
