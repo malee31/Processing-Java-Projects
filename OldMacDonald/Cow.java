@@ -9,8 +9,8 @@ class Cow implements Animal
 	}
 	public Cow()
 	{
-		aniSound="<Insert Sound Here>";
-		aniType="<Insert Type Here>";
+		aniSound="*MOO*";
+		aniType="*cow*";
 	}
     public String getSound()
     {

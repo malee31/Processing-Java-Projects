@@ -9,8 +9,15 @@ class Chick implements Animal
 	}
 	public Chick()
 	{
-		aniSound="<Insert Sound Here>";
-		aniType="<Insert Type Here>";
+		if((int)(Math.random()*2)==0)
+		{
+			aniSound="CHEEP";
+		}
+		else
+		{
+			aniSound="CLUCK";
+		}
+		aniType="*Chick*";
 	}
     public String getSound()
     {
