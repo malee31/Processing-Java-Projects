@@ -18,15 +18,7 @@ class Farm
 		{
 			if(animals[i]!=null)
 			{
-				if(i==0)
-				{
-					returnThis+="The ";
-				}
-				else
-				{
-					returnThis+=" and the ";
-				}
-				returnThis+=animals[i].getType()+" says "+animals[i].getSound();
+				returnThis+="Old Mac Donald had a Farm\nE-I-E-I-O!\nAnd on that farm he had a "+animals[i].getType()+"\nE-I-E-I-O\nWith a "+animals[i].getSound()+" "+animals[i].getSound()+" here\nAnd a "+animals[i].getSound()+" "+animals[i].getSound()+" there \nHere a "++animals[i].getSound()+"\nThere a "+animals[i].getSound()+"\nEverywhere "+animals[i].getSound()+" "+animals[i].getSound()+"\nOld Mac Donald had a farm\nE-I-E-I-O!";
 			}
 		}
 		return returnThis;
