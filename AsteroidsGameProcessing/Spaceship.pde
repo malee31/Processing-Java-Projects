@@ -1,4 +1,8 @@
-class Spaceship //extends Floater  
+class Spaceship extends Floater  
 {   
-    //your code here
+    double xPos;
+    public void setX(int x)
+    {
+        xPos=x; //int to double
+    }
 }
