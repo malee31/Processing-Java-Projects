@@ -1,8 +1,48 @@
 class Spaceship extends Floater  
-{   
-    double xPos;
-    public void setX(int x)
+{
+    /*constructer goes here
+    public Spaceship()
     {
-        xPos=x; //int to double
+
+    }*/
+    void setX(int x)
+    {
+
+    }
+    int getX()
+    {
+
+    }
+    void setY(int y)
+    {
+
+    }
+    int getY()
+    {
+
+    }
+    void setDirectionX(double x)
+    {
+    	myDirectionX=x;
+    }
+    double getDirectionX()
+    {
+    	return myDirectionX;
+    }
+    void setDirectionY(double y)
+    {
+    	myDirectionY=y;
+    }
+    double getDirectionY()
+    {
+    	return myDirectionY;
+    }
+    void setPointDirection(int degrees)
+    {
+    	myPointDirection=degrees;
+    }
+    int getPointDirection()
+    {
+    	return myPointDirection;
     }
 }
