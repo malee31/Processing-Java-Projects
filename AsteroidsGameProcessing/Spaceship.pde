@@ -7,19 +7,19 @@ class Spaceship extends Floater
     }*/
     void setX(int x)
     {
-
+    	myCenterX=x;
     }
     int getX()
     {
-
+    	return (int)myCenterX;
     }
     void setY(int y)
     {
-
+    	myCenterY=y;
     }
     int getY()
     {
-
+    	return (int)myCenterY;
     }
     void setDirectionX(double x)
     {
@@ -41,7 +41,7 @@ class Spaceship extends Floater
     {
     	myPointDirection=degrees;
     }
-    int getPointDirection()
+    double getPointDirection()
     {
     	return myPointDirection;
     }
