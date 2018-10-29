@@ -9,3 +9,10 @@ public void draw()
   	ship.move();
   	ship.show();
 }
+public void keyPressed()
+{
+	switch(keyCode)
+	{
+		//case 
+	}
+}
