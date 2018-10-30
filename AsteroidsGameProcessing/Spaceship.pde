@@ -2,11 +2,9 @@ class Spaceship extends Floater
 {
     public Spaceship()
     {
-		corners= 15;
-		xCorners=new int[corners];
-		y=new int [corners];
-		xCorners={4,3,1,0,-1,-4,-4,-5,-4,-4,-1,0,1,3};
-		yCorners={0,1,2,2,3,4,2,1,-1,-2,-4,-3,-2,-2,-1};
+		corners= 14;
+		xCorners=new int[]{4,3,1,0,-1,-4,-4,-5,-4,-4,-1,0,1,3};
+		yCorners=new int []{0,1,2,2,3,4,2,1,-1,-2,-4,-3,-2,-2,-1};
 		myColor= color(128,128,128);
 		myCenterX=0;
 		myCenterY=0;
@@ -58,8 +56,8 @@ class Spaceship extends Floater
     {
 
     }
-    void show()
+    private void translate(int xMove, int yMove)
     {
-    	 
+    	
     }
 }
