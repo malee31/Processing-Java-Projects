@@ -1,10 +1,15 @@
 Spaceship ship;
+Star[] stars=new Star[25];
 public void setup() 
 {
 	size(1000,1000);
 	ship=new Spaceship();
 	ship.setX(500);
 	ship.setY(500);
+	for(int i=0; i<stars.length;i++)
+	{
+		stars[i]=new Star();
+	}
 }
 public void draw() 
 {
@@ -13,6 +18,10 @@ public void draw()
 	rect(0,0,1000,1000);
   	ship.move();
   	ship.show();
+  	for(int i=0; i<stars.length;i++)
+	{
+		stars[i].show();
+	}
 }
 public void keyPressed()
 {
