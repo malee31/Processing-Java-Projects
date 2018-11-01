@@ -2,9 +2,9 @@ class Spaceship extends Floater
 {
     public Spaceship()
     {
-		corners= 14;
-		xCorners=new int[]{4,3,1,0,-1,-4,-4,-5,-4,-4,-1,0,1,3};
-		yCorners=new int []{0,1,2,2,3,4,2,1,-1,-2,-4,-3,-2,-2,-1};
+		corners= 15;
+		xCorners=new int[]{20,15,5,0,-5,-20,-20,-25,-25,-20,-20,-5,0,5,15};
+		yCorners=new int []{0,5,10,10,15,20,10,5,-5,-10,-20,-15,-10,-10,-5};
 		myColor= color(128,128,128);
 		myCenterX=0;
 		myCenterY=0;
@@ -22,23 +22,20 @@ class Spaceship extends Floater
     public double getDirectionY(){return myDirectionY;}
     public void setPointDirection(int degrees){myPointDirection=degrees;}
     public double getPointDirection(){return myPointDirection;}
-    public void move()
+    /*public void move(int steps)
     {
-    	
+    	setDirectionX(getDirectionX()+steps*Math.cos(Math.toRadians(getPointDirection())));
+    	setDirectionY(getDirectionY()+steps*Math.sin(Math.toRadians(getPointDirection())));
     }
     public void translate(int xMove, int yMove)
     {
-    	/*for(int i=0; i<corners;i++)
+    	for(int i=0; i<corners;i++)
     	{
     		xCorners[i]+=xMove;
 			yCorners[i]+=yMove;
     	}
-    	Wow, I don't need to manually change it...*/
+    	Wow, I don't need to manually change it...
 		myCenterX+=xMove;
 		myCenterY+=yMove;
-    }
-    public void shoot()
-    {
-    	
-    }
+    }*/
 }

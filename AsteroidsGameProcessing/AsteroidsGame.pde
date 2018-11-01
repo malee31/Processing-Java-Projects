@@ -18,23 +18,26 @@ public void keyPressed()
 {
 	switch(key)
 	{
-		case ' ':
-			//ship.shoot();
-		break;
-		case 'w':
-			
-		break;
 		case 'a':
-
-		break;
-		case 's':
-
+			//ship.setPointDirection((int)ship.getPointDirection()-2);
+			ship.turn(-5);
 		break;
 		case 'd':
-
+			//ship.setPointDirection((int)ship.getPointDirection()+2);
+			ship.turn(5);
 		break;
-		case 'e':
-
+		/*case 'e':
+			ship.
+		break;*/
+		case 'w':
+			ship.accelerate(1);
 		break;
+		case 's':
+			ship.accelerate(-1);
+		break;
+		/*case ' ':
+			ship.shoot();
+		break;
+		*/
 	}
 }
