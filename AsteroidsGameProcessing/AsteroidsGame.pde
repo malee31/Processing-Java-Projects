@@ -1,5 +1,6 @@
 Spaceship ship;
-Star[] stars=new Star[25];
+Star[] stars=new Star[100];
+ArrayList<Asteroid> rocks=new ArrayList<Asteroid>();
 public void setup() 
 {
 	size(1000,1000);
@@ -10,6 +11,10 @@ public void setup()
 	{
 		stars[i]=new Star();
 	}
+	for(int ii=0;ii<rocks.size();ii++)
+	{
+		rocks.add(new Asteroid());
+	}
 }
 public void draw() 
 {
@@ -17,10 +22,18 @@ public void draw()
 	fill(0,0,0);
 	rect(0,0,1000,1000);
   	ship.move();
-  	ship.show();
   	for(int i=0; i<stars.length;i++)
 	{
 		stars[i].show();
+	}
+	ship.show();
+	for(int ii=0;ii<rocks.size();ii++)
+	{
+		rocks.get(ii).show();
+		if(ii==10)
+		{
+			println("HI");
+		}
 	}
 }
 public void keyPressed()
