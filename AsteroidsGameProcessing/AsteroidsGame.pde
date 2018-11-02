@@ -11,30 +11,47 @@ public void setup()
 	{
 		stars[i]=new Star();
 	}
-	for(int ii=0;ii<rocks.size();ii++)
+	for(int ii=0;ii<30;ii++)
 	{
 		rocks.add(new Asteroid());
 	}
 }
 public void draw() 
 {
+	clearScreen();
+	moveAll();
+	collisionDetect();
+	showAll();
+}
+public void collisionDetect()
+{
+
+}
+public void moveAll()
+{
+	for(int ii=0;ii<rocks.size();ii++)
+	{
+		rocks.get(ii).move();
+	}
+  	ship.move();
+}
+public void clearScreen()
+{
 	noStroke();
 	fill(0,0,0);
 	rect(0,0,1000,1000);
-  	ship.move();
-  	for(int i=0; i<stars.length;i++)
+}
+public void showAll()
+{
+	for(int i=0; i<stars.length;i++)
 	{
 		stars[i].show();
 	}
-	ship.show();
 	for(int ii=0;ii<rocks.size();ii++)
 	{
 		rocks.get(ii).show();
-		if(ii==10)
-		{
-			println("HI");
-		}
 	}
+	ship.show();
 }
 public void keyPressed()
 {
@@ -42,11 +59,11 @@ public void keyPressed()
 	{
 		case 'a':
 			//ship.setPointDirection((int)ship.getPointDirection()-2);
-			ship.turn(-5);
+			ship.turn(-10);
 		break;
 		case 'd':
 			//ship.setPointDirection((int)ship.getPointDirection()+2);
-			ship.turn(5);
+			ship.turn(10);
 		break;
 		/*case 'e':
 			ship.
