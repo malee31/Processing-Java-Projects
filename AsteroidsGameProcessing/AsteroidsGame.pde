@@ -20,12 +20,26 @@ public void draw()
 {
 	clearScreen();
 	moveAll();
-	collisionDetect();
+	if(ship.going)
+	{
+		collisionDetect();
+	}
 	showAll();
 }
 public void collisionDetect()
 {
-
+	//loops through list
+	for(int i=0; i<rocks.size(); i++)
+	{
+		//checks if there's anything there
+		if(rocks.get(i)!=null)
+		{
+			for(int ii=0;ii<rocks.get(i).corners;ii++)
+			{
+				rocks.get(i).crudeDetect(ship.getX(),ship.getY());
+			}
+		}
+	}
 }
 public void moveAll()
 {
@@ -55,28 +69,31 @@ public void showAll()
 }
 public void keyPressed()
 {
-	switch(key)
+	if(ship.going)
 	{
-		case 'a':
-			//ship.setPointDirection((int)ship.getPointDirection()-2);
-			ship.turn(-10);
-		break;
-		case 'd':
-			//ship.setPointDirection((int)ship.getPointDirection()+2);
-			ship.turn(10);
-		break;
-		/*case 'e':
-			ship.
-		break;*/
-		case 'w':
-			ship.accelerate(1);
-		break;
-		case 's':
-			ship.accelerate(-1);
-		break;
-		/*case ' ':
-			ship.shoot();
-		break;
-		*/
+		switch(key)
+		{
+			case 'a':
+				//ship.setPointDirection((int)ship.getPointDirection()-2);
+				ship.turn(-10);
+			break;
+			case 'd':
+				//ship.setPointDirection((int)ship.getPointDirection()+2);
+				ship.turn(10);
+			break;
+			/*case 'e':
+				ship.
+			break;*/
+			case 'w':
+				ship.accelerate(1);
+			break;
+			case 's':
+				ship.accelerate(-1);
+			break;
+			/*case ' ':
+				ship.shoot();
+			break;
+			*/
+		}
 	}
 }

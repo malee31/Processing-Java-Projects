@@ -1,5 +1,6 @@
 class Spaceship extends Floater  
 {
+    public boolean going=true;
     public Spaceship()
     {
 		corners= 15;
@@ -22,6 +23,11 @@ class Spaceship extends Floater
     public double getDirectionY(){return myDirectionY;}
     public void setPointDirection(int degrees){myPointDirection=degrees;}
     public double getPointDirection(){return myPointDirection;}
+    public void gameOver()
+    {
+        going=false;
+        println("RIP U DIED");
+    }
     /*public void move(int steps)
     {
     	setDirectionX(getDirectionX()+steps*Math.cos(Math.toRadians(getPointDirection())));

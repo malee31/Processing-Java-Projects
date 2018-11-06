@@ -21,6 +21,17 @@ class Asteroid extends Floater
 		turn(rotation);
 		super.move();
 	}
+	public void crudeDetect(int crudeX, int crudeY)
+	{
+		for(int i=0;i<corners;i++)
+		{
+			if(dist(xCorners[i],yCorners[i],crudeX,crudeY)<20)
+			{
+				println("DEADING!");
+				ship.gameOver();
+			}
+		}
+	}
 	public void setX(int x){myCenterX=x;}
     public int getX(){return (int)myCenterX;}
     public void setY(int y){myCenterY=y;}
