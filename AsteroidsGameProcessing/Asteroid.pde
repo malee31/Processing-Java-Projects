@@ -23,9 +23,8 @@ class Asteroid extends Floater
 	}
 	public boolean crudeDetect(int crudeX, int crudeY)
 	{
-		if(dist((float)myCenterX,(float)myCenterY,crudeX,crudeY)<40)
+		if(dist((float)myCenterX,(float)myCenterY,crudeX,crudeY)<30)
 		{
-			ship.gameOver();
 			return true;
 		}
 		else

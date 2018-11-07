@@ -59,7 +59,7 @@ public void draw()
 		showAll();
 		ship.setPointDirection(((int)ship.getPointDirection()+5)%360);
 		textSize(20);
-		text("Game Over\nPress Space to Try Again",400,400);
+		text("Game Over\nPress Shift to Try Again",400,400);
 	}
 }
 public void collisionDetect()
@@ -70,12 +70,10 @@ public void collisionDetect()
 		//checks if there's anything there
 		if(rocks.get(i)!=null)
 		{
-			for(int ii=0;ii<rocks.get(i).corners;ii++)
+			if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
 			{
-				if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
-				{
-					rocks.remove(i);
-				}
+				ship.gameOver();
+				rocks.remove(i);
 			}
 		}
 	}
