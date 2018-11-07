@@ -1,9 +1,16 @@
 Spaceship ship;
 Star[] stars=new Star[100];
 ArrayList<Asteroid> rocks=new ArrayList<Asteroid>();
+int rockCount=30;
+//counts whatever
+int arbitCounter=0;
 public void setup() 
 {
 	size(1000,1000);
+	resetAll();
+}
+public void resetAll()
+{
 	ship=new Spaceship();
 	ship.setX(500);
 	ship.setY(500);
@@ -11,20 +18,49 @@ public void setup()
 	{
 		stars[i]=new Star();
 	}
-	for(int ii=0;ii<30;ii++)
+	rocks.clear();
+	for(int ii=0;ii<rockCount;ii++)
 	{
 		rocks.add(new Asteroid());
+	}
+	collisionDetect();
+	if(ship.going==false)
+	{
+		ship.going=true;
+		resetAll();
 	}
 }
 public void draw() 
 {
-	clearScreen();
-	moveAll();
 	if(ship.going)
 	{
+		clearScreen();
+		moveAll();
 		collisionDetect();
+		showAll();
 	}
-	showAll();
+	else
+	{
+		if(ship.getColor()==color(255,0,0)&&arbitCounter>60)
+        {
+            ship.setColor(color(255,255,255));
+            arbitCounter=0;
+        }
+        else if(arbitCounter>60)
+        {
+            ship.setColor(color(255,0,0));
+            arbitCounter=0;
+        }
+        else
+        {
+        	arbitCounter++;
+        }
+		clearScreen();
+		showAll();
+		ship.setPointDirection(((int)ship.getPointDirection()+5)%360);
+		textSize(20);
+		text("Game Over\nPress Space to Try Again",400,400);
+	}
 }
 public void collisionDetect()
 {
@@ -36,7 +72,10 @@ public void collisionDetect()
 		{
 			for(int ii=0;ii<rocks.get(i).corners;ii++)
 			{
-				rocks.get(i).crudeDetect(ship.getX(),ship.getY());
+				if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
+				{
+					rocks.remove(i);
+				}
 			}
 		}
 	}
@@ -90,10 +129,13 @@ public void keyPressed()
 			case 's':
 				ship.accelerate(-1);
 			break;
-			/*case ' ':
+			case ' ':
 				ship.shoot();
 			break;
-			*/
 		}
+	}
+	if(keyCode==16)
+	{
+		resetAll();
 	}
 }

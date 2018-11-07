@@ -21,15 +21,16 @@ class Asteroid extends Floater
 		turn(rotation);
 		super.move();
 	}
-	public void crudeDetect(int crudeX, int crudeY)
+	public boolean crudeDetect(int crudeX, int crudeY)
 	{
-		for(int i=0;i<corners;i++)
+		if(dist((float)myCenterX,(float)myCenterY,crudeX,crudeY)<40)
 		{
-			if(dist(xCorners[i],yCorners[i],crudeX,crudeY)<20)
-			{
-				println("DEADING!");
-				ship.gameOver();
-			}
+			ship.gameOver();
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 	public void setX(int x){myCenterX=x;}

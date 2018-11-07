@@ -23,10 +23,18 @@ class Spaceship extends Floater
     public double getDirectionY(){return myDirectionY;}
     public void setPointDirection(int degrees){myPointDirection=degrees;}
     public double getPointDirection(){return myPointDirection;}
+    public void setColor(int colorz){myColor=colorz;}
+    public int getColor(){return myColor;}
     public void gameOver()
     {
+        myColor=color(255,255,255);
         going=false;
-        println("RIP U DIED");
+        myDirectionX=0;
+        myDirectionY=0;
+    }
+    public void shoot()
+    {
+
     }
     /*public void move(int steps)
     {
