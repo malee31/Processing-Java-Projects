@@ -34,7 +34,7 @@ class Spaceship extends Floater
     }
     public void shoot()
     {
-
+        bullets.add(new Bullet(ship));
     }
     /*public void move(int steps)
     {

@@ -1,12 +1,12 @@
 class Bullet extends Floater
 {
 	double dRadians=0;
-	public Bullet(SpaceShip theShip)
+	public Bullet(Spaceship theShip)
 	{
 		myPointDirection=theShip.getPointDirection();
 		myCenterX=theShip.getX();
 		myCenterY=theShip.getY();
-		dRadians =myPointDirection*(Math.PI/180);
+		dRadians=myPointDirection*(Math.PI/180);
 		myDirectionX=5*Math.cos(dRadians)+theShip.getDirectionX();
 		myDirectionY=5*Math.sin(dRadians)+theShip.getDirectionY();
 	}
@@ -24,6 +24,6 @@ class Bullet extends Floater
 	{
 		stroke(0,0,0);
 		fill(255,255,255);
-		ellipse(myCenterX,myCenterY,1,1);
+		ellipse((float)myCenterX,(float)myCenterY,20,20);
 	}
 }

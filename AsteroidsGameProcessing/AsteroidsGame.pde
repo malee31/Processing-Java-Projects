@@ -1,9 +1,12 @@
 Spaceship ship;
 Star[] stars=new Star[100];
 ArrayList<Asteroid> rocks=new ArrayList<Asteroid>();
+ArrayList<Bullet> bullets=new ArrayList<Bullet>();
 int rockCount=30;
 //counts whatever
 int arbitCounter=0;
+int score=0;
+int highscore=0;
 public void setup() 
 {
 	size(1000,1000);
@@ -23,6 +26,7 @@ public void resetAll()
 	{
 		rocks.add(new Asteroid());
 	}
+	bullets.clear();
 	collisionDetect();
 	if(ship.going==false)
 	{
@@ -41,6 +45,10 @@ public void draw()
 	}
 	else
 	{
+		/*if((int)Math.random()*100==1)
+		{
+			rocks.add(new Asteroid());
+		}*/
 		if(ship.getColor()==color(255,0,0)&&arbitCounter>60)
         {
             ship.setColor(color(255,255,255));
@@ -61,10 +69,13 @@ public void draw()
 		textSize(20);
 		text("Game Over\nPress Shift to Try Again",400,400);
 	}
+	textSize(20);
+	text("High Score: "+highscore,400,50);
+	text("Score: "+score,425,100);
 }
 public void collisionDetect()
 {
-	//loops through list
+	//loops through list of rocks
 	for(int i=0; i<rocks.size(); i++)
 	{
 		//checks if there's anything there
@@ -74,8 +85,34 @@ public void collisionDetect()
 			{
 				ship.gameOver();
 				rocks.remove(i);
+				updateScore();
+				score=0;
+			}
+			//checks for bullet-asteroid collisions for this rock and every bullet
+			for(int ii=0; ii<bullets.size(); ii++)
+			{
+				//checks if there's anything there
+				if(bullets.get(ii)!=null)
+				{
+					//collision detection rock-bullet
+					if(rocks.get(i).crudeDetect(bullets.get(ii).getX(),bullets.get(ii).getY()))
+					{
+						rocks.remove(i);
+						bullets.remove(ii);
+						score++;
+						updateScore();
+						break;
+					}
+				}
 			}
 		}
+	}
+}
+public void updateScore()
+{
+	if(score>highscore)
+	{
+		highscore=score;
 	}
 }
 public void moveAll()
@@ -83,6 +120,10 @@ public void moveAll()
 	for(int ii=0;ii<rocks.size();ii++)
 	{
 		rocks.get(ii).move();
+	}
+	for(int iii=0;iii<bullets.size();iii++)
+	{
+		bullets.get(iii).move();
 	}
   	ship.move();
 }
@@ -101,6 +142,10 @@ public void showAll()
 	for(int ii=0;ii<rocks.size();ii++)
 	{
 		rocks.get(ii).show();
+	}
+	for(int iii=0;iii<bullets.size();iii++)
+	{
+		bullets.get(iii).show();
 	}
 	ship.show();
 }
