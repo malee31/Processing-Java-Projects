@@ -2,11 +2,14 @@ Spaceship ship;
 Star[] stars=new Star[100];
 ArrayList<Asteroid> rocks=new ArrayList<Asteroid>();
 ArrayList<Bullet> bullets=new ArrayList<Bullet>();
+ArrayList<int> nums=new ArrayList<int>();
 int rockCount=30;
 //counts whatever
 int arbitCounter=0;
 int score=0;
 int highscore=0;
+//this num/60 is the num of secs bullets last for
+int bulletFrameLife=300;
 public void setup() 
 {
 	size(1000,1000);
@@ -34,8 +37,24 @@ public void resetAll()
 		resetAll();
 	}
 }
+public void randAsteroid()
+{
+	rocks.add(new Asteroid());
+	for(int i=0; i<rocks.size(); i++)
+	{
+		if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
+		{
+			rocks.remove(i);
+			randAsteroid();
+		}
+	}
+}
 public void draw() 
 {
+	if((int)(Math.random()*100)==1)
+	{
+		randAsteroid();
+	}
 	if(ship.going)
 	{
 		clearScreen();
@@ -97,10 +116,11 @@ public void collisionDetect()
 					//collision detection rock-bullet
 					if(rocks.get(i).crudeDetect(bullets.get(ii).getX(),bullets.get(ii).getY()))
 					{
-						rocks.remove(i);
+						destroyID.add(i);
 						bullets.remove(ii);
 						score++;
 						updateScore();
+						destroyIDexe();
 						break;
 					}
 				}
@@ -145,7 +165,15 @@ public void showAll()
 	}
 	for(int iii=0;iii<bullets.size();iii++)
 	{
-		bullets.get(iii).show();
+		if(bullets.get(iii).lifetime()>=bulletFrameLife)
+		{
+			bullets.remove(iii);
+			break;
+		}
+		else
+		{
+			bullets.get(iii).show();
+		}
 	}
 	ship.show();
 }
@@ -163,9 +191,22 @@ public void keyPressed()
 				//ship.setPointDirection((int)ship.getPointDirection()+2);
 				ship.turn(10);
 			break;
-			/*case 'e':
-				ship.
-			break;*/
+			case 'e':
+				if(score>10)
+				{
+					
+					ellipse(ship.getX(),ship.getY(),400,400);
+					for(int i=0; i<rocks.size(); i++)
+					{
+						if(dist(rocks.get(i).getX(),rocks.get(i).getY(),ship.getX(),ship.getY())<400)
+						{
+							destroyID.add(i);
+						}
+					}
+					destroyIDexe();
+					score-=10;
+				}
+			break;
 			case 'w':
 				ship.accelerate(1);
 			break;
@@ -175,10 +216,21 @@ public void keyPressed()
 			case ' ':
 				ship.shoot();
 			break;
+			case '.':
+				randAsteroid();
+			break;
 		}
 	}
 	if(keyCode==16)
 	{
 		resetAll();
 	}
+}
+public void destroyIDexe()
+{
+	for(int x=0; x<destroyID.size();x++)
+	{
+		rocks.remove(x);
+	}
+	destroyID.clear();
 }

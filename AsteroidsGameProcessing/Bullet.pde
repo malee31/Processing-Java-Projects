@@ -1,6 +1,7 @@
 class Bullet extends Floater
 {
 	double dRadians=0;
+	int lifeFrame=0;
 	public Bullet(Spaceship theShip)
 	{
 		myPointDirection=theShip.getPointDirection();
@@ -25,5 +26,7 @@ class Bullet extends Floater
 		stroke(0,0,0);
 		fill(255,255,255);
 		ellipse((float)myCenterX,(float)myCenterY,20,20);
+		lifeFrame++;
 	}
+	public int lifetime(){return lifeFrame;}
 }
