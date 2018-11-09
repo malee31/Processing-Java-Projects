@@ -2,7 +2,7 @@ Spaceship ship;
 Star[] stars=new Star[100];
 ArrayList<Asteroid> rocks=new ArrayList<Asteroid>();
 ArrayList<Bullet> bullets=new ArrayList<Bullet>();
-ArrayList<int> nums=new ArrayList<int>();
+ArrayList<Integer> destroyID=new ArrayList<Integer>();
 int rockCount=30;
 //counts whatever
 int arbitCounter=0;
@@ -51,12 +51,12 @@ public void randAsteroid()
 }
 public void draw() 
 {
-	if((int)(Math.random()*100)==1)
-	{
-		randAsteroid();
-	}
 	if(ship.going)
 	{
+		if((int)(Math.random()*100)==1)
+		{
+			randAsteroid();
+		}
 		clearScreen();
 		moveAll();
 		collisionDetect();
@@ -230,7 +230,7 @@ public void destroyIDexe()
 {
 	for(int x=0; x<destroyID.size();x++)
 	{
-		rocks.remove(x);
+		rocks.remove(destroyID.get(x)-x);
 	}
 	destroyID.clear();
 }
