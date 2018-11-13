@@ -18,8 +18,7 @@ public void setup()
 		}
 	}
 	//LET ME DRAG THE CANVAS AWAY OK?
-	size(300,300);
-	noLoop();
+	size(500,500);
 }
 public boolean isPrime(double dNum)
 {
@@ -33,4 +32,11 @@ public boolean isPrime(double dNum)
     	return true;
     }
 }
-public void draw(){/*not needed for this assignment*/}
+public void draw()
+{//not needed for this assignment
+	fill(255,255,255);
+	stroke(0,0,0);
+	rect(200,200,100,100);
+	textSize(10);
+	text("Click to generate more primes with the bigger e!",150,150);
+}
