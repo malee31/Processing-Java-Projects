@@ -69,9 +69,12 @@ public String[] separateWords(String[] lines)
 	//Post: a string array is returned with each word as a value in it
 	ArrayList<String> result=new ArrayList<String>();
 	for(int lineIter=0;lineIter<lines.length;lineIter++)
+	{
+
+	}
 	//moves all values from ArrayList to array and returns it
-	String[] res=new String[res.size()];
-	for(int ix=0;ix<res.size();ix++)
+	String[] res=new String[result.size()];
+	for(int ix=0;ix<result.size();ix++)
 	{
 		res[ix]=result.get(ix);
 	}
