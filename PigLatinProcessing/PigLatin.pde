@@ -4,14 +4,14 @@ public void setup()
 	String[] lines2=loadStrings("LowellHymn.txt");
 	lines2=separateWords(lines2);
 	System.out.println("There are " + lines.length + " lines in the basic text");
-	System.out.println("and there are " + lines2.length + " lines in the Lowell Hymn");
 	for (int i = 0 ; i < lines.length; i++) 
 	{
 	  System.out.println(pigLatin(lines[i]));
 	}
+	System.out.println("and there are " + lines2.length + " lines in the Lowell Hymn");
 	for (int i = 0 ; i < lines2.length; i++) 
 	{
-	  System.out.println(pigLatin(lines[i]));
+	  System.out.println(pigLatin(lines2[i]));
 	}
 }
 public void draw(){/*not used*/}
@@ -31,7 +31,7 @@ public String pigLatin(String sWord)
 {
 	//precondition: sWord is a valid String of length greater than 0
 	//postcondition: returns the pig latin equivalent of sWord
-	if(sWord.substring(0,2).equals("qu"))
+	if(sWord.length()>2&&sWord.substring(0,2).equals("qu"))
 	{
 		return sWord.substring(2,sWord.length())+"quay";
 	}
@@ -63,7 +63,7 @@ public int hasAEIOU(String testMe)
 	}
 	return -1;
 }
-public String[] separateWords(String[] lines)
+public String[] separateWords(String line[])
 {
 	//Pre: a string array that has lines with a space assumed to be between each line (no partial words like cut offs using -)
 	//Post: a string array is returned with each word as a value in it
@@ -74,16 +74,22 @@ public String[] separateWords(String[] lines)
 	//used to keep track of where to substring
 	int start=0;
 	int end=0;
-	//loops through each line
-	for(int lineIter=0;lineIter<lines.length;lineIter++)
+	for(int lineIter=0;lineIter<line.length;lineIter++)
 	{
-		//loops through each letter in each string
-		for(int wordIter=0;wordIter<lines[lineIter].length();wordIter++)
+		//loops through each line
+		for(int wordIter=0;wordIter<line[lineIter].length();wordIter++)
 		{
-
+			//loops through each letter in each string
+			start=0;
+			end=0;
+			if(line[lineIter].substring(wordIter,wordIter+1).equals(" "))
+			{
+				end=wordIter;
+				result.add(line[lineIter].substring(start,end));
+				start=end+1;
+			}
 		}
 	}
-
 
 
 
