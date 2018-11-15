@@ -68,10 +68,26 @@ public String[] separateWords(String[] lines)
 	//Pre: a string array that has lines with a space assumed to be between each line (no partial words like cut offs using -)
 	//Post: a string array is returned with each word as a value in it
 	ArrayList<String> result=new ArrayList<String>();
+
+
+	//start separating words and push it to the array
+	//used to keep track of where to substring
+	int start=0;
+	int end=0;
+	//loops through each line
 	for(int lineIter=0;lineIter<lines.length;lineIter++)
 	{
+		//loops through each letter in each string
+		for(int wordIter=0;wordIter<lines[lineIter].length();wordIter++)
+		{
 
+		}
 	}
+
+
+
+
+
 	//moves all values from ArrayList to array and returns it
 	String[] res=new String[result.size()];
 	for(int ix=0;ix<result.size();ix++)
