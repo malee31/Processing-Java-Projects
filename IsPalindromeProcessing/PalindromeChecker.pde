@@ -16,14 +16,33 @@ public void setup()
 }
 public boolean palindrome(String word)
 {
-  //your code here
+  if(removeSpecial(word).toLowerCase().equals(reverse(word)))
+  {
+    return true;
+  }
   return false;
 }
 public String reverse(String str)
 {
     String sNew = new String();
-    //your code here
+    str=str.toLowerCase();
+    str=removeSpecial(str);
+    for(int cur=0; cur<str.length(); cur++)
+    {
+      sNew+=str.substring(str.length()-1-cur,str.length()-cur);
+    }
     return sNew;
 }
-
-
+public String removeSpecial(String word)
+{
+  //Takes a word/string and removes the following:' !,.
+  String result="";
+  for(int i=0; i<word.length(); i++)
+  {
+    if(Character.isLetter(word.charAt(i))||Character.isDigit(word.charAt(i)))
+    {
+      result+=word.substring(i,i+1);
+    }
+  }
+  return result;
+}
