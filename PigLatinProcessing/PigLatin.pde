@@ -85,13 +85,13 @@ public int hasAEIOU(String testMe)
 {
 	for(int i=0;i<testMe.length();i++)
 	{
-		switch(testMe.charAt(i))
+		switch(testMe.substring(i,i+1).toLowerCase())
 		{
-			case 'a':
-			case 'e':
-			case 'i':
-			case 'o':
-			case 'u':
+			case "a":
+			case "e":
+			case "i":
+			case "o":
+			case "u":
 				return i;
 		}
 	}
