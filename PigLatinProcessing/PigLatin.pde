@@ -8,7 +8,7 @@ public void setup()
 	{
 		System.out.println(pigLatin(lines[i]));
 	}
-	System.out.println("and there are " + lines2.length + " lines in the Lowell Hymn");
+	System.out.println("\nand there are " + lines2.length + " lines in the Lowell Hymn\n");
 	lines2=separateWords(lines2);
 	int tracker=0;
 	int tracker2=0;
@@ -19,10 +19,17 @@ public void setup()
 			System.out.println("");
 			tracker2++;
 			tracker=0;
+			if(tracker==lineWordcount[tracker2])
+			{
+				System.out.println("");
+				tracker2++;
+				tracker=0;
+			}
 		}
 		System.out.print(pigLatin(lines2[i])+" ");
 		tracker++;
 	}
+	System.out.println("");
 }
 public void draw(){/*not used*/}
 public int findFirstVowel(String sWord)
@@ -41,21 +48,38 @@ public String pigLatin(String sWord)
 {
 	//precondition: sWord is a valid String of length greater than 0
 	//postcondition: returns the pig latin equivalent of sWord
+	char last=sWord.charAt(sWord.length()-1);
 	if(sWord.length()>2&&sWord.substring(0,2).equals("qu"))
 	{
+
+		if(last=='.'||last==',')
+		{
+			return sWord.substring(2,sWord.length()-1)+"quay"+sWord.substring(sWord.length()-1,sWord.length());
+		}
 		return sWord.substring(2,sWord.length())+"quay";
 	}
 	int firstVow=findFirstVowel(sWord);
 	switch(firstVow)
 	{
 		case -1:
+			if(last=='.'||last==',')
+			{
+				return sWord.substring(0,sWord.length()-1)+"ay"+sWord.substring(sWord.length()-1,sWord.length());
+			}
 			return sWord + "ay";
 		case 0:
+			if(last=='.'||last==',')
+			{
+				return sWord.substring(0,sWord.length()-1)+"way"+sWord.substring(sWord.length()-1,sWord.length());
+			}
 			return sWord+"way";
 		default:
+			if(last=='.'||last==',')
+			{
+				return sWord.substring(firstVow,sWord.length()-1)+sWord.substring(0,firstVow)+"ay"+sWord.substring(sWord.length()-1,sWord.length());
+			}
 			return sWord.substring(firstVow,sWord.length())+sWord.substring(0,firstVow)+"ay";
 	}
-	/*else{return "ERROR!";}*/
 }
 public int hasAEIOU(String testMe)
 {
@@ -103,12 +127,14 @@ public String[] separateWords(String line[])
 				start=end+1;
 				wordcount[lineIter]++;
 			}
+			//this if statement includes "High." into the arraylist which normally isn't included as the last word isn't counted in the loops for some reason
+			if(lineIter==line.length-1&&wordIter==line[lineIter].length()-1)
+			{
+				result.add(line[lineIter].substring(start,line[lineIter].length()));
+				wordcount[lineIter]++;
+			}
 		}
 	}
-
-
-
-
 	//moves all values from ArrayList to array and returns it
 	String[] res=new String[result.size()];
 	//makes it so println works kinda
