@@ -1,17 +1,18 @@
+int[] lineWordcount=new int[0];
 public void setup() 
 {
 	String[] lines = loadStrings("words.txt");
 	String[] lines2=loadStrings("LowellHymn.txt");
-	lines2=separateWords(lines2);
 	System.out.println("There are " + lines.length + " lines in the basic text");
 	for (int i = 0 ; i < lines.length; i++) 
 	{
 	  System.out.println(pigLatin(lines[i]));
 	}
 	System.out.println("and there are " + lines2.length + " lines in the Lowell Hymn");
+	lines2=separateWords(lines2);
 	for (int i = 0 ; i < lines2.length; i++) 
 	{
-	  System.out.println(pigLatin(lines2[i]));
+	  //System.out.println(pigLatin(lines2[i]));
 	}
 }
 public void draw(){/*not used*/}
@@ -77,11 +78,11 @@ public String[] separateWords(String line[])
 	for(int lineIter=0;lineIter<line.length;lineIter++)
 	{
 		//loops through each line
+		start=0;
+		end=0;
 		for(int wordIter=0;wordIter<line[lineIter].length();wordIter++)
 		{
 			//loops through each letter in each string
-			start=0;
-			end=0;
 			if(line[lineIter].substring(wordIter,wordIter+1).equals(" "))
 			{
 				end=wordIter;
@@ -98,6 +99,7 @@ public String[] separateWords(String line[])
 	String[] res=new String[result.size()];
 	for(int ix=0;ix<result.size();ix++)
 	{
+		println(result.get(ix));
 		res[ix]=result.get(ix);
 	}
 	result.clear();
