@@ -6,13 +6,22 @@ public void setup()
 	System.out.println("There are " + lines.length + " lines in the basic text");
 	for (int i = 0 ; i < lines.length; i++) 
 	{
-	  System.out.println(pigLatin(lines[i]));
+		System.out.println(pigLatin(lines[i]));
 	}
 	System.out.println("and there are " + lines2.length + " lines in the Lowell Hymn");
 	lines2=separateWords(lines2);
+	int tracker=0;
+	int tracker2=0;
 	for (int i = 0 ; i < lines2.length; i++) 
 	{
-	  //System.out.println(pigLatin(lines2[i]));
+		if(tracker==lineWordcount[tracker2])
+		{
+			System.out.println("");
+			tracker2++;
+			tracker=0;
+		}
+		System.out.print(pigLatin(lines2[i])+" ");
+		tracker++;
 	}
 }
 public void draw(){/*not used*/}
@@ -69,8 +78,12 @@ public String[] separateWords(String line[])
 	//Pre: a string array that has lines with a space assumed to be between each line (no partial words like cut offs using -)
 	//Post: a string array is returned with each word as a value in it
 	ArrayList<String> result=new ArrayList<String>();
-
-
+	//counts words per line, starts by filling it with 0
+	int[] wordcount=new int[line.length];
+	for(int i=0; i<wordcount.length; i++)
+	{
+		wordcount[i]=0;
+	}
 	//start separating words and push it to the array
 	//used to keep track of where to substring
 	int start=0;
@@ -88,6 +101,7 @@ public String[] separateWords(String line[])
 				end=wordIter;
 				result.add(line[lineIter].substring(start,end));
 				start=end+1;
+				wordcount[lineIter]++;
 			}
 		}
 	}
@@ -97,11 +111,14 @@ public String[] separateWords(String line[])
 
 	//moves all values from ArrayList to array and returns it
 	String[] res=new String[result.size()];
+	//makes it so println works kinda
+	lineWordcount=new int[result.size()];
 	for(int ix=0;ix<result.size();ix++)
 	{
-		println(result.get(ix));
 		res[ix]=result.get(ix);
 	}
+	lineWordcount=new int[wordcount.length];
+	lineWordcount=wordcount;
 	result.clear();
 	return res;
 }
