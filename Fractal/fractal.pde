@@ -4,6 +4,7 @@ int pause=0;
 void setup()
 {
 	fractals.add(new FractalPiece(250,250,400));
+	fractals.get(0).setColor(randCol());
 	background(0,0,0);
 	size(500,500);
 	frameRate(2);
@@ -14,7 +15,6 @@ void draw()
 	rect(0,0,500,500);
 	for(int i=0; i<fractals.size(); i++)
 	{
-		fractals.get(i).setColor(randCol());
 		fractals.get(i).show();
 	}
 	splitter();
@@ -34,16 +34,16 @@ void splitAll(float smallest)
 	int originalSize=fractals.size();
 	for(int i=0; i<originalSize; i++)
 	{
+		int[] newCol=randCol();
 		FractalPiece thisOne=fractals.get(i);
 		if(thisOne.getSize()==smallest)
 		{
-			int[] newCol=randCol();
 			for(int x=0; x<2; x++)
 			{
 				for(int y=0; y<2; y++)
 				{
 					fractals.add(new FractalPiece(thisOne.getX()-thisOne.getSize()/2+thisOne.getSize()*x,thisOne.getY()-thisOne.getSize()/2+thisOne.getSize()*y,thisOne.getSize()/2));
-					// fractals.get(looper(x,y)+originalSize).setColor(newCol);
+					fractals.get(fractals.size()-1).setColor(newCol);
 				}
 			}
 		}
@@ -104,21 +104,19 @@ public class FractalPiece
 }
 void splitter()
 {
-	if(findSmallestSize()<sizeLimit)
+	if(pause>=2&&findSmallestSize()<sizeLimit)
 	{
 		fractals.clear();
 		fractals.add(new FractalPiece(250,250,400));
+		fractals.get(0).setColor(randCol());
+		pause=0;
+	}
+	else if(findSmallestSize()<sizeLimit)
+	{
+		pause++;
 	}
 	else
 	{
-		if(pause<=10)
-		{
-			splitAll(findSmallestSize());
-			pause++;
-		}
-		else
-		{
-			pause=0;
-		}
+		splitAll(findSmallestSize());
 	}
 }
