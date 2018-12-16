@@ -23,7 +23,7 @@ public class Branch
 	{
 		x1=x;
 		y1=y;
-		angle=Math.toRadians(deg);
+		angle=radians(deg);
 		length=size;
 	}
 	public void show()
