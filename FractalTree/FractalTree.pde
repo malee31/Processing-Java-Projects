@@ -6,7 +6,7 @@ void setup()
 	background(255,255,255);
 	stroke(0,0,0);
 	strokeWeight(10);
-	sticks.add(new Branch());
+	sticks.add(new Branch(370,300,90,50));
 }
 void draw()
 {
@@ -27,13 +27,9 @@ public class Branch
 		angle=deg;
 		length=size;
 	}
-	public void calculateEnd()
-	{
-		
-	}
 	public void show()
 	{
-
+		//quad(x1,y1,
 	}
 	public void split()
 	{
