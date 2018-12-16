@@ -6,14 +6,16 @@ void setup()
 	background(255,255,255);
 	stroke(0,0,0);
 	strokeWeight(10);
+	sticks.add(new Branch());
 }
 void draw()
 {
-	splitAll();
-}
-void splitAll()
-{
-
+	int temp=sticks.size();
+	for(int i=0; i<sticks.size(); i++)
+	{
+		sticks.get(i).show();
+		sticks.get(i).split();
+	}
 }
 public class Branch
 {
@@ -27,10 +29,14 @@ public class Branch
 	}
 	public void calculateEnd()
 	{
-
+		
 	}
 	public void show()
 	{
 
+	}
+	public void split()
+	{
+		
 	}
 }
