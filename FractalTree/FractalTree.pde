@@ -5,8 +5,7 @@ void setup()
 	frameRate(1);
 	background(255,255,255);
 	stroke(0,0,0);
-	strokeWeight(10);
-	sticks.add(new Branch(370,300,90,50));
+	sticks.add(new Branch(370,300,90,10));
 }
 void draw()
 {
@@ -24,12 +23,13 @@ public class Branch
 	{
 		x1=x;
 		y1=y;
-		angle=deg;
+		angle=Math.toRadians(deg);
 		length=size;
 	}
 	public void show()
 	{
-		//quad(x1,y1,
+		strokeWeight(size);
+		line(x1,y1,x1+size*Math.cos(angle),y1-size*Math.sin(angle));
 	}
 	public void split()
 	{
