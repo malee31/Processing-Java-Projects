@@ -1,6 +1,6 @@
 ArrayList<FractalPiece> fractals=new ArrayList<FractalPiece>();
 final int sizeLimit=1;
-int pause=0;
+int pause=0, count=0;
 void setup()
 {
 	fractals.add(new FractalPiece(250,250,400));
@@ -11,13 +11,15 @@ void setup()
 }
 void draw()
 {
+	reset();
 	fill(0,0,0);
 	rect(0,0,500,500);
+	splitter(count);
 	for(int i=0; i<fractals.size(); i++)
 	{
 		fractals.get(i).show();
 	}
-	splitter();
+	count++;
 }
 int[] randCol()
 {
@@ -102,21 +104,30 @@ public class FractalPiece
 		
 	}
 }
-void splitter()
+void splitter(int a)
 {
-	if(pause>=2&&findSmallestSize()<sizeLimit)
+	if(a!=0)
 	{
-		fractals.clear();
-		fractals.add(new FractalPiece(250,250,400));
-		fractals.get(0).setColor(randCol());
-		pause=0;
+		if(pause>=2&&findSmallestSize()<sizeLimit)
+		{
+			reset();
+			count=0;
+		}
+		else if(findSmallestSize()<sizeLimit)
+		{
+			pause++;
+		}
+		else
+		{
+			splitAll(findSmallestSize());
+		}
+		splitter(a-1);
 	}
-	else if(findSmallestSize()<sizeLimit)
-	{
-		pause++;
-	}
-	else
-	{
-		splitAll(findSmallestSize());
-	}
+}
+void reset()
+{
+	fractals.clear();
+	fractals.add(new FractalPiece(250,250,400));
+	fractals.get(0).setColor(randCol());
+	pause=0;
 }
