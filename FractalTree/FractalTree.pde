@@ -1,38 +1,35 @@
-ArrayList<Branch> sticks=new ArrayList<Branch>();
+float startSize=300;
+float sizeRatio=0.3;
+float sizeLimit=1;
+int counter=1;
 void setup()
 {
-	size(750,750);
-	frameRate(1);
-	background(255,255,255);
-	stroke(0,0,0);
-	sticks.add(new Branch(370,300,90,10));
+	size(1000,1000);
+	frameRate(5);
+	background(200,200,200);
 }
 void draw()
 {
-	int temp=sticks.size();
-	for(int i=0; i<sticks.size(); i++)
-	{
-		sticks.get(i).show();
-		sticks.get(i).split();
-	}
+	fill(200,200,200);
+	rect(0,0,width,height);
+	sticks(500,400,startSize,(float)Math.PI*3/2,counter);
+	counter++;
 }
-public class Branch
+void sticks(float x,float y,float wide,float angle,int count)
 {
-	float x1,y1,angle,length,x2,y2;
-	public Branch(float x, float y, float deg, float size)
-	{
-		x1=x;
-		y1=y;
-		angle=radians(deg);
-		length=size;
-	}
-	public void show()
-	{
-		strokeWeight(size);
-		line(x1,y1,x1+size*Math.cos(angle),y1-size*Math.sin(angle));
-	}
-	public void split()
-	{
-		
-	}
+	float tall=wide*sizeRatio;
+	float angle2=(float)Math.PI-angle-(float)Math.PI/2;
+	println(angle/Math.PI+", "+angle2/Math.PI);
+	fill(0,0,0);
+	beginShape();
+	vertex(x,y);
+	vertex(x+wide*sin(angle),y+wide*cos(angle));
+	vertex(x+wide*sin(angle)+tall*sin(angle2),y+wide*cos(angle)+tall*sin(angle2));
+	vertex(x+tall*sin(angle2),y+tall*cos(angle2));
+	endShape(CLOSE);
+	// if(wide>1&&count>0)
+	// {
+	// 	sticks(500,800,wide*2/3,angle-0.5,count-1);
+	// 	sticks(500,800,wide*2/3,angle+0.5,count-1);
+	// }
 }
