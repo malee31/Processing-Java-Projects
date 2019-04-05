@@ -1,5 +1,5 @@
 float startSize=300;
-float sizeRatio=0.3;
+float sizeRatio=0.5;
 float sizeLimit=1;
 int counter=1;
 void setup()
@@ -18,14 +18,21 @@ void draw()
 void sticks(float x,float y,float wide,float angle,int count)
 {
 	float tall=wide*sizeRatio;
-	float angle2=(float)Math.PI-angle-(float)Math.PI/2;
-	println(angle/Math.PI+", "+angle2/Math.PI);
+	float[] xyVertex={x, y, x+tall*cos(angle), y-wide*sin(angle), x+tall*cos(angle)-wide*cos(angle), y-tall*sin(angle)-wide*sin(angle), x-wide*cos(angle), y-wide*sin(angle)};
+	fill(255,0,0);
+	ellipse(xyVertex[0],xyVertex[1],10,10);
+	fill(120,120,120);
+	ellipse(xyVertex[2],xyVertex[3],10,10);
+	fill(0,0,255);
+	ellipse(xyVertex[4],xyVertex[5],10,10);
+	fill(255,0,255);
+	ellipse(xyVertex[6],xyVertex[7],10,10);
 	fill(0,0,0);
 	beginShape();
-	vertex(x,y);
-	vertex(x+wide*sin(angle),y+wide*cos(angle));
-	vertex(x+wide*sin(angle)+tall*sin(angle2),y+wide*cos(angle)+tall*sin(angle2));
-	vertex(x+tall*sin(angle2),y+tall*cos(angle2));
+	vertex(xyVertex[0],xyVertex[1]);
+	vertex(xyVertex[2],xyVertex[3]);
+	vertex(xyVertex[4],xyVertex[5]);
+	vertex(xyVertex[6],xyVertex[7]);
 	endShape(CLOSE);
 	// if(wide>1&&count>0)
 	// {
