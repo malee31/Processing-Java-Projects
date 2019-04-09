@@ -1,42 +1,61 @@
 float startSize=300;
-float sizeRatio=0.5;
+float sizeRatio=0.1;
 float sizeLimit=1;
-int counter=1;
+int counter=3;
+int wider=20;
+int startAngle=0;
 void setup()
 {
 	size(1000,1000);
-	frameRate(5);
+	frameRate(1);
 	background(200,200,200);
 }
 void draw()
 {
-	fill(200,200,200);
-	rect(0,0,width,height);
-	sticks(500,400,startSize,(float)Math.PI*3/2,counter);
+	fill(0,0,0);
+	sticks(500,1000,50,0,counter);
 	counter++;
 }
 void sticks(float x,float y,float wide,float angle,int count)
 {
-	float tall=wide*sizeRatio;
-	float[] xyVertex={x, y, x+tall*cos(angle), y-wide*sin(angle), x+tall*cos(angle)-wide*cos(angle), y-tall*sin(angle)-wide*sin(angle), x-wide*cos(angle), y-wide*sin(angle)};
-	fill(255,0,0);
-	ellipse(xyVertex[0],xyVertex[1],10,10);
-	fill(120,120,120);
-	ellipse(xyVertex[2],xyVertex[3],10,10);
-	fill(0,0,255);
-	ellipse(xyVertex[4],xyVertex[5],10,10);
-	fill(255,0,255);
-	ellipse(xyVertex[6],xyVertex[7],10,10);
-	fill(0,0,0);
-	beginShape();
-	vertex(xyVertex[0],xyVertex[1]);
-	vertex(xyVertex[2],xyVertex[3]);
-	vertex(xyVertex[4],xyVertex[5]);
-	vertex(xyVertex[6],xyVertex[7]);
-	endShape(CLOSE);
-	// if(wide>1&&count>0)
-	// {
-	// 	sticks(500,800,wide*2/3,angle-0.5,count-1);
-	// 	sticks(500,800,wide*2/3,angle+0.5,count-1);
-	// }
+	float xDif=(float)(wide*Math.cos(radians(angle)));
+	float yDif=(float)(wide*sizeRatio*Math.sin(radians(angle)));
+	stroke(0,0,0);
+	line(x,y,x+xDif,y-yDif);
+	line(x,y,x-xDif,y-yDif);
+	count--;
+	if(count>0)
+	{
+		sticks(x+xDif,y-yDif,wide/3*2,angle+wider,count);
+		sticks(x-xDif,y-yDif,wide/3*2,angle-wider,count);
+	}
 }
+// 	fill(200,200,200);
+// 	rect(0,0,width,height);
+// 	sticks(470,800,startSize,startAngle,counter);
+// 	//counter++;
+// 	println("rerun");
+// 	startAngle++;
+// }
+// void sticks(float x,float y,float wide,float angle,int count)
+// {
+// 	float tall=wide*sizeRatio;
+// 	fill(0,200,0);
+// 	ellipse(x,y,10,10);
+// 	translate(x,y);
+// 	ellipse(0,0,10,10);
+// 	rotate(radians(angle));
+// 	fill(0,0,0);
+// 	rect(0,0,wide,tall);
+// 	rotate(radians(angle*-1));
+// 	translate(x*-1,y*-1);
+// 	count--;
+// 	println(x,y);
+// 	if(count>0)
+// 	{
+// 		float angle1=radians(Math.abs(angle)%90);
+// 		float angle2=PI-angle1;
+// 		sticks(x-wide*cos(angle2),y-wide*sin(angle2),wide/2,angle-wider,count);
+// 		sticks(x-wide*cos(angle2)+tall*cos(angle1),y-wide*sin(angle2)-tall*sin(angle1),wide/2,angle+wider,count);
+// 	}
+// }
