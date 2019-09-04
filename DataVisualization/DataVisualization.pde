@@ -1,27 +1,29 @@
 int leftBuffer=30;
 int topBuffer=10;
 int heights=50;
-int data[]=new int[] {20, 100};
-String[] labels=new String[data.length];
+int data[]=new int[] {308, 118, 116, 108, 107, 72, 52, 43, 36, 38, 2}; //Ten times the percentage
+String[] labels=new String[] {"JavaScript", "Ruby", "Python", "Java", "Objective-C", "PHP", "C", "C++", "Go", "CSS (Not a programming language)", "Rounding Errors"};
 Bar[] bars=new Bar[data.length];
 
 public void setup()
 {
-	size(500,500);
+	size(675, 675);
 	frameRate(90);
 	int sum=0;
 	for(int summer=0; summer<data.length; summer++)
 	{
-		if(labels[summer]==null)
-		{
-			labels[summer]="";
-		}
+		// if(labels[summer]==null)
+		// {
+		// 	labels[summer]="";
+		// }
 		sum+=data[summer];
 	}
 	for(int i=0; i<bars.length; i++)
 	{
-		bars[i]=new Bar(leftBuffer, topBuffer*(i+1)+i*heights, (width-leftBuffer*2)/sum*data[i], heights, 360/sum*data[i], labels[i]);
+		bars[i]=new Bar(leftBuffer, topBuffer*(i+1)+i*heights, (float)(width-leftBuffer*2)/sum*data[i], heights, 360.0/sum*data[i], labels[i]);
 	}
+	textSize((int)((float)heights/3*2));
+	textAlign(LEFT, CENTER);
 }
 
 public void draw()
@@ -66,7 +68,7 @@ public class Bar
 	public void grow()
 	{
 		//grow
-		if(currentWide<angle)
+		if(currentAngle<angle)
 		{
 			currentAngle+=angle/time;
 			currentWide+=wide/time;
@@ -87,5 +89,7 @@ public class Bar
 		rect(x, y, currentWide, tall);
 		fill(200,200,200);
 		arc(x+currentWide, y+tall/2, tall, tall, radians(270), radians(270+currentAngle));
+		fill(0,0,0);
+		text(desc, x+2, y+tall/2);
 	}
 }
