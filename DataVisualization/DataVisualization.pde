@@ -2,7 +2,7 @@ int leftBuffer=30;
 int topBuffer=10;
 int heights=50;
 int data[]=new int[] {308, 118, 116, 108, 107, 72, 52, 43, 36, 38, 2}; //Ten times the percentage
-String[] labels=new String[] {"JavaScript", "Ruby", "Python", "Java", "Objective-C", "PHP", "C", "C++", "Go", "CSS (Not a programming language)", "Rounding Errors"};
+String[] labels=new String[] {"JavaScript", "Ruby", "Python", "Java", "Objective-C", "PHP", "C", "C++", "Go", "CSS (Not a programming language)", ""};
 Bar[] bars=new Bar[data.length];
 float scale=1;
 public void setup()
