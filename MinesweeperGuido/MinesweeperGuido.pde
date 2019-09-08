@@ -1,13 +1,16 @@
 import de.bezier.guido.*;
-//Declare and initialize constants NUM_ROWS and NUM_COLS = 20
-private MSButton[][] buttons; //2d array of minesweeper buttons
+private final int NUM_ROWS = 20;
+private final int NUM_COLS = 20;
+private MSButton[][] buttons= new MSButton[NUM_ROWS][NUM_COLS];
+private final int BG_COLOR=color(127, 127, 127);
+private int SCREEN_SIZE = 400;
 private ArrayList <MSButton> mines; //ArrayList of just the minesweeper buttons that are mined
 
 void setup ()
 {
     size(400, 400);
     textAlign(CENTER,CENTER);
-    
+    background(BG_COLOR);
     // make the manager
     Interactive.make( this );
     
@@ -17,52 +20,59 @@ void setup ()
     
     setMines();
 }
+
+public void draw ()
+{
+    background(BG_COLOR);
+    if(isWon() == true)
+        displayWinningMessage();
+}
+
 public void setMines()
 {
     //your code
 }
 
-public void draw ()
-{
-    background( 0 );
-    if(isWon() == true)
-        displayWinningMessage();
-}
 public boolean isWon()
 {
     //your code here
     return false;
 }
+
 public void displayLosingMessage()
 {
     //your code here
 }
+
 public void displayWinningMessage()
 {
     //your code here
 }
+
 public boolean isValid(int r, int c)
 {
     //your code here
     return false;
 }
+
 public int countMines(int row, int col)
 {
     int numMines = 0;
     //your code here
     return numMines;
 }
+
 public class MSButton
 {
     private int myRow, myCol;
     private float x,y, width, height;
     private boolean clicked, flagged;
     private String myLabel;
-    
+
     public MSButton ( int row, int col )
     {
-        // width = 400/NUM_COLS;
-        // height = 400/NUM_ROWS;
+        width = SCREEN_SIZE/NUM_COLS;
+        height = SCREEN_SIZE/NUM_ROWS;
         myRow = row;
         myCol = col; 
         x = myCol*width;
@@ -71,13 +81,7 @@ public class MSButton
         flagged = clicked = false;
         Interactive.add( this ); // register it with the manager
     }
-
-    // called by manager
-    public void mousePressed () 
-    {
-        clicked = true;
-        //your code here
-    }
+    
     public void draw () 
     {    
         if (flagged)
@@ -93,16 +97,14 @@ public class MSButton
         fill(0);
         text(myLabel,x+width/2,y+height/2);
     }
-    public void setLabel(String newLabel)
+
+    // called by manager
+    public void mousePressed () 
     {
-        myLabel = newLabel;
+        clicked = true;
+        //your code here
     }
-    public void setLabel(int newLabel)
-    {
-        myLabel = ""+ newLabel;
-    }
-    public boolean isFlagged()
-    {
-        return flagged;
-    }
+    public void setLabel(String newLabel){myLabel = newLabel;}
+    public void setLabel(int newLabel){myLabel = ""+ newLabel;}
+    public boolean isFlagged(){return flagged;}
 }
