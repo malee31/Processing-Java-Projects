@@ -13,7 +13,7 @@ void setup ()
     textAlign(CENTER,CENTER);
     background(BG_COLOR);
     // make the manager
-    Interactive.make( this );
+    Interactive.make(this);
     buttons = new MSButton[NUM_ROWS][NUM_COLS];
     for(int i=0; i<NUM_ROWS; i++)
     {
@@ -28,7 +28,26 @@ void setup ()
 public void draw ()
 {
     background(BG_COLOR);
-    if(isWon() == true) displayWinningMessage();
+    for(int iii=0; iii<mines.size(); iii++)
+    {
+        println(mines.get(iii).getLoc());
+    }
+    if(isWon())
+    {
+        displayWinningMessage();
+        noLoop();
+        return;
+    }
+    for(int i=0; i<NUM_ROWS; i++)
+    {
+        for(int ii=0; ii<NUM_COLS; ii++)
+        {
+            if(mines.contains(buttons[i][ii])&&buttons[i][ii].isClicked())
+            {
+                displayLosingMessage();
+            }
+        }
+    }
 }
 
 public void setMines()
@@ -53,18 +72,29 @@ public void setMines()
 
 public boolean isWon()
 {
-    //your code here
+    for(int i=0; i<NUM_ROWS; i++)
+    {
+        for(int ii=0; ii<NUM_COLS; ii++)
+        {
+            if(!(mines.contains(buttons[i][ii])||buttons[i][ii].isClicked()))
+            {
+                return false;
+            }
+        }
+    }
     return false;
 }
 
 public void displayLosingMessage()
 {
     //your code here
+    println("You lose");
 }
 
 public void displayWinningMessage()
 {
     //your code here
+    println("You win");
 }
 
 public boolean isValid(int r, int c)
@@ -134,5 +164,7 @@ public class MSButton
     }
     public void setLabel(String newLabel){myLabel = newLabel;}
     public void setLabel(int newLabel){myLabel = ""+ newLabel;}
+    public boolean isClicked(){return clicked;}
     public boolean isFlagged(){return flagged;}
+    public String getLoc(){return myRow+", "+myCol;}
 }
