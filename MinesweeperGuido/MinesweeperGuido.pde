@@ -77,6 +77,16 @@ public int countMines(int row, int col)
 {
     int numMines = 0;
     //your code here
+    for(int i=0; i<3; i++)
+    {
+        for(int ii=0; ii<3; ii++)
+        {
+            if(mines.contains(buttons[row-1+i][col-1+ii])&&i!=1&&ii!=1)
+            {
+                numMines++;
+            }
+        }
+    }
     return numMines;
 }
 
