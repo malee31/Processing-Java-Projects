@@ -48,6 +48,7 @@ public void draw ()
             }
         }
     }
+    println("sep");
 }
 
 public void setMines()
@@ -72,17 +73,18 @@ public void setMines()
 
 public boolean isWon()
 {
+    // Always returns false??? Might be the second arg of OR
     for(int i=0; i<NUM_ROWS; i++)
     {
         for(int ii=0; ii<NUM_COLS; ii++)
         {
-            if(!(mines.contains(buttons[i][ii])||buttons[i][ii].isClicked()))
+            if((mines.contains(buttons[i][ii])&&buttons[i][ii].isClicked())||!buttons[i][ii].isClicked())
             {
                 return false;
             }
         }
     }
-    return false;
+    return true;
 }
 
 public void displayLosingMessage()
