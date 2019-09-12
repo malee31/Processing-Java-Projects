@@ -24,6 +24,13 @@ void setup ()
         }
     }
     setMines();
+    for(int i=0; i<NUM_ROWS; i++)
+    {
+        for(int ii=0; ii<NUM_COLS; ii++)
+        {
+            buttons[i][ii].setLabel(countMines(i, ii));
+        }
+    }
 }
 
 public void draw ()
@@ -122,14 +129,14 @@ public boolean isValid(int r, int c)
 
 public int countMines(int row, int col)
 {
+    //counts mines surrounding a cell
     int numMines = 0;
-    //your code here
-    // Just realized I had the wrong idea about the function's purpose lol
     for(int i=0; i<3; i++)
     {
         for(int ii=0; ii<3; ii++)
         {
-            if(mines.contains(buttons[row-1+i][col-1+ii])&&i!=1&&ii!=1)
+            if(row-1+i>=buttons.length||row-1+i<0||col-1+ii>=buttons[0].length||col-1+ii<0||(i==1&&ii==1)) continue;
+            if(mines.contains(buttons[row-1+i][col-1+ii]))
             {
                 numMines++;
             }
@@ -168,13 +175,15 @@ public class MSButton
             fill( 200 );
         else 
             fill( 100 );
-
         rect(x, y, width, height);
         fill(0);
-        text(myLabel,x+width/2,y+height/2);
+        if(this.isClicked())
+        {
+            text(myLabel, x+width/2, y+height/2);
+        }
     }
 
-    // called by manager
+    // called by manager automatically
     public void mousePressed () 
     {
         clicked = true;
