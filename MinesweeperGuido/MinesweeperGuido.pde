@@ -9,10 +9,11 @@ private ArrayList <MSButton> mines=new ArrayList <MSButton>(); //ArrayList of ju
 
 void setup ()
 {
+    //sets up canvas and initializes mines and buttons
     size(400, 400);
     textAlign(CENTER,CENTER);
     background(BG_COLOR);
-    // make the manager
+    // makes the manager... whatever that is
     Interactive.make(this);
     buttons = new MSButton[NUM_ROWS][NUM_COLS];
     for(int i=0; i<NUM_ROWS; i++)
@@ -27,6 +28,7 @@ void setup ()
 
 public void draw ()
 {
+    //draws mines on screen and tests whether the player has won or lost before stopping
     background(BG_COLOR);
     for(int iii=0; iii<mines.size(); iii++)
     {
@@ -38,22 +40,17 @@ public void draw ()
         noLoop();
         return;
     }
-    for(int i=0; i<NUM_ROWS; i++)
+    else if(isLost())
     {
-        for(int ii=0; ii<NUM_COLS; ii++)
-        {
-            if(mines.contains(buttons[i][ii])&&buttons[i][ii].isClicked())
-            {
-                displayLosingMessage();
-            }
-        }
+        displayLosingMessage();
+        noLoop();
+        return;
     }
-    println("sep");
 }
 
 public void setMines()
 {
-    //your code
+    //Randomly sets it up so that we get a percentage of the board as mines or whatver NUM_MINES is
     int randomCol;
     int randomRow;
     for(int i=0; i<NUM_MINES; i++)
@@ -73,18 +70,36 @@ public void setMines()
 
 public boolean isWon()
 {
-    // Always returns false??? Might be the second arg of OR
+    // If all areas are either clicked or is a mine, you win!
     for(int i=0; i<NUM_ROWS; i++)
     {
         for(int ii=0; ii<NUM_COLS; ii++)
         {
-            if((mines.contains(buttons[i][ii])&&buttons[i][ii].isClicked())||!buttons[i][ii].isClicked())
+            if(buttons[i][ii].isClicked()==mines.contains(buttons[i][ii]))
             {
+                println("Separater", i, ii);
                 return false;
             }
         }
     }
+    println("Separater");
     return true;
+}
+
+public boolean isLost()
+{
+    //returns true if the player has clicked a mine
+    for(int i=0; i<NUM_ROWS; i++)
+    {
+        for(int ii=0; ii<NUM_COLS; ii++)
+        {
+            if(mines.contains(buttons[i][ii])&&buttons[i][ii].isClicked())
+            {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 public void displayLosingMessage()
@@ -109,6 +124,7 @@ public int countMines(int row, int col)
 {
     int numMines = 0;
     //your code here
+    // Just realized I had the wrong idea about the function's purpose lol
     for(int i=0; i<3; i++)
     {
         for(int ii=0; ii<3; ii++)
