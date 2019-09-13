@@ -6,6 +6,7 @@ private MSButton[][] buttons;
 private final int BG_COLOR=color(127, 127, 127);
 private int SCREEN_SIZE = 400;
 private ArrayList <MSButton> mines=new ArrayList <MSButton>(); //ArrayList of just the minesweeper buttons that are mined
+private boolean firstMove=true;
 
 void setup ()
 {
@@ -24,16 +25,10 @@ void setup ()
         }
     }
     setMines();
-    for(int i=0; i<NUM_ROWS; i++)
-    {
-        for(int ii=0; ii<NUM_COLS; ii++)
-        {
-            buttons[i][ii].setLabel(countMines(i, ii));
-        }
-    }
+    mineCountAll();
 }
 
-public void draw ()
+public void draw()
 {
     //draws mines on screen and tests whether the player has won or lost before stopping
     background(BG_COLOR);
@@ -44,14 +39,10 @@ public void draw ()
     if(isWon())
     {
         displayWinningMessage();
-        noLoop();
-        return;
     }
     else if(isLost())
     {
         displayLosingMessage();
-        noLoop();
-        return;
     }
 }
 
@@ -145,6 +136,17 @@ public int countMines(int row, int col)
     return numMines;
 }
 
+public void mineCountAll()
+{
+    for(int i=0; i<NUM_ROWS; i++)
+    {
+        for(int ii=0; ii<NUM_COLS; ii++)
+        {
+            buttons[i][ii].setLabel(countMines(i, ii));
+        }
+    }
+}
+
 public class MSButton
 {
     private int myRow, myCol;
@@ -166,27 +168,46 @@ public class MSButton
     }
     
     public void draw () 
-    {    
+    {
+        fill(100);
         if (flagged)
+        {
             fill(0);
-        // else if( clicked && mines.contains(this) ) 
-        //     fill(255,0,0);
+        }
         else if(clicked)
-            fill( 200 );
-        else 
-            fill( 100 );
+        {
+            if(mines.contains(this))
+            {
+                fill(255,0,0);
+            }
+            else{
+                fill(200);
+            }
+        }
         rect(x, y, width, height);
-        fill(0);
         if(this.isClicked())
         {
+            fill(0);
             text(myLabel, x+width/2, y+height/2);
         }
     }
-
     // called by manager automatically
     public void mousePressed () 
     {
         clicked = true;
+        if(firstMove)
+        {
+            firstMove=!firstMove;
+            for(int i=0; i<mines.size(); i++)
+            {
+                if(mines.get(i).equals(this))
+                {
+                    mines.remove(i);
+                    mineCountAll();
+                    break;
+                }
+            }
+        }
         //your code here
     }
     public void setLabel(String newLabel){myLabel = newLabel;}
