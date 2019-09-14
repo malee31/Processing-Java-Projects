@@ -1,6 +1,6 @@
 import de.bezier.guido.*;
-private final int NUM_ROWS = 5;
-private final int NUM_COLS = 5;
+private final int NUM_ROWS = 25;
+private final int NUM_COLS = 25;
 private final int NUM_MINES = (int)((float)NUM_COLS*NUM_ROWS*0.3);
 private MSButton[][] buttons;
 private final int BG_COLOR=color(127, 127, 127);
@@ -114,8 +114,7 @@ public void displayWinningMessage()
 
 public boolean isValid(int r, int c)
 {
-    //your code here
-    return false;
+    return r<buttons.length && r>=0 && c<buttons[0].length && c>=0;
 }
 
 public int countMines(int row, int col)
@@ -194,8 +193,12 @@ public class MSButton
     // called by manager automatically
     public void mousePressed () 
     {
-        clicked = true;
-        if(firstMove)
+        if(mouseButton==RIGHT)
+        {
+            flagged=!flagged;
+            return;
+        }
+        else if(firstMove)
         {
             firstMove=!firstMove;
             for(int i=0; i<mines.size(); i++)
@@ -208,7 +211,7 @@ public class MSButton
                 }
             }
         }
-        //your code here
+        clicked = true;
     }
     public void setLabel(String newLabel){myLabel = newLabel;}
     public void setLabel(int newLabel){myLabel = ""+ newLabel;}
