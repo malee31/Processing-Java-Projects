@@ -1,12 +1,27 @@
 import de.bezier.guido.*;
 private final int NUM_ROWS = 25;
 private final int NUM_COLS = 25;
-private final int NUM_MINES = (int)((float)NUM_COLS*NUM_ROWS*0.3);
-private MSButton[][] buttons;
+private final int NUM_MINES = 3;//(int)((float)NUM_COLS*NUM_ROWS*0.2);
 private final int BG_COLOR=color(127, 127, 127);
-private int SCREEN_SIZE = 400;
-private ArrayList <MSButton> mines=new ArrayList <MSButton>(); //ArrayList of just the minesweeper buttons that are mined
-private boolean firstMove=true;
+private MSButton[][] buttons;
+private int SCREEN_SIZE=400;
+private ArrayList <MSButton> mines; //ArrayList of just the minesweeper buttons that are mined
+private boolean firstMove;
+
+void reinit()
+{
+    //initializes or reinitializes variables
+    firstMove=true;
+    mines=new ArrayList <MSButton>();
+    buttons = new MSButton[NUM_ROWS][NUM_COLS];
+    for(int i=0; i<NUM_ROWS; i++)
+    {
+        for(int ii=0; ii<NUM_COLS; ii++)
+        {
+            buttons[i][ii]=new MSButton(i, ii);
+        }
+    }
+}
 
 void setup ()
 {
@@ -16,14 +31,7 @@ void setup ()
     background(BG_COLOR);
     // makes the manager... whatever that is
     Interactive.make(this);
-    buttons = new MSButton[NUM_ROWS][NUM_COLS];
-    for(int i=0; i<NUM_ROWS; i++)
-    {
-        for(int ii=0; ii<NUM_COLS; ii++)
-        {
-            buttons[i][ii]=new MSButton(i, ii);
-        }
-    }
+    reinit();
     setMines();
     mineCountAll();
 }
@@ -191,14 +199,16 @@ public class MSButton
         }
     }
     // called by manager automatically
-    public void mousePressed () 
+    public void mousePressed() 
     {
-        if(mouseButton==RIGHT)
-        {
-            flagged=!flagged;
-            return;
-        }
-        else if(firstMove)
+        if(mouseButton==RIGHT&&!clicked) flagged=!flagged;
+        if(flagged||clicked||mouseButton==RIGHT) return;
+        clickHandler();
+    }
+    public void clickHandler()
+    {
+        clicked=true;
+        if(firstMove)
         {
             firstMove=!firstMove;
             for(int i=0; i<mines.size(); i++)
@@ -211,7 +221,19 @@ public class MSButton
                 }
             }
         }
-        clicked = true;
+        if(myLabel.equals("0"))
+        {
+            for(int i=0; i<3; i++)
+            {
+                for(int ii=0; ii<3; ii++)
+                {
+                    if(isValid(myRow-1+i, myCol-1+ii))
+                    {
+                        buttons[myRow-1+i][myCol-1+ii].mousePressed();
+                    }
+                }
+            }
+        }
     }
     public void setLabel(String newLabel){myLabel = newLabel;}
     public void setLabel(int newLabel){myLabel = ""+ newLabel;}
