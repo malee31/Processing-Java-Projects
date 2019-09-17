@@ -1,7 +1,7 @@
 import de.bezier.guido.*;
 private final int NUM_ROWS = 25;
 private final int NUM_COLS = 25;
-private final int NUM_MINES = 3;//(int)((float)NUM_COLS*NUM_ROWS*0.2);
+private final int NUM_MINES = 2;//(int)((float)NUM_COLS*NUM_ROWS*0.2);
 private final int BG_COLOR=color(127, 127, 127);
 private MSButton[][] buttons;
 private int SCREEN_SIZE=750;
@@ -9,6 +9,7 @@ private ArrayList <MSButton> mines; //ArrayList of just the minesweeper buttons 
 private boolean firstMove;
 private int end;
 private String message;
+
 void reinit()
 {
     //initializes or reinitializes variables
@@ -57,7 +58,22 @@ public void draw()
     // }
     if(isWon()||isLost())
     {
+        if(isLost())
+        {
+            revealAll();
+        }
         displayMessage();
+    }
+}
+
+public void revealAll()
+{
+    for(int i=0; i<NUM_ROWS; i++)
+    {
+        for(int ii=0; ii<NUM_COLS; ii++)
+        {
+            buttons[i][ii].clickHandler();
+        }
     }
 }
 
@@ -232,7 +248,7 @@ public class MSButton
             }
         }
         rect(x, y, width, height);
-        if(this.isClicked())
+        if(this.isClicked()&&!myLabel.equals("0"))
         {
             fill(0);
             text(myLabel, x+width/2, y+height/2);
@@ -263,6 +279,7 @@ public class MSButton
         }
         if(myLabel.equals("0"))
         {
+            //Clicks on all buttons around this one if there are no bombs around it
             for(int i=0; i<3; i++)
             {
                 for(int ii=0; ii<3; ii++)
