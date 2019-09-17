@@ -1,7 +1,7 @@
 import de.bezier.guido.*;
 private final int NUM_ROWS = 25;
 private final int NUM_COLS = 25;
-private final int NUM_MINES = 2;//(int)((float)NUM_COLS*NUM_ROWS*0.2);
+private final int NUM_MINES = (int)((float)NUM_COLS*NUM_ROWS*0.2);
 private final int BG_COLOR=color(127, 127, 127);
 private MSButton[][] buttons;
 private int SCREEN_SIZE=750;
