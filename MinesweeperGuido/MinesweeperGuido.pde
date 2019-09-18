@@ -10,6 +10,16 @@ private boolean firstMove;
 private int end;
 private String message;
 
+public void keyPressed()
+{
+    println("rEEEEE");
+    if(key=='a')
+    {
+        reinit();
+        println("reinited");
+    }
+}
+
 void reinit()
 {
     //initializes or reinitializes variables
