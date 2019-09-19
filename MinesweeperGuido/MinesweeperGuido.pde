@@ -13,10 +13,11 @@ private String message;
 public void keyPressed()
 {
     println("rEEEEE");
-    if(key=='a')
+    if(key=='.')
     {
         reinit();
-        println("reinited");
+        setMines();
+        mineCountAll();
     }
 }
 
