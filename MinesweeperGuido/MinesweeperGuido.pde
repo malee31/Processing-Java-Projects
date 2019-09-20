@@ -55,18 +55,6 @@ public void draw()
 {
     //draws mines on screen and tests whether the player has won or lost before stopping
     background(BG_COLOR);
-    // for(int iii=0; iii<mines.size(); iii++)
-    // {
-    //     println(mines.get(iii).getLoc());
-    // }
-    // if(isWon())
-    // {
-    //     displayWinningMessage();
-    // }
-    // else if(isLost())
-    // {
-    //     displayLosingMessage();
-    // }
     if(isWon()||isLost())
     {
         if(isLost())
@@ -117,12 +105,10 @@ public boolean isWon()
         {
             if(buttons[i][ii].isClicked()==mines.contains(buttons[i][ii]))
             {
-                // println("Separater", i, ii);
                 return false;
             }
         }
     }
-    // println("Separater");
     message="You Win!";
     return true;
 }
@@ -161,31 +147,6 @@ public void displayMessage()
         }
     }
 }
-
-// public void displayLosingMessage()
-// {
-//     for(int i=0; i<NUM_ROWS; i++)
-//     {
-//         for(int a=0; a<message.length(); a++)
-//         {
-//             buttons[i][a].setLabel(Character.toString(message.charAt(a)));
-//         }
-//         if(NUM_COLS>=message.length()*2)
-//         {
-//             for(int b=0; b<message.length(); b++)
-//             {
-//                 buttons[i][b+NUM_COLS-message.length()].setLabel(Character.toString(message.charAt(b)));
-//             }
-//         }
-//     }
-//     println("You lose");
-// }
-
-// public void displayWinningMessage()
-// {
-//     String message="You Lost";
-//     println("You win");
-// }
 
 public boolean isValid(int r, int c)
 {
@@ -307,5 +268,4 @@ public class MSButton
     public void setLabel(int newLabel){myLabel = ""+ newLabel;}
     public boolean isClicked(){return clicked;}
     public boolean isFlagged(){return flagged;}
-    // public String getLoc(){return myRow+", "+myCol;}
 }
