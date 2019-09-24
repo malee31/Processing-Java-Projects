@@ -42,8 +42,25 @@ public int recursiveLinearSearch(int catNumToFind, int startIndex)
 
 public int binarySearch(int catNumToFind)
 {
-  //complete this method
-  return -1;
+  //untested
+  // int cur=0;
+  // int add=store.length/2;
+  // while(true)
+  // {
+  //   if(store[cur].getCatNum()==catNumToFind) return cur;
+  //   else if(store[cur].getCatNum()<catNumToFind)
+  //   {
+  //     cur+=add;
+  //     add/=2;
+  //   }
+  //   else
+  //   {
+  //     cur-=add;
+  //   }
+  //   if(add==1) break;
+  //   add/=2;
+  // }
+  // return -1;
 }
 
 public int recursiveBinarySearch(int catNumToFind, int nLow, int nHigh)
