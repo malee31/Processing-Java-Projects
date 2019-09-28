@@ -55,7 +55,7 @@ public int binarySearch(int catNumToFind)
 	{
 	  if(Math.abs(last-cur)==1) break;
 		if(inbound(cur) && store[cur].getCatNum()==catNumToFind) return cur;
-	  else if(store[cur].getCatNum()<catNumToFind)
+	  else if(inbound(cur) && store[cur].getCatNum()<catNumToFind)
 	  {
 	    cur+=add;
 	  }
@@ -72,18 +72,18 @@ public int binarySearch(int catNumToFind)
 public int recursiveBinarySearch(int catNumToFind, int nLow, int nHigh)
 {
 	int cur=(nLow+nHigh)/2;
-  int add=(nLow+nHigh)/2;
-  if(store[cur].getCatNum()==catNumToFind) return store[cur].getInventory();
-  if(nHigh-nLow==1) return -1;
-  if(store[cur].getCatNum()<catNumToFind)
-  {
-    return recursiveBinarySearch(catNumToFind, nLow+add, nHigh);
-  }
-  else
-  {
-    return recursiveBinarySearch(catNumToFind, nLow, nHigh+add)
-  }
-  return -1;
+	int add=(nLow+nHigh)/2;
+	if(store[cur].getCatNum()==catNumToFind) return store[cur].getInventory();
+	if(nHigh-nLow==1) return -1;
+	if(store[cur].getCatNum()<catNumToFind)
+	{
+		return recursiveBinarySearch(catNumToFind, nLow+add, nHigh);
+	}
+	else
+	{
+		return recursiveBinarySearch(catNumToFind, nLow, nHigh+add);
+	}
+	return -1;
 }
 
 public void draw(){ /*Unnecessary*/ }
