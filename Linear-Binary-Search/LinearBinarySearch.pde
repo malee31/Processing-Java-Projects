@@ -53,18 +53,19 @@ public int binarySearch(int catNumToFind)
 	int add=store.length/2;
 	while(true)
 	{
-	  if(Math.abs(last-cur)==1) break;
+		if(Math.abs(last-cur)==1) break;
 		if(inbound(cur) && store[cur].getCatNum()==catNumToFind) return cur;
-	  else if(inbound(cur) && store[cur].getCatNum()<catNumToFind)
-	  {
-	    cur+=add;
-	  }
-	  else
-	  {
-	    cur-=add;
-	  }
-	  last=cur;
-	  add/=2;
+		else if(inbound(cur) && store[cur].getCatNum()<catNumToFind)
+		{
+			cur+=add;
+		}
+		else
+		{
+			cur-=add;
+		}
+			last=cur;
+			add/=2;
+		}
 	}
 	return -1;
 }
@@ -86,7 +87,6 @@ public int recursiveBinarySearch(int catNumToFind, int nLow, int nHigh)
 	return -1;
 }
 
-public void draw(){ /*Unnecessary*/ }
 public void setup()
 {
 	int[] tests = {0, 183, 184, 2370, 15320, 19967, 19968};
@@ -124,3 +124,5 @@ public void setup()
 			System.out.println("Catalog #"+tests[i]+" not found");
 	}
 }
+
+public void draw(){ /*Unnecessary*/ }
