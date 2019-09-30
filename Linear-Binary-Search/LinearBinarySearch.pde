@@ -73,9 +73,9 @@ public int binarySearch(int catNumToFind)
 public int recursiveBinarySearch(int catNumToFind, int nLow, int nHigh)
 {
 	int cur=(nLow+nHigh)/2;
-	int add=(nLow+nHigh)/2;
+	int add=Math.abs((nLow+nHigh)/2);
 	if(store[cur].getCatNum()==catNumToFind) return store[cur].getInventory();
-	if(nHigh-nLow==1) return -1;
+	if(nHigh-nLow==1) return -1; //May cause problems if it's 1 away from value
 	if(store[cur].getCatNum()<catNumToFind)
 	{
 		return recursiveBinarySearch(catNumToFind, nLow+add, nHigh);
