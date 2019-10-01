@@ -39,6 +39,7 @@ public int linearSearch(int catNumToFind)
 	return -1;
 }
 
+//#19967 needs work
 public int recursiveLinearSearch(int catNumToFind, int startIndex)
 {
 	if(store[startIndex].getCatNum()==catNumToFind) return store[startIndex].getInventory();
@@ -62,7 +63,7 @@ public int binarySearch(int catNumToFind)
 		{
 			cur-=add;
 		}
-		add/=2;
+		add=(int)(add/2.0+0.5);
 	}
 	return -1;
 }
@@ -75,11 +76,11 @@ public int recursiveBinarySearch(int catNumToFind, int nLow, int nHigh)
 	if(nHigh-nLow==1) return -1; //May cause problems if it's 1 away from value
 	if(store[cur].getCatNum()<catNumToFind)
 	{
-		return recursiveBinarySearch(catNumToFind, nLow+add, nHigh);
+		return recursiveBinarySearch(catNumToFind, add, nHigh);
 	}
 	else
 	{
-		return recursiveBinarySearch(catNumToFind, nLow, nHigh+add);
+		return recursiveBinarySearch(catNumToFind, nLow, add);
 	}
 }
 
