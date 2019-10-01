@@ -1,18 +1,16 @@
-int strike=100, startX=0, startY=150, endX=0, endY=150;
+int strike=2, startX=0, startY=150, endX=0, endY=150;
 void setup()
 {
 	size(500,600);
-	background(48, 51, 56);
 	strokeWeight(5);
 	noLoop();
 }
 void draw()
 {
 	background(48,51,56);
-	while (strike>0)
+	for(int i=0; i<strike; i++)
 	{
 		lightningStrike();
-		strike--;
 	}
 }
 void lightningStrike()
@@ -32,10 +30,6 @@ void lightningStrike()
 int rand(int min,int max){ return (int)((Math.random()*(max-min+1))+min);}
 void mousePressed()
 {
-	strike++;
-	startX=0;
-	startY=150;
-	endX=0;
-	endY=150;
+	strike*=2;
 	redraw();
 }
