@@ -1,5 +1,4 @@
-int strike=0;
-int startX=0, startY=150, endX=0, endY=150;
+int strike=100, startX=0, startY=150, endX=0, endY=150;
 void setup()
 {
   size(500,600);
