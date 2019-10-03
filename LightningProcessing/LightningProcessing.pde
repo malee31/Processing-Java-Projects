@@ -35,7 +35,7 @@ void lightningStrike()
 	startY=0;
 	while (startY<=height)
 	{
-		endX=startX+rand(-9,9);
+		endX=startX+rand(-10,9);
 		endY=startY+rand(0,9);
 		line(startX,startY,endX,endY);
 		startX=endX;
