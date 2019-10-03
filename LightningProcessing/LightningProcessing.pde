@@ -22,6 +22,9 @@ void draw()
   {
     sky[i].show();
   }
+  noStroke();
+  fill(200);
+  rect(0,0,width,40);
 }
 
 void lightningStrike()
@@ -49,7 +52,7 @@ void mousePressed()
 
 public class Cloud
 {
-  int x=(int)(Math.random()*width), y=(int)(Math.random()*50), rad=(int)(Math.random()*50), speed=(int)(Math.random()*10)+1;
+  int x=(int)(Math.random()*width), y=(int)(Math.random()*50)+20, rad=(int)(Math.random()*20+20), speed=(int)(Math.random()*5)+10;
   public void show()
   {
     noStroke();
@@ -58,7 +61,15 @@ public class Cloud
     x+=speed;
     if(x>=width+rad)
     {
+      reset();
       x=rad*-1;
     }
+  }
+  public void reset()
+  {
+      x=(int)(Math.random()*width);
+      y=(int)(Math.random()*50)+10;
+      rad=(int)(Math.random()*30+20);
+      speed=(int)(Math.random()*10)+1;
   }
 }
