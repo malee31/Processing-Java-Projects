@@ -40,7 +40,7 @@ int underZero(int num)
 }
 class Die
 {
-	int diceNum, xPos, yPos, rectSize=100, roundFactor=10;
+	int diceNum, xPos, yPos, rectSize=100, roundFactor=10, dotSize=(int)(rectSize*0.1);
 	Die(int x, int y)
 	{
 		xPos=x;
@@ -54,40 +54,36 @@ class Die
 	void show()
 	{
 		stroke(0, 0, 0);
-		fill(255, 255, 255);
+		fill((int)(Math.random()*200+55), (int)(Math.random()*200+55), (int)(Math.random()*200+55));
 		rect(xPos, yPos, rectSize, rectSize, roundFactor);
-		if (diceNum%2==1)
+		switch(diceNum)
 		{
-			dotDrawer(xPos+50, yPos+50);
-		}
-		else if (diceNum==6||diceNum==2)
-		{
-			dotDrawer(xPos+35, yPos+50);
-			dotDrawer(xPos+65, yPos+50);
-		}
-		if (diceNum==3||diceNum==5)
-		{
-			dotDrawer(xPos+20, yPos+20);
-			dotDrawer(xPos+80, yPos+80);
-		}
-		if (diceNum==5)
-		{
-			dotDrawer(xPos+20, yPos+80);
-			dotDrawer(xPos+80, yPos+20);
-		}
-		if (diceNum==4)
-		{
-			dotDrawer(xPos+35, yPos+35);
-			dotDrawer(xPos+35, yPos+65);
-			dotDrawer(xPos+65, yPos+35);
-			dotDrawer(xPos+65, yPos+65);
-		}
-		if (diceNum==6)
-		{
-			dotDrawer(xPos+35, yPos+25);
-			dotDrawer(xPos+35, yPos+75);
-			dotDrawer(xPos+65, yPos+25);
-			dotDrawer(xPos+65, yPos+75);
+			case 6:
+				dotDrawer(xPos+35, yPos+25);
+				dotDrawer(xPos+35, yPos+75);
+				dotDrawer(xPos+65, yPos+25);
+				dotDrawer(xPos+65, yPos+75);
+			case 2:
+				dotDrawer(xPos+35, yPos+50);
+				dotDrawer(xPos+65, yPos+50);
+				break;
+			case 4:
+				dotDrawer(xPos+20, yPos+80);
+				dotDrawer(xPos+80, yPos+20);
+				dotDrawer(xPos+20, yPos+20);
+				dotDrawer(xPos+80, yPos+80);
+				break;
+			case 5:
+				dotDrawer(xPos+20, yPos+80);
+				dotDrawer(xPos+80, yPos+20);
+			case 3:
+				dotDrawer(xPos+20, yPos+20);
+				dotDrawer(xPos+80, yPos+80);
+			case 1:
+				dotDrawer(xPos+50, yPos+50);
+				break;
+			default:
+				println("Not a valid number for a D6 die.");
 		}
 	}
 	void dotDrawer(int x,int y)
