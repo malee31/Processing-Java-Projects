@@ -40,7 +40,7 @@ int underZero(int num)
 }
 class Die
 {
-	int diceNum, xPos, yPos, rectSize=100, roundFactor=10, dotSize=(int)(rectSize*0.1);
+	private int diceNum, xPos, yPos, rectSize=100, roundFactor=10, dotSize=(int)(rectSize*0.1);
 	Die(int x, int y)
 	{
 		xPos=x;
@@ -90,5 +90,9 @@ class Die
 	{
 		fill(0, 0, 0);
 		ellipse(x, y, 10, 10);
+	}
+	int getVal()
+	{
+		return diceNum;
 	}
 }
