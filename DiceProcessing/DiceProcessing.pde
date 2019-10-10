@@ -28,6 +28,8 @@ void draw()
 			counted++;
 		}
 	}
+	fill(175);
+	rect(0, 0, width, screenBuffer, screenBuffer*0.2);
 	fill(255);
 	text("Total: "+sum+"     Average: "+(float)sum/counted, width/2, screenBuffer/2);
 }
