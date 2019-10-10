@@ -1,22 +1,31 @@
+int screenBuffer=50;
+Die[][] die;
+int sum=0;
+int sizes=100;
 void setup()
 {
-	size(500, 500);
+	size(500, 550);
 	background(0, 0 ,0);
+	textAlign(CENTER, CENTER);
 	noLoop();
 }
 void draw()
 {
 	clearScreen();
-	Die[][] die = new Die[5][5];
-	for (int row=0; row<=500; row+=100)
+	die = new Die[5][5];
+	sum=0;
+	for (int row=0; row<5; row++)
 	{
-		for (int col=0; col<=500; col+=100)
+		for (int col=0; col<5; col++)
 		{
-			die[underZero(row/100-1)][underZero(col/100-1)]=new Die(row, col);
-			((Die)die[underZero(row/100-1)][underZero(col/100-1)]).roll();
-			((Die)die[underZero(row/100-1)][underZero(col/100-1)]).show();
+			die[row][col]=new Die(row*sizes, col*sizes+screenBuffer);
+			die[row][col].roll();
+			die[row][col].show();
+			sum+=die[row][col].getVal();
 		}
 	}
+	fill(255);
+	text(sum, width/2, screenBuffer/2);
 }
 void clearScreen()
 {
@@ -59,13 +68,12 @@ class Die
 		switch(diceNum)
 		{
 			case 6:
-				dotDrawer(xPos+35, yPos+25);
-				dotDrawer(xPos+35, yPos+75);
-				dotDrawer(xPos+65, yPos+25);
-				dotDrawer(xPos+65, yPos+75);
-			case 2:
-				dotDrawer(xPos+35, yPos+50);
-				dotDrawer(xPos+65, yPos+50);
+				dotDrawer(xPos+25, yPos+25);
+				dotDrawer(xPos+25, yPos+75);
+				dotDrawer(xPos+75, yPos+25);
+				dotDrawer(xPos+75, yPos+75);
+				dotDrawer(xPos+25, yPos+50);
+				dotDrawer(xPos+75, yPos+50);
 				break;
 			case 4:
 				dotDrawer(xPos+20, yPos+80);
@@ -77,9 +85,11 @@ class Die
 				dotDrawer(xPos+20, yPos+80);
 				dotDrawer(xPos+80, yPos+20);
 			case 3:
+			case 2:
 				dotDrawer(xPos+20, yPos+20);
 				dotDrawer(xPos+80, yPos+80);
 			case 1:
+				if(diceNum==2) break;
 				dotDrawer(xPos+50, yPos+50);
 				break;
 			default:
