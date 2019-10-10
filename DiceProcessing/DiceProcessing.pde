@@ -36,17 +36,6 @@ void mousePressed()
 {
 	redraw();
 }
-int underZero(int num)
-{
-	if (num<0)
-	{
-		return 0;
-	}
-	else
-	{
-		return num;
-	}
-}
 class Die
 {
 	private int diceNum, xPos, yPos, rectSize=100, roundFactor=10, dotSize=(int)(rectSize*0.1);
