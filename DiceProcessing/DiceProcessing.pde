@@ -2,11 +2,13 @@ int screenBuffer=50;
 Die[][] die;
 int sum=0;
 int sizes=100;
+int counted=0;
 void setup()
 {
 	size(500, 550);
 	background(0, 0 ,0);
 	textAlign(CENTER, CENTER);
+	textSize(25);
 	noLoop();
 }
 void draw()
@@ -14,6 +16,7 @@ void draw()
 	clearScreen();
 	die = new Die[5][5];
 	sum=0;
+	counted=0;
 	for (int row=0; row<5; row++)
 	{
 		for (int col=0; col<5; col++)
@@ -22,10 +25,11 @@ void draw()
 			die[row][col].roll();
 			die[row][col].show();
 			sum+=die[row][col].getVal();
+			counted++;
 		}
 	}
 	fill(255);
-	text(sum, width/2, screenBuffer/2);
+	text("Total: "+sum+"     Average: "+(float)sum/counted, width/2, screenBuffer/2);
 }
 void clearScreen()
 {
