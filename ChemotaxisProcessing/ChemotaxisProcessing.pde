@@ -5,6 +5,12 @@ Bacteria[] petriDish=new Bacteria[300];
  void setup()   
  {
  	size(500, 500);
+ 	for (int i=0; i<START_BACTERIA_NUM; i++)
+ 	{
+	 	petriDish[i]=new Bacteria(randPos(), randPos(), randColor(), randColor(), randColor());
+	 	petriDish[i].move();
+	 	petriDish[i].show();
+	}
  }
  void draw()   
  {
@@ -12,46 +18,28 @@ Bacteria[] petriDish=new Bacteria[300];
 	goalX=mouseX;
  	goalY=mouseY;
  	screenClearer();
- 	if (petriDish[0]==null)
- 	{
-	 	//Bacteria params: x, y, red, green, blue...
-	 	for (int i=0; i<START_BACTERIA_NUM; i++)
-	 	{
-		 	petriDish[i]=new Bacteria(randPos(), randPos(), randColor(), randColor(), randColor());
-		 	petriDish[i].move();
-		 	petriDish[i].show();
-		}
-	}
 	for (int go=0; go<petriDish.length; go++)
 	{
-		if (petriDish[go]==null)
-		{
-			break;
-		}
-		else
-		{
-			petriDish[go].move();
-			petriDish[go].show();
-		}
+		if (petriDish[go]==null) break;
+		petriDish[go].move();
+		petriDish[go].show();
 	}
  }
  void screenClearer()
  {
  	noStroke();
- 	fill(255, 255, 255);
- 	rect(0, 0, 500, 500);
+ 	fill(0, 0, 0);
+ 	rect(0, 0, 500, 500, 0.5);
  }
  class Bacteria    
  {
  	int x, y;
- 	int colour[]=new int[3];
+ 	color colour=0;
  	Bacteria(int xPosInit, int yPosInit, int red, int green, int blue)
  	{
  		x=xPosInit;
  		y=yPosInit;
- 		colour[0]=red;
- 		colour[1]=blue;
- 		colour[2]=green;
+ 		colour=color(red, green, blue);
  	}
  	void move()
  	{
@@ -74,22 +62,23 @@ Bacteria[] petriDish=new Bacteria[300];
  	}
  	void show()
  	{
- 		stroke(0, 0, 0);
- 		fill(colour[0], colour[1], colour[2], 277);
+ 		noStroke();
+ 		fill(colour);
  		ellipse(x, y, 10, 10);
  	}
  }
+
  int randColor()
  {
  	return (int)(Math.random()*256);
  }
+
  void aNewBac()
  {
  	for (int i=0; i<petriDish.length; i++)
  	{
  		if(petriDish[i]==null)
  		{
- 			print("new!");
  			petriDish[i]=new Bacteria(randPos(), randPos(), randColor(), randColor(), randColor());
  			break;
  		}
@@ -97,7 +86,7 @@ Bacteria[] petriDish=new Bacteria[300];
  }
  int randPos()
  {
- 	return (int)(Math.random()*500);
+ 	return (int)(Math.random()*width);
  }
  /*
  void mousePressed()
