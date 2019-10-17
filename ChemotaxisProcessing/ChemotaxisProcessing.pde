@@ -4,7 +4,7 @@ final int START_BACTERIA_NUM=5;
 Bacteria[] petriDish=new Bacteria[300];
  void setup()   
  {
- 	size(500,500);
+ 	size(500, 500);
  }
  void draw()   
  {
@@ -17,7 +17,7 @@ Bacteria[] petriDish=new Bacteria[300];
 	 	//Bacteria params: x, y, red, green, blue...
 	 	for (int i=0; i<START_BACTERIA_NUM; i++)
 	 	{
-		 	petriDish[i]=new Bacteria(randPos(),randPos(),randColor(),randColor(),randColor());
+		 	petriDish[i]=new Bacteria(randPos(), randPos(), randColor(), randColor(), randColor());
 		 	petriDish[i].move();
 		 	petriDish[i].show();
 		}
@@ -38,8 +38,8 @@ Bacteria[] petriDish=new Bacteria[300];
  void screenClearer()
  {
  	noStroke();
- 	fill(255,255,255);
- 	rect(0,0,500,500);
+ 	fill(255, 255, 255);
+ 	rect(0, 0, 500, 500);
  }
  class Bacteria    
  {
@@ -74,9 +74,9 @@ Bacteria[] petriDish=new Bacteria[300];
  	}
  	void show()
  	{
- 		stroke(0,0,0);
- 		fill(colour[0],colour[1],colour[2],277);
- 		ellipse(x,y,10,10);
+ 		stroke(0, 0, 0);
+ 		fill(colour[0], colour[1], colour[2], 277);
+ 		ellipse(x, y, 10, 10);
  	}
  }
  int randColor()
@@ -90,7 +90,7 @@ Bacteria[] petriDish=new Bacteria[300];
  		if(petriDish[i]==null)
  		{
  			print("new!");
- 			petriDish[i]=new Bacteria(randPos(),randPos(),randColor(),randColor(),randColor());
+ 			petriDish[i]=new Bacteria(randPos(), randPos(), randColor(), randColor(), randColor());
  			break;
  		}
  	}
