@@ -1,11 +1,11 @@
 int goalX=(int)(Math.random()*501);
 int goalY=(int)(Math.random()*501);
-final int START_BACTERIA_NUM=5;
+int showLimit=5;
 Bacteria[] petriDish=new Bacteria[300];
  void setup()   
  {
  	size(500, 500);
- 	for (int i=0; i<START_BACTERIA_NUM; i++)
+ 	for (int i=0; i<petriDish.length; i++)
  	{
 	 	petriDish[i]=new Bacteria(randPos(), randPos(), randColor(), randColor(), randColor());
 	 	petriDish[i].move();
@@ -18,10 +18,12 @@ Bacteria[] petriDish=new Bacteria[300];
 	goalX=mouseX;
  	goalY=mouseY;
  	screenClearer();
-	for (int go=0; go<petriDish.length; go++)
+ 	for (int go=0; go<Math.min(showLimit, petriDish.length); go++)
 	{
-		if (petriDish[go]==null) break;
-		petriDish[go].move();
+		if(go<Math.min(showLimit, petriDish.length))
+		{
+			petriDish[go].move();
+		}
 		petriDish[go].show();
 	}
  }
@@ -29,7 +31,7 @@ Bacteria[] petriDish=new Bacteria[300];
  {
  	noStroke();
  	fill(0, 0, 0);
- 	rect(0, 0, 500, 500, 0.5);
+ 	// rect(0, 0, 500, 500, 0.5);
  }
  class Bacteria    
  {
@@ -72,31 +74,11 @@ Bacteria[] petriDish=new Bacteria[300];
  {
  	return (int)(Math.random()*256);
  }
-
- void aNewBac()
- {
- 	for (int i=0; i<petriDish.length; i++)
- 	{
- 		if(petriDish[i]==null)
- 		{
- 			petriDish[i]=new Bacteria(randPos(), randPos(), randColor(), randColor(), randColor());
- 			break;
- 		}
- 	}
- }
  int randPos()
  {
  	return (int)(Math.random()*width);
  }
- /*
  void mousePressed()
  {
- 	goalX=mouseX;
- 	goalY=mouseY;
- }
-No longer in use since the mouse moving part.
- */
- void mousePressed()
- {
- 	aNewBac();
+ 	showLimit++;
  }
