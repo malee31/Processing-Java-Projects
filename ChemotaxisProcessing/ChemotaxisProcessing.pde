@@ -1,7 +1,7 @@
 int goalX=(int)(Math.random()*501);
 int goalY=(int)(Math.random()*501);
-int showLimit=5;
-Bacteria[] petriDish=new Bacteria[300];
+int showLimit=10;
+Bacteria[] petriDish=new Bacteria[500];
 void setup()
 {
 	size(500, 500);
