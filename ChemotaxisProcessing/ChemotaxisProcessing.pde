@@ -18,6 +18,8 @@ void draw()
 	goalX=mouseX;
 	goalY=mouseY;
 	screenClearer();
+	fill(255, 255, 255);
+	ellipse(goalX, goalY, 20, 20);
 	for (int go=0; go<Math.min(showLimit, petriDish.length); go++)
 	{
 		if(go<Math.min(showLimit, petriDish.length))
@@ -30,13 +32,15 @@ void draw()
 void screenClearer()
 {
 	noStroke();
-	fill(0, 0, 0);
+	background(0, 0, 0, 0.5);
 	//rect(0, 0, 500, 500, 0.5);
 }
 class Bacteria
 {
 	int x, y;
 	color colour=0;
+	static final float backChance=0.2;
+	static final int rangeLimit=20;
 	Bacteria(int xPosInit, int yPosInit, int red, int green, int blue)
 	{
 		x=xPosInit;
@@ -45,21 +49,22 @@ class Bacteria
 	}
 	void move()
 	{
-		if (goalX>x)
+		boolean opposite=Math.random()<backChance||dist(x, y, goalX, goalY)<=rangeLimit;
+		if (goalX>x&&!opposite)
 		{
-			x+=(int)(Math.random()*10+1);
+			x+=(int)(Math.random()*11);
 		}
 		else
 		{
-			x-=(int)(Math.random()*10+1);
+			x-=(int)(Math.random()*11);
 		}
-		if (goalY>y)
+		if (goalY>y&&!opposite)
 		{
-			y+=(int)(Math.random()*10+1);
+			y+=(int)(Math.random()*11);
 		}
 		else
 		{
-			y-=(int)(Math.random()*10+1);	
+			y-=(int)(Math.random()*11);	
 		}
 	}
 	void show()
