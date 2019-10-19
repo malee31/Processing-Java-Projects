@@ -5,12 +5,7 @@ Bacteria[] petriDish=new Bacteria[500];
 void setup()
 {
 	size(500, 500);
-	for (int i=0; i<petriDish.length; i++)
-	{
-		petriDish[i]=new Bacteria(randPos(), randPos(), randColor(), randColor(), randColor());
-		petriDish[i].move();
-		petriDish[i].show();
-	}
+	init();
 }
 void draw()
 {
@@ -27,6 +22,15 @@ void draw()
 			petriDish[go].move();
 		}
 		petriDish[go].show();
+	}
+}
+void init()
+{
+	for (int i=0; i<petriDish.length; i++)
+	{
+		petriDish[i]=new Bacteria(randPos(), randPos(), randColor(), randColor(), randColor());
+		petriDish[i].move();
+		// petriDish[i].show();
 	}
 }
 void screenClearer()
@@ -85,4 +89,16 @@ int randPos()
 void mousePressed()
 {
 	showLimit++;
+}
+void keyPressed()
+{
+	if(key==' ')
+	{
+		init();
+		showLimit=Math.max(0, (int)(showLimit*0.9));
+	}
+	else if(key=='e'||key=='E')
+	{
+		showLimit+=10;
+	}
 }
