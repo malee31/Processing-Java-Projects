@@ -36,7 +36,7 @@ void init()
 void screenClearer()
 {
 	noStroke();
-	background(0, 0, 0, 0.5);
+	background(0, 0, 0);
 	//rect(0, 0, 500, 500, 0.5);
 }
 class Bacteria
