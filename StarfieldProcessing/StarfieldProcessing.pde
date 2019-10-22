@@ -24,14 +24,12 @@ class NormalParticle implements Particle
 {
 	//variables required
 	protected double x,y,angleRad,speed;
-	protected int[] colorArr=new int[3];
+	protected color colour;
 	protected int moved=0;
-	protected NormalParticle(int red, int green, int blue, double xPos, double yPos, double angleS, double sped)
+	protected NormalParticle(color coloures, double xPos, double yPos, double angleS, double sped)
 	{
 		//sets colors in array in rgb format from index 0-2
-		colorArr[0]=red;
-		colorArr[1]=green;
-		colorArr[2]=blue;
+		colour=coloures;
 		//sets start position
 		x=xPos;
 		y=yPos;
@@ -59,7 +57,7 @@ class NormalParticle implements Particle
 	{
 		//draws particle
 		stroke(0,0,0);
-		fill(colorArr[0],colorArr[1],colorArr[2]);
+		fill(colour);
 		ellipse((float)x,(float)y, 20, 20);
 	}
 }
@@ -71,15 +69,13 @@ interface Particle
 class OddballParticle implements Particle
 {
 	int phase=1, phaseCount=0;
-	int[] colorOdd=new int[3];
+	color colour;
 	float x, y;
-	OddballParticle(int red, int green, int blue, float xPos, float yPos)
+	OddballParticle(color coloures, float xPos, float yPos)
 	{
 		x=xPos;
 		y=yPos;
-		colorOdd[0]=red;
-		colorOdd[1]=blue;
-		colorOdd[2]=green;
+		colour=coloures;
 	}
 	void move()
 	{
@@ -98,7 +94,7 @@ class OddballParticle implements Particle
 		if(!triggered)
 		{
 			stroke(0,0,0);
-			fill(colorOdd[0],colorOdd[1],colorOdd[2]);
+			fill(colour);
 			//fill and color now set
 			int counter;
 			switch(phase)
@@ -123,16 +119,16 @@ class OddballParticle implements Particle
 }
 class JumboParticle extends NormalParticle
 {
-	JumboParticle(int r, int g, int b, double xJ, double yJ, double angleJ, double spedJ)
+	JumboParticle(color coloures, double xJ, double yJ, double angleJ, double spedJ)
 	{
-		super(r,g,b,xJ,yJ,angleJ,spedJ);
+		super(coloures, xJ,yJ,angleJ,spedJ);
 	}
 	void show()
 	{
 		if(!triggered)
 		{
 			stroke(0,0,0);
-			fill(colorArr[0],colorArr[1],colorArr[2]);
+			fill(colour);
 			ellipse((float)x,(float)y, 100, 100);
 		}
 		if (x==375)
@@ -161,10 +157,10 @@ void fillArray()
 {
 	for(int i=0; i<PARTICLE_COUNT&&i<360; i++)
 	{
-		particles[i]=new NormalParticle(255,255,255,375,375,i,10);
+		particles[i]=new NormalParticle(color(255,255,255),375,375,i,10);
 	}
-	particles[360]=new JumboParticle(255,255,255,375,375,0,15);
-	particles[361]=new OddballParticle(255,255,255,375,375);
+	particles[360]=new JumboParticle(color(255,255,255),375,375,0,15);
+	particles[361]=new OddballParticle(color(255,255,255),375,375);
 }
 void mousePressed()
 {
