@@ -10,45 +10,13 @@ int score=0;
 int highscore=0;
 //this num/60 is the num of secs bullets last for
 int bulletFrameLife=300;
+
 public void setup() 
 {
 	size(1000,1000);
 	resetAll();
 }
-public void resetAll()
-{
-	ship=new Spaceship();
-	ship.setX(500);
-	ship.setY(500);
-	for(int i=0; i<stars.length;i++)
-	{
-		stars[i]=new Star();
-	}
-	rocks.clear();
-	for(int ii=0;ii<rockCount;ii++)
-	{
-		rocks.add(new Asteroid());
-	}
-	bullets.clear();
-	collisionDetect();
-	if(ship.going==false)
-	{
-		ship.going=true;
-		resetAll();
-	}
-}
-public void randAsteroid()
-{
-	rocks.add(new Asteroid());
-	for(int i=0; i<rocks.size(); i++)
-	{
-		if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
-		{
-			rocks.remove(i);
-			randAsteroid();
-		}
-	}
-}
+
 public void draw() 
 {
 	if(ship.going)
@@ -57,17 +25,13 @@ public void draw()
 		{
 			randAsteroid();
 		}
-		clearScreen();
+		background(0);
 		moveAll();
 		collisionDetect();
 		showAll();
 	}
 	else
 	{
-		/*if((int)Math.random()*100==1)
-		{
-			rocks.add(new Asteroid());
-		}*/
 		if(ship.getColor()==color(255,0,0)&&arbitCounter>60)
         {
             ship.setColor(color(255,255,255));
@@ -92,6 +56,57 @@ public void draw()
 	text("High Score: "+highscore,400,50);
 	text("Score: "+score,425,100);
 }
+
+public void resetAll()
+{
+	ship=new Spaceship();
+	ship.setX(500);
+	ship.setY(500);
+	for(int i=0; i<stars.length;i++)
+	{
+		stars[i]=new Star();
+	}
+	rocks.clear();
+	for(int ii=0;ii<rockCount;ii++)
+	{
+		rocks.add(new Asteroid());
+	}
+	bullets.clear();
+	collisionDetect();
+	if(ship.going==false)
+	{
+		ship.going=true;
+		resetAll();
+	}
+}
+
+public void randAsteroid()
+{
+	//creates a new asteroid and makes sure that it doesn't immediately collide with the ship
+	rocks.add(new Asteroid());
+	for(int i=0; i<rocks.size(); i++)
+	{
+		if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
+		{
+			rocks.remove(i);
+			randAsteroid();
+		}
+	}
+}
+
+public void moveAll()
+{
+	for(int ii=0;ii<rocks.size();ii++)
+	{
+		rocks.get(ii).move();
+	}
+	for(int iii=0;iii<bullets.size();iii++)
+	{
+		bullets.get(iii).move();
+	}
+  	ship.move();
+}
+
 public void collisionDetect()
 {
 	//loops through list of rocks
@@ -128,31 +143,17 @@ public void collisionDetect()
 		}
 	}
 }
-public void updateScore()
+
+public void destroyIDexe()
 {
-	if(score>highscore)
+	//deletes the collided or shot asteroids
+	for(int x=0; x<destroyID.size();x++)
 	{
-		highscore=score;
+		rocks.remove(destroyID.get(x)-x);
 	}
+	destroyID.clear();
 }
-public void moveAll()
-{
-	for(int ii=0;ii<rocks.size();ii++)
-	{
-		rocks.get(ii).move();
-	}
-	for(int iii=0;iii<bullets.size();iii++)
-	{
-		bullets.get(iii).move();
-	}
-  	ship.move();
-}
-public void clearScreen()
-{
-	noStroke();
-	fill(0,0,0);
-	rect(0,0,1000,1000);
-}
+
 public void showAll()
 {
 	for(int i=0; i<stars.length;i++)
@@ -177,6 +178,15 @@ public void showAll()
 	}
 	ship.show();
 }
+
+public void updateScore()
+{
+	if(score>highscore)
+	{
+		highscore=score;
+	}
+}
+
 public void keyPressed()
 {
 	if(ship.going)
@@ -225,12 +235,4 @@ public void keyPressed()
 	{
 		resetAll();
 	}
-}
-public void destroyIDexe()
-{
-	for(int x=0; x<destroyID.size();x++)
-	{
-		rocks.remove(destroyID.get(x)-x);
-	}
-	destroyID.clear();
 }
