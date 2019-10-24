@@ -19,13 +19,13 @@ public void setup()
 
 public void draw() 
 {
+	background(0);
 	if(ship.going)
 	{
 		if((int)(Math.random()*100)==1)
 		{
 			randAsteroid();
 		}
-		background(0);
 		moveAll();
 		collisionDetect();
 		showAll();
@@ -46,7 +46,6 @@ public void draw()
         {
         	arbitCounter++;
         }
-		clearScreen();
 		showAll();
 		ship.setPointDirection(((int)ship.getPointDirection()+5)%360);
 		textSize(20);
