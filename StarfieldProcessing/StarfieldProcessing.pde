@@ -3,8 +3,8 @@ Particle[] particles=new Particle[PARTICLE_COUNT];
 boolean triggered=false;
 void setup()
 {
-	size(750,750);
-	background(19,24,98);
+	size(750, 750);
+	background(19, 24, 98);
 	fillArray();
 }
 void draw()
@@ -20,10 +20,10 @@ void draw()
 	}
 	coverCenter();
 }
-class NormalParticle implements Particle
+class NormalParticle extends Particle
 {
 	//variables required
-	protected double x,y,angleRad,speed;
+	protected double x, y, angleRad, speed;
 	protected color colour;
 	protected int moved=0;
 	protected NormalParticle(color coloures, double xPos, double yPos, double angleS, double sped)
@@ -56,17 +56,17 @@ class NormalParticle implements Particle
 	public void show()
 	{
 		//draws particle
-		stroke(0,0,0);
+		stroke(0, 0, 0);
 		fill(colour);
-		ellipse((float)x,(float)y, 20, 20);
+		ellipse((float)x, (float)y, 20, 20);
 	}
 }
-interface Particle
+class Particle
 {
-	void move();
-	void show();
+	void move(){};
+	void show(){};
 }
-class OddballParticle implements Particle
+class OddballParticle extends Particle
 {
 	int phase=1, phaseCount=0;
 	color colour;
@@ -93,7 +93,7 @@ class OddballParticle implements Particle
 	{
 		if(!triggered)
 		{
-			stroke(0,0,0);
+			stroke(0, 0, 0);
 			fill(colour);
 			//fill and color now set
 			int counter;
@@ -101,17 +101,17 @@ class OddballParticle implements Particle
 			{
 				case 2:
 					counter=phaseCount-9;
-					rect(x-13,y-counter/5,26,counter/2.5);
+					rect(x-13, y-counter/5, 26, counter/2.5);
 				break;
 				
 				case 3:
 					counter=phaseCount-69;
-					ellipse(x,y,24,24);
-					rect(x-13,y+counter/5-11.3,26,26-counter/2.5);
+					ellipse(x, y, 24, 24);
+					rect(x-13, y+counter/5-11.3, 26, 26-counter/2.5);
 				break;
 				case 4:
 					counter=phaseCount-129;
-					ellipse(x,y,26-counter/2.5,26-counter/2.5);
+					ellipse(x, y, 26-counter/2.5, 26-counter/2.5);
 				break;
 			}
 		}
@@ -121,15 +121,15 @@ class JumboParticle extends NormalParticle
 {
 	JumboParticle(color coloures, double xJ, double yJ, double angleJ, double spedJ)
 	{
-		super(coloures, xJ,yJ,angleJ,spedJ);
+		super(coloures, xJ, yJ, angleJ, spedJ);
 	}
 	void show()
 	{
 		if(!triggered)
 		{
-			stroke(0,0,0);
+			stroke(0, 0, 0);
 			fill(colour);
-			ellipse((float)x,(float)y, 100, 100);
+			ellipse((float)x, (float)y, 100, 100);
 		}
 		if (x==375)
 		{
@@ -141,26 +141,26 @@ void reset()
 {
 	//clears screen
 	noStroke();
-	//fill(19,24,98);
-	fill(0,0,0);
-	rect(0,0,750,750);
+	//fill(19, 24, 98);
+	fill(0, 0, 0);
+	rect(0, 0, 750, 750);
 
 }
 void coverCenter()
 {
 	noStroke();
-	fill(0,0,0);
+	fill(0, 0, 0);
 	ellipse(375, 375, 20, 20);
-	fill(255,255,255);
+	fill(255, 255, 255);
 }
 void fillArray()
 {
 	for(int i=0; i<PARTICLE_COUNT&&i<360; i++)
 	{
-		particles[i]=new NormalParticle(color(255,255,255),375,375,i,10);
+		particles[i]=new NormalParticle(color(255, 255, 255), 375, 375, i, 10);
 	}
-	particles[360]=new JumboParticle(color(255,255,255),375,375,0,15);
-	particles[361]=new OddballParticle(color(255,255,255),375,375);
+	particles[360]=new JumboParticle(color(255, 255, 255), 375, 375, 0, 15);
+	particles[361]=new OddballParticle(color(255, 255, 255), 375, 375);
 }
 void mousePressed()
 {
