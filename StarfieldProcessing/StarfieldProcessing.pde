@@ -4,12 +4,17 @@ boolean triggered=false;
 void setup()
 {
 	size(750, 750);
+<<<<<<< HEAD
+	noStroke();
+=======
 	background(19, 24, 98);
+>>>>>>> d94bc53... Spacing after commas and removed interface
 	fillArray();
 }
+
 void draw()
 {
-	reset();
+	background(5, 6, 30);
 	for(int i=0; i<PARTICLE_COUNT; i++)
 	{
 		if (particles[i]!=null)
@@ -18,11 +23,45 @@ void draw()
 			particles[i].show();
 		}
 	}
-	coverCenter();
 }
+<<<<<<< HEAD
+
+void fillArray()
+{
+	for(int i=0; i<PARTICLE_COUNT&&i<360; i++)
+	{
+		particles[i]=new NormalParticle(color(255, 255, 255), 375, 375, i, 10);
+	}
+	particles[360]=new JumboParticle(color(255, 255, 255), 375, 375, 0, 15);
+	particles[361]=new OddballParticle(color(255, 255, 255), 375, 375);
+}
+
+void mousePressed()
+{
+	fillArray();
+}
+
+void keyPressed()
+{
+	if (key==' ')
+	{
+		triggered=!triggered;
+	}
+}
+
+class Particle
+{
+	void move(){};
+	void show(){};
+}
+
+class NormalParticle extends Particle
+{
+=======
 class NormalParticle extends Particle
 {
 	//variables required
+>>>>>>> d94bc53... Spacing after commas and removed interface
 	protected double x, y, angleRad, speed;
 	protected color colour;
 	protected int moved=0;
@@ -38,6 +77,7 @@ class NormalParticle extends Particle
 		//makes the angle used become radians
 		angleRad=radians((float)angleS);
 	}
+	
 	public void move()
 	{
 		if(moved>530||(triggered&&(x>800||x<-50||y>800||y<-50)))
@@ -53,6 +93,7 @@ class NormalParticle extends Particle
 			moved+=speed;
 		}
 	}
+
 	public void show()
 	{
 		//draws particle
@@ -61,11 +102,37 @@ class NormalParticle extends Particle
 		ellipse((float)x, (float)y, 20, 20);
 	}
 }
+<<<<<<< HEAD
+
+class JumboParticle extends NormalParticle
+{
+	JumboParticle(color coloures, double xJ, double yJ, double angleJ, double spedJ)
+	{
+		super(coloures, xJ, yJ, angleJ, spedJ);
+	}
+
+	void show()
+	{
+		if(!triggered)
+		{
+			stroke(0, 0, 0);
+			fill(colour);
+			ellipse((float)x, (float)y, 100, 100);
+		}
+		if (x==375)
+		{
+			angleRad=radians((float)Math.random()*360);
+		}
+	}
+}
+
+=======
 class Particle
 {
 	void move(){};
 	void show(){};
 }
+>>>>>>> d94bc53... Spacing after commas and removed interface
 class OddballParticle extends Particle
 {
 	int phase=1, phaseCount=0;
@@ -77,6 +144,7 @@ class OddballParticle extends Particle
 		y=yPos;
 		colour=coloures;
 	}
+
 	void move()
 	{
 		phase=phaseSetter(phaseCount, phase);
@@ -89,6 +157,7 @@ class OddballParticle extends Particle
 		phaseCount++;
 		phaseCount%=200;
 	}
+
 	void show()
 	{
 		if(!triggered)
@@ -116,6 +185,10 @@ class OddballParticle extends Particle
 			}
 		}
 	}
+<<<<<<< HEAD
+
+	int phaseSetter(int phaseCounter, int phaseNow)
+=======
 }
 class JumboParticle extends NormalParticle
 {
@@ -124,9 +197,28 @@ class JumboParticle extends NormalParticle
 		super(coloures, xJ, yJ, angleJ, spedJ);
 	}
 	void show()
+>>>>>>> d94bc53... Spacing after commas and removed interface
 	{
-		if(!triggered)
+		switch(phaseCounter)
 		{
+<<<<<<< HEAD
+			case 0:
+				phaseNow=1;
+				//recalculate pos phase
+			break;
+			case 10:
+				phaseNow=2;
+				//start drawing growing square
+			break;
+			case 70:
+				phaseNow=3;
+				//start shrinking square
+			break;
+			case 130:
+				phaseNow=4;
+				//only the ball
+			break;
+=======
 			stroke(0, 0, 0);
 			fill(colour);
 			ellipse((float)x, (float)y, 100, 100);
@@ -134,8 +226,12 @@ class JumboParticle extends NormalParticle
 		if (x==375)
 		{
 			angleRad=radians((float)Math.random()*360);
+>>>>>>> d94bc53... Spacing after commas and removed interface
 		}
+		return phaseNow;
 	}
+<<<<<<< HEAD
+=======
 }
 void reset()
 {
@@ -195,4 +291,5 @@ int phaseSetter(int phaseCounter, int phaseNow)
 		break;
 	}
 	return phaseNow;
+>>>>>>> d94bc53... Spacing after commas and removed interface
 }
