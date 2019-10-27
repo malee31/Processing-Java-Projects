@@ -4,11 +4,7 @@ boolean triggered=false;
 void setup()
 {
 	size(750, 750);
-<<<<<<< HEAD
 	noStroke();
-=======
-	background(19, 24, 98);
->>>>>>> d94bc53... Spacing after commas and removed interface
 	fillArray();
 }
 
@@ -24,7 +20,6 @@ void draw()
 		}
 	}
 }
-<<<<<<< HEAD
 
 void fillArray()
 {
@@ -57,11 +52,6 @@ class Particle
 
 class NormalParticle extends Particle
 {
-=======
-class NormalParticle extends Particle
-{
-	//variables required
->>>>>>> d94bc53... Spacing after commas and removed interface
 	protected double x, y, angleRad, speed;
 	protected color colour;
 	protected int moved=0;
@@ -102,7 +92,6 @@ class NormalParticle extends Particle
 		ellipse((float)x, (float)y, 20, 20);
 	}
 }
-<<<<<<< HEAD
 
 class JumboParticle extends NormalParticle
 {
@@ -126,13 +115,6 @@ class JumboParticle extends NormalParticle
 	}
 }
 
-=======
-class Particle
-{
-	void move(){};
-	void show(){};
-}
->>>>>>> d94bc53... Spacing after commas and removed interface
 class OddballParticle extends Particle
 {
 	int phase=1, phaseCount=0;
@@ -185,23 +167,11 @@ class OddballParticle extends Particle
 			}
 		}
 	}
-<<<<<<< HEAD
 
 	int phaseSetter(int phaseCounter, int phaseNow)
-=======
-}
-class JumboParticle extends NormalParticle
-{
-	JumboParticle(color coloures, double xJ, double yJ, double angleJ, double spedJ)
-	{
-		super(coloures, xJ, yJ, angleJ, spedJ);
-	}
-	void show()
->>>>>>> d94bc53... Spacing after commas and removed interface
 	{
 		switch(phaseCounter)
 		{
-<<<<<<< HEAD
 			case 0:
 				phaseNow=1;
 				//recalculate pos phase
@@ -218,78 +188,7 @@ class JumboParticle extends NormalParticle
 				phaseNow=4;
 				//only the ball
 			break;
-=======
-			stroke(0, 0, 0);
-			fill(colour);
-			ellipse((float)x, (float)y, 100, 100);
-		}
-		if (x==375)
-		{
-			angleRad=radians((float)Math.random()*360);
->>>>>>> d94bc53... Spacing after commas and removed interface
 		}
 		return phaseNow;
 	}
-<<<<<<< HEAD
-=======
-}
-void reset()
-{
-	//clears screen
-	noStroke();
-	//fill(19, 24, 98);
-	fill(0, 0, 0);
-	rect(0, 0, 750, 750);
-
-}
-void coverCenter()
-{
-	noStroke();
-	fill(0, 0, 0);
-	ellipse(375, 375, 20, 20);
-	fill(255, 255, 255);
-}
-void fillArray()
-{
-	for(int i=0; i<PARTICLE_COUNT&&i<360; i++)
-	{
-		particles[i]=new NormalParticle(color(255, 255, 255), 375, 375, i, 10);
-	}
-	particles[360]=new JumboParticle(color(255, 255, 255), 375, 375, 0, 15);
-	particles[361]=new OddballParticle(color(255, 255, 255), 375, 375);
-}
-void mousePressed()
-{
-	fillArray();
-}
-void keyPressed()
-{
-	if (key==' ')
-	{
-		triggered=!triggered;
-	}
-}
-int phaseSetter(int phaseCounter, int phaseNow)
-{
-	switch(phaseCounter)
-	{
-		case 0:
-			phaseNow=1;
-			//recalculate pos phase
-		break;
-		case 10:
-			phaseNow=2;
-			//start drawing growing square
-		break;
-		case 70:
-			phaseNow=3;
-			//start shrinking square
-		break;
-		case 130:
-			phaseNow=4;
-			//only the ball
-		break;
-	}
-	return phaseNow;
->>>>>>> d94bc53... Spacing after commas and removed interface
 }
