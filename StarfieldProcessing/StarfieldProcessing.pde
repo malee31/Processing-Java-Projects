@@ -31,6 +31,16 @@ void fillArray()
 	particles[361]=new OddballParticle(375, 375);
 }
 
+void randomRestart()
+{
+	for(int i=0; i<PARTICLE_COUNT && i<360; i++)
+	{
+		particles[i]=new NormalParticle((int)(Math.random()*width), (int)(Math.random()*height), (int)(Math.random()*360), 3);
+	}
+	particles[360]=new JumboParticle(375, 375, 0, 15);
+	particles[361]=new OddballParticle(375, 375);
+}
+
 void mousePressed()
 {
 	fillArray();
@@ -44,7 +54,7 @@ void keyPressed()
 			triggered=!triggered;
 			break;
 		case 'e':
-			// randomRestart();
+			randomRestart();
 			break;
 	}
 }
