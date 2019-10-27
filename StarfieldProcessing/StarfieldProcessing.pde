@@ -25,10 +25,10 @@ void fillArray()
 {
 	for(int i=0; i<PARTICLE_COUNT && i<360; i++)
 	{
-		particles[i]=new NormalParticle(375, 375, i, 3);
+		particles[i]=new NormalParticle(width/2, width/2, i, 3);
 	}
-	particles[360]=new JumboParticle(375, 375, 0, 15);
-	particles[361]=new OddballParticle(375, 375);
+	particles[360]=new JumboParticle(width/2, width/2, 0, 15);
+	particles[361]=new OddballParticle(width/2, width/2);
 }
 
 void randomRestart()
@@ -37,8 +37,8 @@ void randomRestart()
 	{
 		particles[i]=new NormalParticle((int)(Math.random()*width), (int)(Math.random()*height), (int)(Math.random()*360), 3);
 	}
-	particles[360]=new JumboParticle(375, 375, 0, 15);
-	particles[361]=new OddballParticle(375, 375);
+	particles[360]=new JumboParticle(width/2, width/2, 0, 15);
+	particles[361]=new OddballParticle(width/2, width/2);
 }
 
 void mousePressed()
@@ -55,20 +55,25 @@ void keyPressed()
 			break;
 		case 'e':
 			randomRestart();
-			break;
+			triggered=true;
 	}
 }
 
 class Particle
 {
+	double x, y;
+	color colour;
 	void move(){};
 	void show(){};
+	public void colorSetter()
+	{
+		colour=color((int)(x/width*255), (int)(y/height/255), (int)(dist(width/2, height/2, (float)x, (float)y)/dist(0, 0, width, height)*255));
+	}
 }
 
 class NormalParticle extends Particle
 {
-	protected double x, y, angleRad, speed;
-	protected color colour;
+	protected double angleRad, speed;
 	protected int moved=0;
 	protected NormalParticle(double xPos, double yPos, double angleS, double sped)
 	{
@@ -86,8 +91,8 @@ class NormalParticle extends Particle
 	{
 		if(moved>530||(triggered&&(x>800||x<-50||y>800||y<-50)))
 		{
-			x=375;
-			y=375;
+			x=width/2;
+			y=width/2;
 			moved=0;
 		}
 		else
@@ -105,11 +110,6 @@ class NormalParticle extends Particle
 		fill(colour);
 		ellipse((float)x, (float)y, 5, 5);
 	}
-
-	public void colorSetter()
-	{
-		colour=color((int)(x/width*255), (int)(y/height/255), (int)(x*width+y*height/width*height*255)+30);
-	}
 }
 
 class JumboParticle extends NormalParticle
@@ -124,9 +124,9 @@ class JumboParticle extends NormalParticle
 		if(!triggered)
 		{
 			fill(colour);
-			ellipse((float)x, (float)y, 100, 100);
+			ellipse((float)x, (float)y, 30, 30);
 		}
-		if (x==375)
+		if (x==width/2)
 		{
 			angleRad=radians((float)Math.random()*360);
 		}
@@ -136,8 +136,6 @@ class JumboParticle extends NormalParticle
 class OddballParticle extends Particle
 {
 	int phase=1, phaseCount=0;
-	color colour;
-	float x, y;
 	OddballParticle(float xPos, float yPos)
 	{
 		x=xPos;
@@ -155,7 +153,7 @@ class OddballParticle extends Particle
 		}
 		phaseCount++;
 		phaseCount%=200;
-		colour=color((int)(x/width*255), (int)(y/height/255), (int)(x*width+y*height/width*height*255)+30);
+		colorSetter();
 	}
 
 	void show()
@@ -169,17 +167,17 @@ class OddballParticle extends Particle
 			{
 				case 2:
 					counter=phaseCount-9;
-					rect(x-13, y-counter/5, 26, counter/2.5);
+					rect((float)x-13, (float)y-counter/5, 26, counter/2.5);
 				break;
 				
 				case 3:
 					counter=phaseCount-69;
-					ellipse(x, y, 24, 24);
-					rect(x-13, y+counter/5-11.3, 26, 26-counter/2.5);
+					ellipse((float)x, (float)y, 24, 24);
+					rect((float)x-13, (float)y+counter/5-11.3, 26, 26-counter/2.5);
 				break;
 				case 4:
 					counter=phaseCount-129;
-					ellipse(x, y, 26-counter/2.5, 26-counter/2.5);
+					ellipse((float)x, (float)y, 26-counter/2.5, 26-counter/2.5);
 				break;
 			}
 		}
