@@ -23,12 +23,12 @@ void draw()
 
 void fillArray()
 {
-	for(int i=0; i<PARTICLE_COUNT&&i<360; i++)
+	for(int i=0; i<PARTICLE_COUNT && i<360; i++)
 	{
-		particles[i]=new NormalParticle(color(255, 255, 255), 375, 375, i, 10);
+		particles[i]=new NormalParticle(375, 375, i, 3);
 	}
-	particles[360]=new JumboParticle(color(255, 255, 255), 375, 375, 0, 15);
-	particles[361]=new OddballParticle(color(255, 255, 255), 375, 375);
+	particles[360]=new JumboParticle(375, 375, 0, 15);
+	particles[361]=new OddballParticle(375, 375);
 }
 
 void mousePressed()
@@ -38,9 +38,14 @@ void mousePressed()
 
 void keyPressed()
 {
-	if (key==' ')
+	switch(key)
 	{
-		triggered=!triggered;
+		case ' ':
+			triggered=!triggered;
+			break;
+		case 'e':
+			// randomRestart();
+			break;
 	}
 }
 
@@ -55,10 +60,9 @@ class NormalParticle extends Particle
 	protected double x, y, angleRad, speed;
 	protected color colour;
 	protected int moved=0;
-	protected NormalParticle(color coloures, double xPos, double yPos, double angleS, double sped)
+	protected NormalParticle(double xPos, double yPos, double angleS, double sped)
 	{
 		//sets colors in array in rgb format from index 0-2
-		colour=coloures;
 		//sets start position
 		x=xPos;
 		y=yPos;
@@ -82,29 +86,33 @@ class NormalParticle extends Particle
 			y+=(double)(sin((float)angleRad)*(float)speed);
 			moved+=speed;
 		}
+		colorSetter();
 	}
 
 	public void show()
 	{
 		//draws particle
-		stroke(0, 0, 0);
 		fill(colour);
-		ellipse((float)x, (float)y, 20, 20);
+		ellipse((float)x, (float)y, 5, 5);
+	}
+
+	public void colorSetter()
+	{
+		colour=color((int)(x/width*255), (int)(y/height/255), (int)(x*width+y*height/width*height*255)+30);
 	}
 }
 
 class JumboParticle extends NormalParticle
 {
-	JumboParticle(color coloures, double xJ, double yJ, double angleJ, double spedJ)
+	JumboParticle(double xJ, double yJ, double angleJ, double spedJ)
 	{
-		super(coloures, xJ, yJ, angleJ, spedJ);
+		super(xJ, yJ, angleJ, spedJ);
 	}
 
 	void show()
 	{
 		if(!triggered)
 		{
-			stroke(0, 0, 0);
 			fill(colour);
 			ellipse((float)x, (float)y, 100, 100);
 		}
@@ -120,11 +128,10 @@ class OddballParticle extends Particle
 	int phase=1, phaseCount=0;
 	color colour;
 	float x, y;
-	OddballParticle(color coloures, float xPos, float yPos)
+	OddballParticle(float xPos, float yPos)
 	{
 		x=xPos;
 		y=yPos;
-		colour=coloures;
 	}
 
 	void move()
@@ -138,13 +145,13 @@ class OddballParticle extends Particle
 		}
 		phaseCount++;
 		phaseCount%=200;
+		colour=color((int)(x/width*255), (int)(y/height/255), (int)(x*width+y*height/width*height*255)+30);
 	}
 
 	void show()
 	{
 		if(!triggered)
 		{
-			stroke(0, 0, 0);
 			fill(colour);
 			//fill and color now set
 			int counter;
