@@ -1,6 +1,6 @@
-final int PARTICLE_COUNT=362;
-Particle[] particles=new Particle[PARTICLE_COUNT];
-boolean triggered=false;
+Particle[] particles=new Particle[720];
+boolean hideOddball=false;
+Particle oddball=new OddballParticle(width/2, height/2);
 void setup()
 {
 	size(750, 750);
@@ -11,34 +11,45 @@ void setup()
 void draw()
 {
 	background(5, 6, 30);
-	for(int i=0; i<PARTICLE_COUNT; i++)
+	for(int i=0; i<particles.length; i++)
 	{
-		if (particles[i]!=null)
-		{
-			particles[i].move();
-			particles[i].show();
-		}
+		particles[i].move();
+		particles[i].show();
 	}
+	oddball.move();
+	oddball.show();
 }
 
 void fillArray()
 {
-	for(int i=0; i<PARTICLE_COUNT && i<360; i++)
+	for(int i=0; i<particles.length/2; i++)
 	{
 		particles[i]=new NormalParticle(width/2, width/2, i, 3);
 	}
-	particles[360]=new JumboParticle(width/2, width/2, 0, 15);
-	particles[361]=new OddballParticle(width/2, width/2);
+	for(int ii=particles.length/2; ii<particles.length; ii++)
+	{
+		particles[ii]=new JumboParticle(width/2, width/2, ii, 6);
+	}
+	oddball=new OddballParticle(width/2, width/2);
 }
 
 void randomRestart()
 {
-	for(int i=0; i<PARTICLE_COUNT && i<360; i++)
+	for(int i=0; i<particles.length && i<360; i++)
 	{
 		particles[i]=new NormalParticle((int)(Math.random()*width), (int)(Math.random()*height), (int)(Math.random()*360), 3);
 	}
 	particles[360]=new JumboParticle(width/2, width/2, 0, 15);
 	particles[361]=new OddballParticle(width/2, width/2);
+	for(int i=0; i<particles.length/2; i++)
+	{
+		particles[i]=new NormalParticle((int)(Math.random()*width), (int)(Math.random()*height), (int)(Math.random()*360), 3);
+	}
+	for(int ii=particles.length/2; ii<particles.length; ii++)
+	{
+		particles[ii]=new JumboParticle((int)(Math.random()*width), (int)(Math.random()*height), (int)(Math.random()*360), 6);
+	}
+	oddball=new OddballParticle(width/2, width/2);
 }
 
 void mousePressed()
@@ -51,11 +62,11 @@ void keyPressed()
 	switch(key)
 	{
 		case ' ':
-			triggered=!triggered;
+			hideOddball=!hideOddball;
 			break;
 		case 'e':
 			randomRestart();
-			triggered=true;
+			hideOddball=true;
 	}
 }
 
@@ -89,7 +100,7 @@ class NormalParticle extends Particle
 	
 	public void move()
 	{
-		if(moved>530||(triggered&&(x>800||x<-50||y>800||y<-50)))
+		if(moved>530||(hideOddball&&(x>800||x<-50||y>800||y<-50)))
 		{
 			x=width/2;
 			y=width/2;
@@ -121,11 +132,8 @@ class JumboParticle extends NormalParticle
 
 	void show()
 	{
-		if(!triggered)
-		{
-			fill(colour);
-			ellipse((float)x, (float)y, 30, 30);
-		}
+		fill(colour);
+		ellipse((float)x, (float)y, 30, 30);
 		if (x==width/2)
 		{
 			angleRad=radians((float)Math.random()*360);
@@ -158,7 +166,7 @@ class OddballParticle extends Particle
 
 	void show()
 	{
-		if(!triggered)
+		if(!hideOddball)
 		{
 			fill(colour);
 			//fill and color now set
