@@ -1,6 +1,5 @@
-Particle[] particles=new Particle[720];
+Particle[] particles=new Particle[820];
 boolean hideOddball=false;
-Particle[] oddball=new OddballParticle[100];
 void setup()
 {
 	size(750, 750);
@@ -16,44 +15,33 @@ void draw()
 		particles[i].move();
 		particles[i].show();
 	}
-	for(int ii=0; ii<oddball.length; ii++)
-	{
-		oddball[ii].move();
-		oddball[ii].show();
-	}
 }
 
 void fillArray()
 {
-	for(int i=0; i<particles.length/2; i++)
+	for(int i=0; i<360; i++)
 	{
 		particles[i]=new NormalParticle(width/2, width/2, i, 3);
 	}
-	for(int ii=particles.length/2; ii<particles.length; ii++)
+	for(int ii=360; ii<720; ii++)
 	{
 		particles[ii]=new JumboParticle(width/2, width/2, ii, 6);
 	}
-	for(int iii=0; iii<oddball.length; iii++)
+	for(int iii=720; iii<particles.length; iii++)
 	{
-		oddball[iii]=new OddballParticle(width/2, width/2);
+		particles[iii]=new OddballParticle(width/2, width/2);
 	}
 }
 
 void randomRestart()
 {
-	for(int i=0; i<particles.length && i<360; i++)
+	for(int i=0; i<360; i++)
 	{
 		particles[i]=new NormalParticle((int)(Math.random()*width), (int)(Math.random()*height), (int)(Math.random()*360), 3);
 	}
-	particles[360]=new JumboParticle(width/2, width/2, 0, 15);
-	particles[361]=new OddballParticle(width/2, width/2);
-	for(int ii=0; ii<particles.length/2; ii++)
+	for(int ii=360; ii<720; ii++)
 	{
-		particles[ii]=new NormalParticle((int)(Math.random()*width), (int)(Math.random()*height), (int)(Math.random()*360), 3);
-	}
-	for(int iii=particles.length/2; iii<particles.length; iii++)
-	{
-		particles[iii]=new JumboParticle((int)(Math.random()*width), (int)(Math.random()*height), (int)(Math.random()*360), 6);
+		particles[ii]=new JumboParticle((int)(Math.random()*width), (int)(Math.random()*height), (int)(Math.random()*360), 3);
 	}
 }
 
