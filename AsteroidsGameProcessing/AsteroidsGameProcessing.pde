@@ -27,6 +27,7 @@ public void draw()
 			randAsteroid();
 		}
 		moveAll();
+		collisionDetect();
 		showAll();
 	}
 	else
@@ -74,22 +75,9 @@ public void resetAll()
 	}
 }
 
-public void randAsteroid()
-{
-	//creates a new asteroid and makes sure that it doesn't immediately collide with the ship
-	rocks.add(new Asteroid());
-	for(int i=0; i<rocks.size(); i++)
-	{
-		if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
-		{
-			rocks.remove(i);
-			randAsteroid();
-		}
-	}
-}
-
 public void moveAll()
 {
+	keyPressedHandler();
 	for(int ii=0;ii<rocks.size();ii++)
 	{
 		rocks.get(ii).move();
@@ -101,6 +89,7 @@ public void moveAll()
   	ship.move();
 }
 
+//WARN. Can index out of bounds
 public void collisionDetect()
 {
 	//loops through list of rocks
@@ -173,6 +162,20 @@ public void showAll()
 	ship.show();
 }
 
+public void randAsteroid()
+{
+	//creates a new asteroid and makes sure that it doesn't immediately collide with the ship
+	rocks.add(new Asteroid());
+	for(int i=0; i<rocks.size(); i++)
+	{
+		if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
+		{
+			rocks.remove(i);
+			randAsteroid();
+		}
+	}
+}
+
 public void updateScore()
 {
 	if(score>highscore)
@@ -181,52 +184,100 @@ public void updateScore()
 	}
 }
 
+//All the keyboard handlers
 public void keyPressed()
 {
 	if(ship.going)
 	{
 		switch(key)
 		{
-			case 'a':
-				//ship.setPointDirection((int)ship.getPointDirection()-2);
-				ship.turn(-10);
-			break;
-			case 'd':
-				//ship.setPointDirection((int)ship.getPointDirection()+2);
-				ship.turn(10);
-			break;
-			case 'e':
-				if(score>10)
-				{
-					
-					ellipse(ship.getX(),ship.getY(),400,400);
-					for(int i=0; i<rocks.size(); i++)
-					{
-						if(dist(rocks.get(i).getX(),rocks.get(i).getY(),ship.getX(),ship.getY())<400)
-						{
-							destroyID.add(i);
-						}
-					}
-					destroyIDexe();
-					score-=10;
-				}
-			break;
 			case 'w':
-				ship.accelerate(1);
+				keyDown[0]=true;
+			break;
+			case 'a':
+				keyDown[1]=true;
 			break;
 			case 's':
-				ship.accelerate(-1);
+				keyDown[2]=true;
+			break;
+			case 'd':
+				keyDown[3]=true;
 			break;
 			case ' ':
-				ship.shoot();
+				keyDown[4]=true;
 			break;
+			case 'e':
+				keyDown[5]=true;
+			break;
+			//Developer tools
 			case '.':
 				randAsteroid();
+			break;
+			case '+':
+				score++;
 			break;
 		}
 	}
 	if(keyCode==16)
 	{
 		resetAll();
+	}
+}
+
+public void keyReleased()
+{
+	switch(key)
+	{
+		case 'w':
+			keyDown[0]=false;
+		break;
+		case 'a':
+			keyDown[1]=false;
+		break;
+		case 's':
+			keyDown[2]=false;
+		break;
+		case 'd':
+			keyDown[3]=false;
+		break;
+		case ' ':
+			keyDown[4]=false;
+		break;
+		case 'e':
+			keyDown[5]=false;
+		break;
+		//Developer tools
+		case '.':
+			randAsteroid();
+		break;
+		case '+':
+			score++;
+		break;
+	}
+}
+
+void keyPressedHandler()
+{
+	if(keyDown[0]) ship.accelerate(1);
+	if(keyDown[1]) ship.turn(-10);
+	if(keyDown[2]) ship.accelerate(-1);
+	if(keyDown[3]) ship.turn(10);
+	if(keyDown[4]) ship.shoot();
+	if(keyDown[5])
+	{
+		if(score>10)
+		{
+			
+			ellipse(ship.getX(),ship.getY(),400,400);
+			for(int i=0; i<rocks.size(); i++)
+			{
+				if(dist(rocks.get(i).getX(),rocks.get(i).getY(),ship.getX(),ship.getY())<400)
+				{
+					destroyID.add(i);
+				}
+			}
+			destroyIDexe();
+			score-=10;
+		}
 	}
 }
