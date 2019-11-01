@@ -5,12 +5,11 @@ ArrayList<Bullet> bullets=new ArrayList<Bullet>();
 ArrayList<Integer> destroyID=new ArrayList<Integer>();
 int rockCount=30;
 //counts whatever
-int arbitCounter=0;
-int score=0;
-int highscore=0;
+int deathAnimationCounter=0, score=0, highscore=0;
 //this num/60 is the num of secs bullets last for
 int bulletFrameLife=300;
-
+//Format WASDShootSpecial
+boolean[] keyDown=new boolean[6];
 public void setup() 
 {
 	size(1000,1000);
@@ -22,29 +21,31 @@ public void draw()
 	background(0);
 	if(ship.going)
 	{
+		//1% chance of a random asteroid spawn
 		if((int)(Math.random()*100)==1)
 		{
 			randAsteroid();
 		}
 		moveAll();
-		collisionDetect();
 		showAll();
 	}
 	else
 	{
-		if(ship.getColor()==color(255,0,0)&&arbitCounter>60)
+        if(deathAnimationCounter>60)
         {
-            ship.setColor(color(255,255,255));
-            arbitCounter=0;
-        }
-        else if(arbitCounter>60)
-        {
-            ship.setColor(color(255,0,0));
-            arbitCounter=0;
+        	if(ship.getColor()==color(255,0,0))
+	        {
+	            ship.setColor(color(255,255,255));
+	        }
+	        else
+	        {
+            	ship.setColor(color(255,0,0));
+            }
+            deathAnimationCounter=0;
         }
         else
         {
-        	arbitCounter++;
+        	deathAnimationCounter++;
         }
 		showAll();
 		ship.setPointDirection(((int)ship.getPointDirection()+5)%360);
@@ -61,21 +62,15 @@ public void resetAll()
 	ship=new Spaceship();
 	ship.setX(500);
 	ship.setY(500);
+	rocks.clear();
+	bullets.clear();
 	for(int i=0; i<stars.length;i++)
 	{
 		stars[i]=new Star();
 	}
-	rocks.clear();
 	for(int ii=0;ii<rockCount;ii++)
 	{
-		rocks.add(new Asteroid());
-	}
-	bullets.clear();
-	collisionDetect();
-	if(ship.going==false)
-	{
-		ship.going=true;
-		resetAll();
+		randAsteroid();
 	}
 }
 

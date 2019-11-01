@@ -14,7 +14,7 @@ class Asteroid extends Floater
   		myPointDirection=(int)(Math.random()*361);
   		myDirectionX=0;
 		myDirectionY=0;
-		accelerate((int)Math.random()*2-1);
+		// accelerate((int)Math.random()*2-1);
 	}
 	public void move()
 	{
