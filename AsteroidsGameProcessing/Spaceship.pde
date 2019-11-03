@@ -36,20 +36,4 @@ class Spaceship extends Floater
     {
         bullets.add(new Bullet(ship));
     }
-    /*public void move(int steps)
-    {
-    	setDirectionX(getDirectionX()+steps*Math.cos(Math.toRadians(getPointDirection())));
-    	setDirectionY(getDirectionY()+steps*Math.sin(Math.toRadians(getPointDirection())));
-    }
-    public void translate(int xMove, int yMove)
-    {
-    	for(int i=0; i<corners;i++)
-    	{
-    		xCorners[i]+=xMove;
-			yCorners[i]+=yMove;
-    	}
-    	Wow, I don't need to manually change it...
-		myCenterX+=xMove;
-		myCenterY+=yMove;
-    }*/
 }
