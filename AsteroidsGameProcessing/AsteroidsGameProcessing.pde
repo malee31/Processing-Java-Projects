@@ -118,13 +118,13 @@ public void collisionDetect()
 						bullets.remove(ii);
 						score++;
 						updateScore();
-						destroyIDexe();
 						break;
 					}
 				}
 			}
 		}
 	}
+	destroyIDexe();
 }
 
 public void destroyIDexe()
@@ -209,6 +209,9 @@ public void keyPressed()
 			case 'e':
 				keyDown[5]=true;
 			break;
+			case 'q':
+				ship.setDirectionX(0);
+				ship.setDirectionY(0);
 			//Developer tools
 			case '.':
 				randAsteroid();
