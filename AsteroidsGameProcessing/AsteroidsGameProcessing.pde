@@ -4,7 +4,6 @@ ArrayList<Asteroid> rocks=new ArrayList<Asteroid>();
 ArrayList<Bullet> bullets=new ArrayList<Bullet>();
 ArrayList<Integer> destroyID=new ArrayList<Integer>();
 int rockCount=30;
-//counts whatever
 int deathAnimationCounter=0, score=0, highscore=0;
 //this num/60 is the num of secs bullets last for
 int bulletFrameLife=300;
@@ -19,7 +18,7 @@ public void setup()
 public void draw() 
 {
 	background(0);
-	if(ship.going)
+	if(ship.isGoing())
 	{
 		//1% chance of a random asteroid spawn
 		if((int)(Math.random()*100)==1)
@@ -27,7 +26,7 @@ public void draw()
 			randAsteroid();
 		}
 		moveAll();
-		collisionDetect();
+		collisionDetectAll();
 		showAll();
 	}
 	else
@@ -90,8 +89,17 @@ public void moveAll()
 }
 
 //WARN. Can index out of bounds
-public void collisionDetect()
+public void collisionDetectAll()
 {
+	//bullet lifetime counter
+	for(int iii=0; iii<bullets.size(); iii++)
+	{
+		if(bullets.get(iii).lifetime()>=bulletFrameLife)
+		{
+			bullets.remove(iii);
+			break;
+		}
+	}
 	//loops through list of rocks
 	for(int i=0; i<rocks.size(); i++)
 	{
@@ -132,6 +140,7 @@ public void destroyIDexe()
 	//deletes the collided or shot asteroids
 	for(int x=0; x<destroyID.size();x++)
 	{
+		//minus x is the offset for previously deleted assteroids
 		rocks.remove(destroyID.get(x)-x);
 	}
 	destroyID.clear();
@@ -139,27 +148,34 @@ public void destroyIDexe()
 
 public void showAll()
 {
+	showStars();
+	showAsteroids();
+	showBullets();
+	ship.show();
+}
+
+public void showStars()
+{
 	for(int i=0; i<stars.length;i++)
 	{
 		stars[i].show();
 	}
-	for(int ii=0;ii<rocks.size();ii++)
+}
+
+public void showBullets()
+{
+	for(int i=0;i<bullets.size();i++)
 	{
-		rocks.get(ii).show();
+		bullets.get(i).show();
 	}
-	for(int iii=0;iii<bullets.size();iii++)
+}
+
+public void showAsteroids()
+{
+	for(int i=0;i<rocks.size();i++)
 	{
-		if(bullets.get(iii).lifetime()>=bulletFrameLife)
-		{
-			bullets.remove(iii);
-			break;
-		}
-		else
-		{
-			bullets.get(iii).show();
-		}
+		rocks.get(i).show();
 	}
-	ship.show();
 }
 
 public void randAsteroid()
@@ -187,7 +203,7 @@ public void updateScore()
 //All the keyboard handlers
 public void keyPressed()
 {
-	if(ship.going)
+	if(ship.isGoing())
 	{
 		switch(key)
 		{

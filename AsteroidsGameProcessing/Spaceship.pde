@@ -1,6 +1,6 @@
 class Spaceship extends Floater  
 {
-    public boolean going=true;
+    private boolean going=true;
     public Spaceship()
     {
 		corners= 15;
@@ -25,6 +25,7 @@ class Spaceship extends Floater
     public double getPointDirection(){return myPointDirection;}
     public void setColor(int colorz){myColor=colorz;}
     public int getColor(){return myColor;}
+    public boolean isGoing(){return going;}
     public void gameOver()
     {
         myColor=color(255,255,255);
