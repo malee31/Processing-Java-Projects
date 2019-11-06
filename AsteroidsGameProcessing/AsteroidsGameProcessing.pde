@@ -5,8 +5,8 @@ ArrayList<Bullet> bullets=new ArrayList<Bullet>();
 ArrayList<Integer> destroyID=new ArrayList<Integer>();
 int rockCount=30;
 int deathAnimationCounter=0, score=0, highscore=0;
-//this num/60 is the num of secs bullets last for
-int bulletFrameLife=300;
+//this num/60 is the num of secs bullets last for. Its the amount of frames it can live
+final int BULLET_LIFESPAN=300;
 //Format WASDShootSpecial
 boolean[] keyDown=new boolean[6];
 public void setup() 
@@ -20,41 +20,44 @@ public void draw()
 	background(0);
 	if(ship.isGoing())
 	{
-		//1% chance of a random asteroid spawn
-		if((int)(Math.random()*100)==1)
-		{
-			randAsteroid();
-		}
+		randAsteroid(0.01);
 		moveAll();
 		collisionDetectAll();
+		destroyIDexe();
+		bulletDeath();
 		showAll();
 	}
 	else
 	{
-        if(deathAnimationCounter>60)
-        {
-        	if(ship.getColor()==color(255,0,0))
-	        {
-	            ship.setColor(color(255,255,255));
-	        }
-	        else
-	        {
-            	ship.setColor(color(255,0,0));
-            }
-            deathAnimationCounter=0;
-        }
-        else
-        {
-        	deathAnimationCounter++;
-        }
-		showAll();
-		ship.setPointDirection(((int)ship.getPointDirection()+5)%360);
-		textSize(20);
-		text("Game Over\nPress Shift to Try Again",400,400);
+        displayDeath();
 	}
 	textSize(20);
 	text("High Score: "+highscore,400,50);
 	text("Score: "+score,425,100);
+}
+
+public void displayDeath()
+{
+	if(deathAnimationCounter>60)
+    {
+    	if(ship.getColor()==color(255,0,0))
+        {
+            ship.setColor(color(255,255,255));
+        }
+        else
+        {
+        	ship.setColor(color(255,0,0));
+        }
+        deathAnimationCounter=0;
+    }
+    else
+    {
+    	deathAnimationCounter++;
+    }
+	showAll();
+	ship.setPointDirection(((int)ship.getPointDirection()+5)%360);
+	textSize(20);
+	text("Game Over\nPress Shift to Try Again",400,400);
 }
 
 public void resetAll()
@@ -70,7 +73,7 @@ public void resetAll()
 	}
 	for(int ii=0;ii<rockCount;ii++)
 	{
-		randAsteroid();
+		randAsteroid(1);
 	}
 }
 
@@ -88,28 +91,32 @@ public void moveAll()
   	ship.move();
 }
 
-//WARN. Can index out of bounds
-public void collisionDetectAll()
+public void bulletDeath()
 {
-	//bullet lifetime counter
-	for(int iii=0; iii<bullets.size(); iii++)
+	//removes bullets that don't hit its targets after a certain amount of frames
+	for(int currentBullet=0; currentBullet<bullets.size(); currentBullet++)
 	{
-		if(bullets.get(iii).lifetime()>=bulletFrameLife)
+		if(bullets.get(currentBullet).lifetime()>=BULLET_LIFESPAN)
 		{
-			bullets.remove(iii);
-			break;
+			bullets.remove(currentBullet);
 		}
 	}
+}
+
+//WARN. Can index out of bounds. Usually in bullets to rock collisions
+public void collisionDetectAll()
+{
+	destroyID.clear();
 	//loops through list of rocks
-	for(int i=0; i<rocks.size(); i++)
+	for(int currentRock=0; currentRock<rocks.size(); currentRock++)
 	{
 		//checks if there's anything there
-		if(rocks.get(i)!=null)
+		if(rocks.get(currentRock)!=null)
 		{
-			if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
+			if(rocks.get(currentRock).crudeDetect(ship.getX(),ship.getY()))
 			{
 				ship.gameOver();
-				rocks.remove(i);
+				rocks.remove(currentRock);
 				updateScore();
 				score=0;
 			}
@@ -120,9 +127,9 @@ public void collisionDetectAll()
 				if(bullets.get(ii)!=null)
 				{
 					//collision detection rock-bullet
-					if(rocks.get(i).crudeDetect(bullets.get(ii).getX(),bullets.get(ii).getY()))
+					if(rocks.get(currentRock).crudeDetect(bullets.get(ii).getX(),bullets.get(ii).getY()))
 					{
-						destroyID.add(i);
+						destroyID.add(currentRock);
 						bullets.remove(ii);
 						score++;
 						updateScore();
@@ -132,7 +139,6 @@ public void collisionDetectAll()
 			}
 		}
 	}
-	destroyIDexe();
 }
 
 public void destroyIDexe()
@@ -141,9 +147,8 @@ public void destroyIDexe()
 	for(int x=0; x<destroyID.size();x++)
 	{
 		//minus x is the offset for previously deleted assteroids
-		rocks.remove(destroyID.get(x)-x);
+		rocks.remove(destroyID.remove(0)-x);
 	}
-	destroyID.clear();
 }
 
 public void showAll()
@@ -178,16 +183,18 @@ public void showAsteroids()
 	}
 }
 
-public void randAsteroid()
+public void randAsteroid(float chance)
 {
 	//creates a new asteroid and makes sure that it doesn't immediately collide with the ship
+	//float chance is the chance of one spawning (as a decimal)
+	if(Math.random()>=chance){return;}
 	rocks.add(new Asteroid());
 	for(int i=0; i<rocks.size(); i++)
 	{
 		if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
 		{
 			rocks.remove(i);
-			randAsteroid();
+			randAsteroid(chance);
 		}
 	}
 }
@@ -230,7 +237,7 @@ public void keyPressed()
 				ship.setDirectionY(0);
 			//Developer tools
 			case '.':
-				randAsteroid();
+				randAsteroid(1);
 			break;
 			case '+':
 				score++;
@@ -264,13 +271,6 @@ public void keyReleased()
 		break;
 		case 'e':
 			keyDown[5]=false;
-		break;
-		//Developer tools
-		case '.':
-			randAsteroid();
-		break;
-		case '+':
-			score++;
 		break;
 	}
 }
