@@ -1,6 +1,7 @@
 class Spaceship extends Floater  
 {
     private boolean going=true;
+    private int hitBoxRadius=30;
     public Spaceship()
     {
 		corners= 15;
@@ -36,5 +37,9 @@ class Spaceship extends Floater
     public void shoot()
     {
         bullets.add(new Bullet(ship));
+    }
+    public boolean collide(int x, int y)
+    {
+        return dist(x, y, (int)myCenterX, (int)myCenterY)<=hitBoxRadius;
     }
 }

@@ -3,10 +3,11 @@ Star[] stars=new Star[100];
 ArrayList<Asteroid> rocks=new ArrayList<Asteroid>();
 ArrayList<Bullet> bullets=new ArrayList<Bullet>();
 ArrayList<Integer> destroyID=new ArrayList<Integer>();
-int rockCount=30;
-int deathAnimationCounter=0, score=0, highscore=0;
 //this num/60 is the num of secs bullets last for. Its the amount of frames it can live
 final int BULLET_LIFESPAN=300;
+//Amount of asteroids by default
+final int INIT_ROCK_COUNT=30;
+int deathAnimationCounter=0, score=0, highscore=0;
 //Format WASDShootSpecial
 boolean[] keyDown=new boolean[6];
 public void setup() 
@@ -30,38 +31,30 @@ public void draw()
 }
 
 //WARN. Can index out of bounds. Usually in bullets to rock collisions
+//for collisions with asteroids
 public void collisionDetectAll()
 {
 	destroyID.clear();
 	//loops through list of rocks
 	for(int currentRock=0; currentRock<rocks.size(); currentRock++)
 	{
-		//checks if there's anything there
-		if(rocks.get(currentRock)!=null)
+		//Ship collision
+		if(ship.collide(rocks.get(currentRock).getX(), rocks.get(currentRock).getY()))
 		{
-			if(rocks.get(currentRock).crudeDetect(ship.getX(),ship.getY()))
+			rocks.remove(currentRock);
+			endGame();
+		}
+		//Bullet collisions
+		for(int ii=0; ii<bullets.size(); ii++)
+		{
+			//collision detection rock-bullet
+			if(rocks.get(currentRock).crudeDetect(bullets.get(ii).getX(),bullets.get(ii).getY()))
 			{
-				ship.gameOver();
-				rocks.remove(currentRock);
+				destroyID.add(currentRock);
+				bullets.remove(ii);
+				score++;
 				updateScore();
-				score=0;
-			}
-			//checks for bullet-asteroid collisions for this rock and every bullet
-			for(int ii=0; ii<bullets.size(); ii++)
-			{
-				//checks if there's anything there
-				if(bullets.get(ii)!=null)
-				{
-					//collision detection rock-bullet
-					if(rocks.get(currentRock).crudeDetect(bullets.get(ii).getX(),bullets.get(ii).getY()))
-					{
-						destroyID.add(currentRock);
-						bullets.remove(ii);
-						score++;
-						updateScore();
-						break;
-					}
-				}
+				break;
 			}
 		}
 	}
@@ -79,7 +72,7 @@ public void resetAll()
 	{
 		stars[i]=new Star();
 	}
-	for(int ii=0;ii<rockCount;ii++)
+	for(int ii=0;ii<INIT_ROCK_COUNT;ii++)
 	{
 		randAsteroid(1);
 	}
@@ -121,6 +114,14 @@ public void bulletDeath()
 			bullets.remove(currentBullet);
 		}
 	}
+}
+
+public void endGame()
+{
+	updateScore();
+	score=0;
+	ship.gameOver();
+
 }
 
 public void destroyIDexe()
