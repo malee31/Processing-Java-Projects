@@ -43,6 +43,7 @@ public void collisionDetectAll()
 		{
 			rocks.remove(currentRock);
 			endGame();
+			break;
 		}
 		//Bullet collisions
 		for(int ii=0; ii<bullets.size(); ii++)
