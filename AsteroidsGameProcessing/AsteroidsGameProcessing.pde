@@ -7,12 +7,12 @@ ArrayList<Integer> destroyID=new ArrayList<Integer>();
 final int BULLET_LIFESPAN=300;
 //Amount of asteroids by default
 final int INIT_ROCK_COUNT=30;
-int deathAnimationCounter=0, score=0, highscore=0;
+int deathAnimationCounter=0,  score=0,  highscore=0;
 //Format WASDShootSpecial
 boolean[] keyDown=new boolean[6];
 public void setup() 
 {
-	size(1000,1000);
+	size(1000, 1000);
 	resetAll();
 }
 
@@ -39,7 +39,7 @@ public void collisionDetectAll()
 	for(int currentRock=0; currentRock<rocks.size(); currentRock++)
 	{
 		//Ship collision
-		if(ship.collide(rocks.get(currentRock).getX(), rocks.get(currentRock).getY()))
+		if(ship.collide(rocks.get(currentRock).getX(),  rocks.get(currentRock).getY()))
 		{
 			rocks.remove(currentRock);
 			endGame();
@@ -48,7 +48,7 @@ public void collisionDetectAll()
 		for(int ii=0; ii<bullets.size(); ii++)
 		{
 			//collision detection rock-bullet
-			if(rocks.get(currentRock).crudeDetect(bullets.get(ii).getX(),bullets.get(ii).getY()))
+			if(rocks.get(currentRock).crudeDetect(bullets.get(ii).getX(), bullets.get(ii).getY()))
 			{
 				destroyID.add(currentRock);
 				bullets.remove(ii);
@@ -68,11 +68,11 @@ public void resetAll()
 	ship.setY(500);
 	rocks.clear();
 	bullets.clear();
-	for(int i=0; i<stars.length;i++)
+	for(int i=0; i<stars.length; i++)
 	{
 		stars[i]=new Star();
 	}
-	for(int ii=0;ii<INIT_ROCK_COUNT;ii++)
+	for(int ii=0; ii<INIT_ROCK_COUNT; ii++)
 	{
 		randAsteroid(1);
 	}
@@ -96,7 +96,7 @@ public void randAsteroid(float chance)
 	rocks.add(new Asteroid());
 	for(int i=0; i<rocks.size(); i++)
 	{
-		if(rocks.get(i).crudeDetect(ship.getX(),ship.getY()))
+		if(rocks.get(i).crudeDetect(ship.getX(), ship.getY()))
 		{
 			rocks.remove(i);
 			randAsteroid(chance);
@@ -127,7 +127,7 @@ public void endGame()
 public void destroyIDexe()
 {
 	//deletes the collided or shot asteroids. IDs recleared and reset when calling collisionDetectAll()
-	for(int x=0; x<destroyID.size();x++)
+	for(int x=0; x<destroyID.size(); x++)
 	{
 		//minus x is the offset for previously deleted assteroids
 		rocks.remove(destroyID.remove(0)-x);
@@ -145,8 +145,8 @@ public void updateScore()
 public void displayScore()
 {
 	textSize(20);
-	text("High Score: "+highscore,400,50);
-	text("Score: "+score,425,100);
+	text("High Score: "+highscore, 400, 50);
+	text("Score: "+score, 425, 100);
 }
 
 //all move functions
@@ -160,7 +160,7 @@ public void moveAll()
 
 public void moveBullets()
 {
-	for(int i=0;i<bullets.size();i++)
+	for(int i=0; i<bullets.size(); i++)
 	{
 		bullets.get(i).move();
 	}
@@ -168,7 +168,7 @@ public void moveBullets()
 
 public void moveAsteroids()
 {
-	for(int i=0;i<rocks.size();i++)
+	for(int i=0; i<rocks.size(); i++)
 	{
 		rocks.get(i).move();
 	}
@@ -185,7 +185,7 @@ public void showAll()
 
 public void showStars()
 {
-	for(int i=0; i<stars.length;i++)
+	for(int i=0; i<stars.length; i++)
 	{
 		stars[i].show();
 	}
@@ -193,7 +193,7 @@ public void showStars()
 
 public void showBullets()
 {
-	for(int i=0;i<bullets.size();i++)
+	for(int i=0; i<bullets.size(); i++)
 	{
 		bullets.get(i).show();
 	}
@@ -201,7 +201,7 @@ public void showBullets()
 
 public void showAsteroids()
 {
-	for(int i=0;i<rocks.size();i++)
+	for(int i=0; i<rocks.size(); i++)
 	{
 		rocks.get(i).show();
 	}
@@ -211,13 +211,13 @@ public void displayDeath()
 {
 	if(deathAnimationCounter>60)
     {
-    	if(ship.getColor()==color(255,0,0))
+    	if(ship.getColor()==color(255, 0, 0))
         {
-            ship.setColor(color(255,255,255));
+            ship.setColor(color(255, 255, 255));
         }
         else
         {
-        	ship.setColor(color(255,0,0));
+        	ship.setColor(color(255, 0, 0));
         }
         deathAnimationCounter=0;
     }
@@ -228,7 +228,7 @@ public void displayDeath()
 	showAll();
 	ship.setPointDirection(((int)ship.getPointDirection()+5)%360);
 	textSize(20);
-	text("Game Over\nPress Shift to Try Again",400,400);
+	text("Game Over\nPress Shift to Try Again", 400, 400);
 }
 
 //All the keyboard handlers
@@ -310,10 +310,10 @@ void keyPressedHandler()
 	{
 		if(score>10)
 		{
-			ellipse(ship.getX(),ship.getY(),400,400);
+			ellipse(ship.getX(), ship.getY(), 400, 400);
 			for(int i=0; i<rocks.size(); i++)
 			{
-				if(dist(rocks.get(i).getX(),rocks.get(i).getY(),ship.getX(),ship.getY())<400)
+				if(dist(rocks.get(i).getX(), rocks.get(i).getY(), ship.getX(), ship.getY())<400)
 				{
 					destroyID.add(i);
 				}
