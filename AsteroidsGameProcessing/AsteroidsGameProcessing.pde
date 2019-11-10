@@ -41,9 +41,9 @@ public void collisionDetectAll()
 		//Ship collision
 		if(ship.collide(rocks.get(currentRock).getX(),  rocks.get(currentRock).getY()))
 		{
-			rocks.remove(currentRock);
+			destroyID.add(currentRock);
 			endGame();
-			break;
+			continue;
 		}
 		//Bullet collisions
 		for(int ii=0; ii<bullets.size(); ii++)

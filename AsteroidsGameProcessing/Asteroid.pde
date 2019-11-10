@@ -23,7 +23,7 @@ class Asteroid extends Floater
 	}
 	public boolean crudeDetect(int crudeX, int crudeY)
 	{
-		if(dist((float)myCenterX,(float)myCenterY,crudeX,crudeY)<30)
+		if(dist((float)myCenterX,(float)myCenterY,crudeX,crudeY)<25)
 		{
 			return true;
 		}
