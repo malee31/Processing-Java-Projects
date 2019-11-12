@@ -49,7 +49,7 @@ public void collisionDetectAll()
 		for(int ii=0; ii<bullets.size(); ii++)
 		{
 			//collision detection rock-bullet
-			if(rocks.get(currentRock).crudeDetect(bullets.get(ii).getX(), bullets.get(ii).getY()))
+			if(rocks.get(currentRock).crudeDetect(bullets.get(ii)))
 			{
 				destroyID.add(currentRock);
 				bullets.remove(ii);
@@ -97,7 +97,7 @@ public void randAsteroid(float chance)
 	rocks.add(new Asteroid());
 	for(int i=0; i<rocks.size(); i++)
 	{
-		if(rocks.get(i).crudeDetect(ship.getX(), ship.getY()))
+		if(rocks.get(i).crudeDetect(ship))
 		{
 			rocks.remove(i);
 			randAsteroid(chance);

@@ -4,6 +4,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   protected int[] xCorners;
   protected int[] yCorners;
   protected int myColor;
+  protected float hitRadius;
   protected double myCenterX, myCenterY; //holds center coordinates
   protected double myDirectionX, myDirectionY; //holds x and y coordinates of the vector for direction of travel
   protected double myPointDirection; //holds current direction the ship is pointing in degrees
@@ -17,6 +18,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   abstract public double getDirectionY();
   abstract public void setPointDirection(int degrees);
   abstract public double getPointDirection();
+  abstract public float getHitRadius();
 
   //Accelerates the floater in the direction it is pointing (myPointDirection)
   public void accelerate (double dAmount)

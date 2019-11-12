@@ -7,6 +7,7 @@ class Asteroid extends Floater
 		xCorners=new int[]{-30,-20,10,30,30,10};
 		yCorners=new int[]{0,20,30,20,0,-20};
 		myColor=color(150,150,150);
+		hitRadius=28;
 		//radians
 		rotation=(int)(Math.random()*20-10);
   		myCenterX=(int)(Math.random()*980+10);
@@ -21,9 +22,9 @@ class Asteroid extends Floater
 		turn(rotation);
 		super.move();
 	}
-	public boolean crudeDetect(int crudeX, int crudeY)
+	public boolean crudeDetect(Floater collidee)
 	{
-		if(dist((float)myCenterX,(float)myCenterY,crudeX,crudeY)<25)
+		if(dist((float)myCenterX, (float)myCenterY, collidee.getX(), collidee.getY())<hitRadius+collidee.getHitRadius())
 		{
 			return true;
 		}
@@ -42,4 +43,5 @@ class Asteroid extends Floater
     public double getDirectionY(){return myDirectionY;}
     public void setPointDirection(int degrees){myPointDirection=degrees;}
     public double getPointDirection(){return myPointDirection;}
+    public float getHitRadius(){return hitRadius;}
 }

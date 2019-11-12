@@ -1,13 +1,13 @@
 class Spaceship extends Floater  
 {
     private boolean going=true;
-    private int hitBoxRadius=30;
     public Spaceship()
     {
 		corners= 15;
 		xCorners=new int[]{20,15,5,0,-5,-20,-20,-25,-25,-20,-20,-5,0,5,15};
 		yCorners=new int []{0,5,10,10,15,20,10,5,-5,-10,-20,-15,-10,-10,-5};
 		myColor= color(128,128,128);
+        hitRadius=23;
 		myCenterX=0;
 		myCenterY=0;
 		myDirectionX=0;
@@ -27,6 +27,7 @@ class Spaceship extends Floater
     public void setColor(int colorz){myColor=colorz;}
     public int getColor(){return myColor;}
     public boolean isGoing(){return going;}
+    public float getHitRadius(){return hitRadius;}
     public void gameOver()
     {
         myColor=color(255,255,255);
@@ -40,6 +41,6 @@ class Spaceship extends Floater
     }
     public boolean collide(int x, int y)
     {
-        return dist(x, y, (int)myCenterX, (int)myCenterY)<=hitBoxRadius;
+        return dist(x, y, (int)myCenterX, (int)myCenterY)<=hitRadius;
     }
 }
