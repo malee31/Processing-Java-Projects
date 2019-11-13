@@ -1,6 +1,6 @@
 class Star
 {
-	int x,y;
+	private int x, y;
   public Star()
   {
   	x=(int)(Math.random()*990+5);
