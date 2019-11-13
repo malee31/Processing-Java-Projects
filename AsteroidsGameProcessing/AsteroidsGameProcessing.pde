@@ -260,6 +260,9 @@ public void keyPressed()
 			case 'q':
 				ship.setDirectionX(0);
 				ship.setDirectionY(0);
+				ship.setX((int)(Math.random()*width));
+				ship.setY((int)(Math.random()*height));
+			break;
 			//Developer tools
 			case '.':
 				randAsteroid(1);
