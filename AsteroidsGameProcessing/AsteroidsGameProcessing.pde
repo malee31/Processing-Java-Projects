@@ -32,7 +32,7 @@ public void draw()
 
 //WARN. Can index out of bounds. Usually in bullets to rock collisions
 //for collisions with asteroids
-public void collisionDetectAll()
+private void collisionDetectAll()
 {
 	destroyID.clear();
 	//loops through list of rocks
@@ -62,7 +62,7 @@ public void collisionDetectAll()
 }
 
 //Microtasks
-public void resetAll()
+private void resetAll()
 {
 	ship=new Spaceship();
 	ship.setX(500);
@@ -79,7 +79,7 @@ public void resetAll()
 	}
 }
 
-public void mainOps()
+private void mainOps()
 {
 	randAsteroid(0.01);
 	moveAll();
@@ -89,7 +89,7 @@ public void mainOps()
 	showAll();
 }
 
-public void randAsteroid(float chance)
+private void randAsteroid(float chance)
 {
 	//creates a new asteroid and makes sure that it doesn't immediately collide with the ship
 	//float chance is the chance of one spawning (as a decimal)
@@ -105,7 +105,7 @@ public void randAsteroid(float chance)
 	}
 }
 
-public void bulletDeath()
+private void bulletDeath()
 {
 	//removes bullets that don't hit its targets after a certain amount of frames
 	for(int currentBullet=0; currentBullet<bullets.size(); currentBullet++)
@@ -117,7 +117,7 @@ public void bulletDeath()
 	}
 }
 
-public void endGame()
+private void endGame()
 {
 	updateScore();
 	score=0;
@@ -125,7 +125,7 @@ public void endGame()
 
 }
 
-public void destroyIDexe()
+private void destroyIDexe()
 {
 	//deletes the collided or shot asteroids. IDs recleared and reset when calling collisionDetectAll()
 	for(int x=0; x<destroyID.size(); x++)
@@ -135,7 +135,7 @@ public void destroyIDexe()
 	}
 }
 
-public void updateScore()
+private void updateScore()
 {
 	if(score>highscore)
 	{
@@ -143,7 +143,7 @@ public void updateScore()
 	}
 }
 
-public void displayScore()
+private void displayScore()
 {
 	textSize(20);
 	text("High Score: "+highscore, 400, 50);
@@ -151,7 +151,7 @@ public void displayScore()
 }
 
 //all move functions
-public void moveAll()
+private void moveAll()
 {
 	moveAsteroids();
 	moveBullets();
@@ -159,7 +159,7 @@ public void moveAll()
 	ship.move();
 }
 
-public void moveBullets()
+private void moveBullets()
 {
 	for(int i=0; i<bullets.size(); i++)
 	{
@@ -167,7 +167,7 @@ public void moveBullets()
 	}
 }
 
-public void moveAsteroids()
+private void moveAsteroids()
 {
 	for(int i=0; i<rocks.size(); i++)
 	{
@@ -176,7 +176,7 @@ public void moveAsteroids()
 }
 
 //all show functions
-public void showAll()
+private void showAll()
 {
 	showStars();
 	showAsteroids();
@@ -184,7 +184,7 @@ public void showAll()
 	ship.show();
 }
 
-public void showStars()
+private void showStars()
 {
 	for(int i=0; i<stars.length; i++)
 	{
@@ -192,7 +192,7 @@ public void showStars()
 	}
 }
 
-public void showBullets()
+private void showBullets()
 {
 	for(int i=0; i<bullets.size(); i++)
 	{
@@ -200,7 +200,7 @@ public void showBullets()
 	}
 }
 
-public void showAsteroids()
+private void showAsteroids()
 {
 	for(int i=0; i<rocks.size(); i++)
 	{
@@ -208,7 +208,7 @@ public void showAsteroids()
 	}
 }
 
-public void displayDeath()
+private void displayDeath()
 {
 	if(deathAnimationCounter>60)
     {
@@ -303,7 +303,7 @@ public void keyReleased()
 	}
 }
 
-void keyPressedHandler()
+private void keyPressedHandler()
 {
 	if(keyDown[0]) ship.accelerate(1);
 	if(keyDown[1]) ship.turn(-10);
