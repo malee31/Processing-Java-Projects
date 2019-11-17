@@ -7,6 +7,8 @@ ArrayList<Integer> destroyID=new ArrayList<Integer>();
 final int BULLET_LIFESPAN=300;
 //Amount of asteroids by default
 final int INIT_ROCK_COUNT=30;
+//Minimum distance newly spawned asteroids can be to the ship
+final int SPAWN_BUFFER=30;
 int deathAnimationCounter=0,  score=0,  highscore=0;
 //Format WASDShootSpecial
 boolean[] keyDown=new boolean[6];
@@ -39,7 +41,8 @@ private void collisionDetectAll()
 	for(int currentRock=0; currentRock<rocks.size(); currentRock++)
 	{
 		//Ship collision
-		if(ship.collide(rocks.get(currentRock).getX(),  rocks.get(currentRock).getY()))
+		// if(ship.collide(rocks.get(currentRock).getX(), rocks.get(currentRock).getY()))
+		if(rocks.get(currentRock).crudeDetect(ship))
 		{
 			destroyID.add(currentRock);
 			endGame();
@@ -95,13 +98,10 @@ private void randAsteroid(float chance)
 	//float chance is the chance of one spawning (as a decimal)
 	if(Math.random()>=chance){return;}
 	rocks.add(new Asteroid());
-	for(int i=0; i<rocks.size(); i++)
+	if(dist(rocks.get(rocks.size()-1).getX(), rocks.get(rocks.size()-1).getY(), ship.getX(), ship.getY())<=rocks.get(rocks.size()-1).getHitRadius()+ship.getHitRadius()+SPAWN_BUFFER)
 	{
-		if(rocks.get(i).crudeDetect(ship))
-		{
-			rocks.remove(i);
-			randAsteroid(chance);
-		}
+		rocks.remove(rocks.get(rocks.size()-1));
+		randAsteroid(chance);
 	}
 }
 
