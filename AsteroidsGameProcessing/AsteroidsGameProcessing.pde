@@ -1,5 +1,5 @@
 Spaceship ship;
-Star[] stars=new Star[100];
+Star[] stars=new Star[500];
 ArrayList<Asteroid> rocks=new ArrayList<Asteroid>();
 ArrayList<Bullet> bullets=new ArrayList<Bullet>();
 ArrayList<Integer> destroyID=new ArrayList<Integer>();
@@ -9,7 +9,7 @@ final int BULLET_LIFESPAN=300;
 final int INIT_ROCK_COUNT=30;
 //Minimum distance newly spawned asteroids can be to the ship
 final int SPAWN_BUFFER=30;
-int deathAnimationCounter=0,  score=0,  highscore=0;
+int deathAnimationCounter=0, score=0, highscore=0;
 //Format WASDShootSpecial
 boolean[] keyDown=new boolean[6];
 public void setup() 
@@ -27,7 +27,7 @@ public void draw()
 	}
 	else
 	{
-        displayDeath();
+		displayDeath();
 	}
 	displayScore();
 }
@@ -211,21 +211,21 @@ private void showAsteroids()
 private void displayDeath()
 {
 	if(deathAnimationCounter>60)
-    {
-    	if(ship.getColor()==color(255, 0, 0))
-        {
-            ship.setColor(color(255, 255, 255));
-        }
-        else
-        {
-        	ship.setColor(color(255, 0, 0));
-        }
-        deathAnimationCounter=0;
-    }
-    else
-    {
-    	deathAnimationCounter++;
-    }
+	{
+		if(ship.getColor()==color(255, 0, 0))
+		{
+			ship.setColor(color(255, 255, 255));
+		}
+		else
+		{
+			ship.setColor(color(255, 0, 0));
+		}
+		deathAnimationCounter=0;
+	}
+	else
+	{
+		deathAnimationCounter++;
+	}
 	showAll();
 	ship.setPointDirection(((int)ship.getPointDirection()+5)%360);
 	textSize(20);
