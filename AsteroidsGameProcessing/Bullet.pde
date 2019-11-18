@@ -4,8 +4,8 @@ class Bullet extends Floater
 	public Bullet(Spaceship theShip)
 	{
 		corners= 15;
-		xCorners=new int[]{4,3,1,0,-1,-4,-4,-5,-5,-4,-4,-1,0,1,3};
-		yCorners=new int []{0,1,2,2,3,4,2,1,-1,-2,-4,-3,-2,-2,-1};
+		xCorners=new int[]{4, 3, 1, 0, -1, -4, -4, -5, -5, -4, -4, -1, 0, 1, 3};
+		yCorners=new int []{0, 1, 2, 2, 3, 4, 2, 1, -1, -2, -4, -3, -2, -2, -1};
 		myColor= color(200, 0, 0);
 		hitRadius=4.5;
 		myPointDirection=theShip.getPointDirection();
@@ -28,10 +28,10 @@ class Bullet extends Floater
 	public float getHitRadius(){return hitRadius;}
 	public void show()
 	{
-		stroke(0,0,0);
+		stroke(0, 0, 0);
 		super.show();
-		// fill(255,255,255);
-		// ellipse((float)myCenterX,(float)myCenterY,20,20);
+		// fill(255, 255, 255);
+		// ellipse((float)myCenterX, (float)myCenterY, 20, 20);
 		lifeFrame++;
 	}
 	public int lifetime(){return lifeFrame;}

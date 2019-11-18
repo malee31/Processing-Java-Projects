@@ -4,9 +4,9 @@ class Spaceship extends Floater
     public Spaceship()
     {
 		corners= 15;
-		xCorners=new int[]{20,15,5,0,-5,-20,-20,-25,-25,-20,-20,-5,0,5,15};
-		yCorners=new int []{0,5,10,10,15,20,10,5,-5,-10,-20,-15,-10,-10,-5};
-		myColor= color(128,128,128);
+		xCorners=new int[]{20, 15, 5, 0, -5, -20, -20, -25, -25, -20, -20, -5, 0, 5, 15};
+		yCorners=new int []{0, 5, 10, 10, 15, 20, 10, 5, -5, -10, -20, -15, -10, -10, -5};
+		myColor= color(128, 128, 128);
         hitRadius=23;
 		myCenterX=0;
 		myCenterY=0;
@@ -30,7 +30,7 @@ class Spaceship extends Floater
     public float getHitRadius(){return hitRadius;}
     public void gameOver()
     {
-        myColor=color(255,255,255);
+        myColor=color(255, 255, 255);
         going=false;
         myDirectionX=0;
         myDirectionY=0;
