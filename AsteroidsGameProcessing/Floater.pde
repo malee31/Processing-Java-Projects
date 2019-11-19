@@ -62,7 +62,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   {
 	fill(myColor);
 	stroke(myColor);
-	//translate the (x,y) center of the ship to the correct position
+	//translate the (x, y) center of the ship to the correct position
 	translate((float)myCenterX, (float)myCenterY);
 
 	//convert degrees to radians for rotate()
