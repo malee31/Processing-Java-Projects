@@ -1,6 +1,6 @@
 class Bullet extends Floater
 {
-	int lifeFrame=0;
+	private int lifeFrame=0;
 	public Bullet(Spaceship theShip)
 	{
 		corners= 15;
@@ -30,8 +30,6 @@ class Bullet extends Floater
 	{
 		stroke(0, 0, 0);
 		super.show();
-		// fill(255, 255, 255);
-		// ellipse((float)myCenterX, (float)myCenterY, 20, 20);
 		lifeFrame++;
 	}
 	public int lifetime(){return lifeFrame;}
