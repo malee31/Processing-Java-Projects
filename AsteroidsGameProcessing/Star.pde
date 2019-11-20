@@ -1,7 +1,7 @@
 class Star
 {
 	//Color of stars and how long each is on screen before resetting
-	private final static int FLASH_SPEED=360, FILL_COLOR=200;
+	private final static int FLASH_SPEED = 360, FILL_COLOR = 200;
 	private int x, y, size, flashFrames;
 	public Star()
 	{
@@ -20,16 +20,16 @@ class Star
 		}
 		ellipse(x, y, size, size);
 		flashFrames++;
-		if(flashFrames==FLASH_SPEED)
+		if(flashFrames == FLASH_SPEED)
 		{
 			reinit();
 		}
 	}
 	private void reinit()
 	{
-		x=(int)(Math.random()*990+5);
-		y=(int)(Math.random()*990+5);
-		size=(int)(Math.random()*5+2);
-		flashFrames=(int)(Math.random()*FLASH_SPEED);
+		x = (int)(Math.random()*990+5);
+		y = (int)(Math.random()*990+5);
+		size = (int)(Math.random()*5+2);
+		flashFrames = (int)(Math.random()*FLASH_SPEED);
 	}
 }

@@ -1,17 +1,17 @@
 Spaceship ship;
-Star[] stars=new Star[500];
-ArrayList<Asteroid> rocks=new ArrayList<Asteroid>();
-ArrayList<Bullet> bullets=new ArrayList<Bullet>();
-ArrayList<Integer> destroyID=new ArrayList<Integer>();
+Star[] stars = new Star[500];
+ArrayList<Asteroid> rocks = new ArrayList<Asteroid>();
+ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+ArrayList<Integer> destroyID = new ArrayList<Integer>();
 //this num/60 is the num of secs bullets last for. Its the amount of frames it can live
-final int BULLET_LIFESPAN=300;
+final int BULLET_LIFESPAN = 300;
 //Amount of asteroids by default
-final int INIT_ROCK_COUNT=30;
+final int INIT_ROCK_COUNT = 30;
 //Minimum distance newly spawned asteroids can be to the ship
-final int SPAWN_BUFFER=30;
-int deathAnimationCounter=0, score=0, highscore=0;
+final int SPAWN_BUFFER = 30;
+int deathAnimationCounter = 0, score = 0, highscore = 0;
 //Format WASDShootSpecial
-boolean[] keyDown=new boolean[6];
+boolean[] keyDown = new boolean[6];
 public void setup() 
 {
 	size(1000, 1000);
@@ -38,7 +38,7 @@ private void collisionDetectAll()
 {
 	destroyID.clear();
 	//loops through list of rocks
-	for(int currentRock=0; currentRock<rocks.size(); currentRock++)
+	for(int currentRock = 0; currentRock<rocks.size(); currentRock++)
 	{
 		//Ship collision
 		// if(ship.collide(rocks.get(currentRock).getX(), rocks.get(currentRock).getY()))
@@ -49,7 +49,7 @@ private void collisionDetectAll()
 			continue;
 		}
 		//Bullet collisions
-		for(int ii=0; ii<bullets.size(); ii++)
+		for(int ii = 0; ii<bullets.size(); ii++)
 		{
 			//collision detection rock-bullet
 			if(rocks.get(currentRock).crudeDetect(bullets.get(ii)))
@@ -67,16 +67,16 @@ private void collisionDetectAll()
 //Microtasks
 private void resetAll()
 {
-	ship=new Spaceship();
+	ship = new Spaceship();
 	ship.setX(500);
 	ship.setY(500);
 	rocks.clear();
 	bullets.clear();
-	for(int i=0; i<stars.length; i++)
+	for(int i = 0; i<stars.length; i++)
 	{
-		stars[i]=new Star();
+		stars[i] = new Star();
 	}
-	for(int ii=0; ii<INIT_ROCK_COUNT; ii++)
+	for(int ii = 0; ii<INIT_ROCK_COUNT; ii++)
 	{
 		randAsteroid(1);
 	}
@@ -96,9 +96,9 @@ private void randAsteroid(float chance)
 {
 	//creates a new asteroid and makes sure that it doesn't immediately collide with the ship
 	//float chance is the chance of one spawning (as a decimal)
-	if(Math.random()>=chance){return;}
+	if(Math.random()> = chance){return;}
 	rocks.add(new Asteroid());
-	if(dist(rocks.get(rocks.size()-1).getX(), rocks.get(rocks.size()-1).getY(), ship.getX(), ship.getY())<=rocks.get(rocks.size()-1).getHitRadius()+ship.getHitRadius()+SPAWN_BUFFER)
+	if(dist(rocks.get(rocks.size()-1).getX(), rocks.get(rocks.size()-1).getY(), ship.getX(), ship.getY())< = rocks.get(rocks.size()-1).getHitRadius()+ship.getHitRadius()+SPAWN_BUFFER)
 	{
 		rocks.remove(rocks.get(rocks.size()-1));
 		randAsteroid(chance);
@@ -108,9 +108,9 @@ private void randAsteroid(float chance)
 private void bulletDeath()
 {
 	//removes bullets that don't hit its targets after a certain amount of frames
-	for(int currentBullet=0; currentBullet<bullets.size(); currentBullet++)
+	for(int currentBullet = 0; currentBullet<bullets.size(); currentBullet++)
 	{
-		if(bullets.get(currentBullet).lifetime()>=BULLET_LIFESPAN)
+		if(bullets.get(currentBullet).lifetime()> = BULLET_LIFESPAN)
 		{
 			bullets.remove(currentBullet);
 		}
@@ -120,7 +120,7 @@ private void bulletDeath()
 private void endGame()
 {
 	updateScore();
-	score=0;
+	score = 0;
 	ship.gameOver();
 
 }
@@ -128,7 +128,7 @@ private void endGame()
 private void destroyIDexe()
 {
 	//deletes the collided or shot asteroids. IDs recleared and reset when calling collisionDetectAll()
-	for(int x=0; x<destroyID.size(); x++)
+	for(int x = 0; x<destroyID.size(); x++)
 	{
 		//minus x is the offset for previously deleted assteroids
 		rocks.remove(destroyID.remove(0)-x);
@@ -139,7 +139,7 @@ private void updateScore()
 {
 	if(score>highscore)
 	{
-		highscore=score;
+		highscore = score;
 	}
 }
 
@@ -161,7 +161,7 @@ private void moveAll()
 
 private void moveBullets()
 {
-	for(int i=0; i<bullets.size(); i++)
+	for(int i = 0; i<bullets.size(); i++)
 	{
 		bullets.get(i).move();
 	}
@@ -169,7 +169,7 @@ private void moveBullets()
 
 private void moveAsteroids()
 {
-	for(int i=0; i<rocks.size(); i++)
+	for(int i = 0; i<rocks.size(); i++)
 	{
 		rocks.get(i).move();
 	}
@@ -186,7 +186,7 @@ private void showAll()
 
 private void showStars()
 {
-	for(int i=0; i<stars.length; i++)
+	for(int i = 0; i<stars.length; i++)
 	{
 		stars[i].show();
 	}
@@ -194,7 +194,7 @@ private void showStars()
 
 private void showBullets()
 {
-	for(int i=0; i<bullets.size(); i++)
+	for(int i = 0; i<bullets.size(); i++)
 	{
 		bullets.get(i).show();
 	}
@@ -202,7 +202,7 @@ private void showBullets()
 
 private void showAsteroids()
 {
-	for(int i=0; i<rocks.size(); i++)
+	for(int i = 0; i<rocks.size(); i++)
 	{
 		rocks.get(i).show();
 	}
@@ -212,7 +212,7 @@ private void displayDeath()
 {
 	if(deathAnimationCounter>60)
 	{
-		if(ship.getColor()==color(255, 0, 0))
+		if(ship.getColor() == color(255, 0, 0))
 		{
 			ship.setColor(color(255, 255, 255));
 		}
@@ -220,7 +220,7 @@ private void displayDeath()
 		{
 			ship.setColor(color(255, 0, 0));
 		}
-		deathAnimationCounter=0;
+		deathAnimationCounter = 0;
 	}
 	else
 	{
@@ -240,22 +240,22 @@ public void keyPressed()
 		switch(key)
 		{
 			case 'w':
-				keyDown[0]=true;
+				keyDown[0] = true;
 			break;
 			case 'a':
-				keyDown[1]=true;
+				keyDown[1] = true;
 			break;
 			case 's':
-				keyDown[2]=true;
+				keyDown[2] = true;
 			break;
 			case 'd':
-				keyDown[3]=true;
+				keyDown[3] = true;
 			break;
 			case ' ':
-				keyDown[4]=true;
+				keyDown[4] = true;
 			break;
 			case 'e':
-				keyDown[5]=true;
+				keyDown[5] = true;
 			break;
 			case 'q':
 				ship.setDirectionX(0);
@@ -272,7 +272,7 @@ public void keyPressed()
 			break;
 		}
 	}
-	if(keyCode==16)
+	if(keyCode == 16)
 	{
 		resetAll();
 	}
@@ -283,22 +283,22 @@ public void keyReleased()
 	switch(key)
 	{
 		case 'w':
-			keyDown[0]=false;
+			keyDown[0] = false;
 		break;
 		case 'a':
-			keyDown[1]=false;
+			keyDown[1] = false;
 		break;
 		case 's':
-			keyDown[2]=false;
+			keyDown[2] = false;
 		break;
 		case 'd':
-			keyDown[3]=false;
+			keyDown[3] = false;
 		break;
 		case ' ':
-			keyDown[4]=false;
+			keyDown[4] = false;
 		break;
 		case 'e':
-			keyDown[5]=false;
+			keyDown[5] = false;
 		break;
 	}
 }
@@ -315,7 +315,7 @@ private void keyPressedHandler()
 		if(score>10)
 		{
 			ellipse(ship.getX(), ship.getY(), 400, 400);
-			for(int i=0; i<rocks.size(); i++)
+			for(int i = 0; i<rocks.size(); i++)
 			{
 				if(dist(rocks.get(i).getX(), rocks.get(i).getY(), ship.getX(), ship.getY())<400)
 				{
@@ -323,7 +323,7 @@ private void keyPressedHandler()
 				}
 			}
 			destroyIDexe();
-			score-=10;
+			score- = 10;
 		}
 	}
 }
