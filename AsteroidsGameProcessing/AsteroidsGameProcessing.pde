@@ -96,9 +96,9 @@ private void randAsteroid(float chance)
 {
 	//creates a new asteroid and makes sure that it doesn't immediately collide with the ship
 	//float chance is the chance of one spawning (as a decimal)
-	if(Math.random()> = chance){return;}
+	if(Math.random() >= chance){return;}
 	rocks.add(new Asteroid());
-	if(dist(rocks.get(rocks.size()-1).getX(), rocks.get(rocks.size()-1).getY(), ship.getX(), ship.getY())< = rocks.get(rocks.size()-1).getHitRadius()+ship.getHitRadius()+SPAWN_BUFFER)
+	if(dist(rocks.get(rocks.size()-1).getX(), rocks.get(rocks.size()-1).getY(), ship.getX(), ship.getY()) <= rocks.get(rocks.size()-1).getHitRadius()+ship.getHitRadius()+SPAWN_BUFFER)
 	{
 		rocks.remove(rocks.get(rocks.size()-1));
 		randAsteroid(chance);
@@ -110,7 +110,7 @@ private void bulletDeath()
 	//removes bullets that don't hit its targets after a certain amount of frames
 	for(int currentBullet = 0; currentBullet<bullets.size(); currentBullet++)
 	{
-		if(bullets.get(currentBullet).lifetime()> = BULLET_LIFESPAN)
+		if(bullets.get(currentBullet).lifetime() >= BULLET_LIFESPAN)
 		{
 			bullets.remove(currentBullet);
 		}
@@ -323,7 +323,7 @@ private void keyPressedHandler()
 				}
 			}
 			destroyIDexe();
-			score- = 10;
+			score -= 10;
 		}
 	}
 }

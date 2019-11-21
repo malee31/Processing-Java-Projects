@@ -41,6 +41,6 @@ class Spaceship extends Floater
     }
     public boolean collide(int x, int y)
     {
-        return dist(x, y, (int)myCenterX, (int)myCenterY)< = hitRadius;
+        return dist(x, y, (int)myCenterX, (int)myCenterY) <= hitRadius;
     }
 }
