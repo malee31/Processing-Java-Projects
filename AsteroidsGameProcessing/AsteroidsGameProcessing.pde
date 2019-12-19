@@ -10,8 +10,8 @@ final int INIT_ROCK_COUNT = 30;
 //Minimum distance newly spawned asteroids can be to the ship
 final int SPAWN_BUFFER = 30;
 int deathAnimationCounter = 0, score = 0, highscore = 0;
-//Format WASDShootSpecial
-boolean[] keyDown = new boolean[6];
+//Format: WASDShootSpecial
+boolean[] keyDown = new boolean[5];
 public void setup() 
 {
 	size(1000, 1000);
@@ -254,9 +254,6 @@ public void keyPressed()
 			case ' ':
 				keyDown[4] = true;
 			break;
-			case 'e':
-				keyDown[5] = true;
-			break;
 			case 'q':
 				ship.setDirectionX(0);
 				ship.setDirectionY(0);
@@ -267,6 +264,7 @@ public void keyPressed()
 			case '.':
 				randAsteroid(1);
 			break;
+			case '=':
 			case '+':
 				score++;
 			break;
@@ -298,7 +296,19 @@ public void keyReleased()
 			keyDown[4] = false;
 		break;
 		case 'e':
-			keyDown[5] = false;
+			if(score>10)
+			{
+				ellipse(ship.getX(), ship.getY(), 400, 400);
+				for(int i = 0; i<rocks.size(); i++)
+				{
+					if(dist(rocks.get(i).getX(), rocks.get(i).getY(), ship.getX(), ship.getY())<400)
+					{
+						destroyID.add(i);
+					}
+				}
+				destroyIDexe();
+				score -= 10;
+			}
 		break;
 	}
 }
@@ -310,20 +320,4 @@ private void keyPressedHandler()
 	if(keyDown[2]) ship.accelerate(-1);
 	if(keyDown[3]) ship.turn(10);
 	if(keyDown[4]) ship.shoot();
-	if(keyDown[5])
-	{
-		if(score>10)
-		{
-			ellipse(ship.getX(), ship.getY(), 400, 400);
-			for(int i = 0; i<rocks.size(); i++)
-			{
-				if(dist(rocks.get(i).getX(), rocks.get(i).getY(), ship.getX(), ship.getY())<400)
-				{
-					destroyID.add(i);
-				}
-			}
-			destroyIDexe();
-			score -= 10;
-		}
-	}
 }
