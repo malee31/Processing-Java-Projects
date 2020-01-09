@@ -32,7 +32,7 @@ void setup()
 		//gets a substring of 10 numbers after "2." in e.
 		subStr=e.substring(i, i + 10);
 		//turns substring into a double
-		// testNum=Double.parseDouble(subStr);
+		testNum=parseDouble(subStr);
 		//tests if testNum is prime
 		if(isPrime(testNum))
 		{
@@ -59,13 +59,23 @@ void mousePressed()
 
 public boolean isPrime(double dNum)
 {
-    if(dNum%2 == 0){return false;}
-    else
-    {
-    	for(int i = 3; i <= Math.sqrt(dNum); i += 2)
-    	{
-    		if(dNum % i == 0){return false;}
-    	}
-    	return true;
-    }
+	for(int i = 2; i <= Math.sqrt(dNum); i ++)
+	{
+		if(dNum % i == 0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+public double parseDouble(String str)
+{
+	double res=0;
+	for(int i = 0; i < str.length(); i++)
+	{
+		res*=10;
+		res+=(int)str.charAt(i);
+	}
+	return res;
 }
