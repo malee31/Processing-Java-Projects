@@ -54,9 +54,9 @@ public String pigLatin(String sWord)
 
 		if(last=='.'||last==',')
 		{
-			return sWord.substring(2,sWord.length()-1)+"quay"+sWord.substring(sWord.length()-1,sWord.length());
+			return sWord.substring(2,sWord.length()-1)+"quay"+sWord.substring(sWord.length()-1);
 		}
-		return sWord.substring(2,sWord.length())+"quay";
+		return sWord.substring(2)+"quay";
 	}
 	int firstVow=findFirstVowel(sWord);
 	switch(firstVow)
@@ -64,21 +64,21 @@ public String pigLatin(String sWord)
 		case -1:
 			if(last=='.'||last==',')
 			{
-				return sWord.substring(0,sWord.length()-1)+"ay"+sWord.substring(sWord.length()-1,sWord.length());
+				return sWord.substring(0,sWord.length()-1)+"ay"+sWord.substring(sWord.length()-1);
 			}
 			return sWord + "ay";
 		case 0:
 			if(last=='.'||last==',')
 			{
-				return sWord.substring(0,sWord.length()-1)+"way"+sWord.substring(sWord.length()-1,sWord.length());
+				return sWord.substring(0,sWord.length()-1)+"way"+sWord.substring(sWord.length()-1);
 			}
 			return sWord+"way";
 		default:
 			if(last=='.'||last==',')
 			{
-				return sWord.substring(firstVow,sWord.length()-1)+sWord.substring(0,firstVow)+"ay"+sWord.substring(sWord.length()-1,sWord.length());
+				return sWord.substring(firstVow,sWord.length()-1)+sWord.substring(0,firstVow)+"ay"+sWord.substring(sWord.length()-1);
 			}
-			return sWord.substring(firstVow,sWord.length())+sWord.substring(0,firstVow)+"ay";
+			return sWord.substring(firstVow)+sWord.substring(0,firstVow)+"ay";
 	}
 }
 public int hasAEIOU(String testMe)
