@@ -1,19 +1,79 @@
-ArrayList<FractalPiece> fractals=new ArrayList<FractalPiece>();
 final int sizeLimit=1;
+final int initSize = 400;
+final float scaleFactor = 0.1;
 int pause=0, count=0;
 void setup()
 {
-	fractals.add(new FractalPiece(250,250,400));
-	fractals.get(0).setColor(randCol());
 	background(0,0,0);
+	noStroke();
 	size(500,500);
 	frameRate(2);
 }
+
 void draw()
 {
+	//fractalSpark();
 	reset();
-	fill(0,0,0);
-	rect(0,0,500,500);
+	start();
+}
+
+void reset()
+{
+	fill(0);
+	rect(0, 0, width, height);
+}
+
+void start()
+{
+	fractalize(250, 250, initSize);
+}
+
+void fractalize(double startX, double startY, double startSize)
+{
+	if(startSize < 1) return;
+	hollowBox((int)startX, (int)startY, (int)startSize);
+	fractalize(startX + startSize / 2);
+	fractalize(startX - startSize / 2);
+	fractalize(startY + startSize / 2);
+	fractalize(startY - startSize / 2);
+}
+
+public void hollowBox(int x, int y, int sizee)
+{
+	fill(randomColor());
+	rect(x - sizee / 2, y - sizee / 2, sizee, sizee * scaleFactor);
+	rect(x - sizee / 2,y + sizee / 2 - sizee * scaleFactor, sizee, sizee * scaleFactor);
+	rect(x - sizee / 2, y - sizee / 2, sizee * scaleFactor, sizee);
+	rect(x + sizee / 2 - sizee * scaleFactor, y - sizee / 2, sizee * scaleFactor, sizee);
+}
+
+public int randomColor()
+{
+	return color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ArrayList<FractalPiece> fractals=new ArrayList<FractalPiece>();
+void draw()
+{
+	//fractalSpark();
+	reset();
 	splitter(count);
 	for(int i=0; i<fractals.size(); i++)
 	{
@@ -51,17 +111,6 @@ void splitAll(float smallest)
 		}
 	}
 }
-// int looper(int x, int y)
-// {
-// 	x++;
-// 	y++;
-// 	int returnee=x*y;
-// 	if(x==2&&y==1)
-// 	{
-// 		returnee=3;
-// 	}
-// 	return returnee-1;
-// }
 float findSmallestSize()
 {
 	//returns the size of the smallest fractals
@@ -95,13 +144,11 @@ public class FractalPiece
 		//Draws hollow square with center x,y
 		fill(colorz);
 		noStroke();
-		//top rect
 		rect(x-size/2,y-size/2,size,size*scaleFactor);
-		//bottom rect
 		rect(x-size/2,y+size/2-size*scaleFactor,size,size*scaleFactor);
 		rect(x-size/2,y-size/2,size*scaleFactor,size);
 		rect(x+size/2-size*scaleFactor,y-size/2,size*scaleFactor,size);
-		
+	
 	}
 }
 void splitter(int a)
@@ -130,4 +177,6 @@ void reset()
 	fractals.add(new FractalPiece(250,250,400));
 	fractals.get(0).setColor(randCol());
 	pause=0;
-}
+	fill(0,0,0);
+	rect(0,0,500,500);	
+}*/
