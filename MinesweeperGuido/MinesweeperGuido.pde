@@ -12,7 +12,6 @@ private String message;
 
 public void keyPressed()
 {
-	println("rEEEEE";
 	if(key=='.')
 	{
 		reinit();
@@ -136,13 +135,13 @@ public void displayMessage()
 	{
 		for(int a=0; a<message.length(); a++)
 		{
-			buttons[i][a].setLabel(Character.toString(message.charAt(a)));
+			buttons[i][a].setLabel("" + message.charAt(a));
 		}
 		if(NUM_COLS>=message.length()*2)
 		{
 			for(int b=0; b<message.length(); b++)
 			{
-				buttons[i][b+NUM_COLS-message.length()].setLabel(Character.toString(message.charAt(b)));
+				buttons[i][b+NUM_COLS-message.length()].setLabel("" + message.charAt(b));
 			}
 		}
 	}
