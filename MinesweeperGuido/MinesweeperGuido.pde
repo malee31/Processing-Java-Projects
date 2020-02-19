@@ -9,6 +9,7 @@ private ArrayList <MSButton> mines; //ArrayList of just the minesweeper buttons 
 private boolean firstMove;
 private int end;
 private String message;
+private boolean showMines=false;
 
 public void keyPressed()
 {
@@ -17,6 +18,10 @@ public void keyPressed()
 		reinit();
 		setMines();
 		mineCountAll();
+	}
+	if(key=='/')
+	{
+		showMines=!showMines;
 	}
 }
 
@@ -217,6 +222,10 @@ public class MSButton
 			else{
 				fill(200);
 			}
+		}
+		if(showMines && mines.contains(this))
+		{
+			fill(127, 127, 255);
 		}
 		rect(x, y, width, height);
 		if(this.isClicked()&&!myLabel.equals("0"))
