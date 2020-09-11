@@ -11,7 +11,6 @@ void draw()
   stroke(255,255,255);
   rect(0,0,frams*10,100);
   frams++;
-  System.out.println(frams);
   if (frams>500)
   {
     frams=0;
