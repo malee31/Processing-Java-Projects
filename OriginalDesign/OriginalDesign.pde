@@ -15,6 +15,7 @@ void draw()
   {
     frams=0;
     fill(16,16,16);
+    stroke(16,16,16);
     rect(0,0,500,1000);
   }
 }
