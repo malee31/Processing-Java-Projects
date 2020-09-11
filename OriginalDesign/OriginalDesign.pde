@@ -11,7 +11,7 @@ void draw()
   stroke(255,255,255);
   rect(0,0,frams,100);
   frams=frams*10;
-  if (frams>1000)
+  if (frams>500)
   {
     frams=0;
     fill(16,16,16);
