@@ -2,7 +2,7 @@ int frams;
 void setup()
 {
   size(500,1000);
-  background(#111111);
+  background(#101010);
   frameRate(60);
 }
 void draw()
@@ -14,6 +14,8 @@ void draw()
   if (frams>500)
   {
     frams=0;
+    fill(16,16,16);
+    rect(0,0,500,1000);
   }
 }
 
