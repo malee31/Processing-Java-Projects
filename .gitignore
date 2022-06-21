@@ -1,4 +1,13 @@
+# General ignores
+.idea/
 .DS_Store
+# Vim swap files
+*.sw[op]
+
+# Processing ignores
+build-tmp/
+
+# Ignored from Fractal/
 applet
 application.linux32
 application.linux64
