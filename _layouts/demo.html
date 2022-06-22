@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>{{ page.title }}</title>
+		<link rel="stylesheet" type="text/css" href="/assets/OpenSans.css">
+		<link rel="stylesheet" type="text/css" href="/assets/styles.css">
+		<script src="/assets/processing.js"></script>
+	</head>
+	<body>
+		<header>
+			<h1>
+				{{ page.header }}
+			</h1>
+		</header>
+		<main>
+			<canvas id="{{ page.id }}" data-processing-sources="{{ page.sources | join: ' ' }}"></canvas>
+		</main>
+		<footer>
+			{{ content }}
+		</footer>
+	</body>
+</html>
