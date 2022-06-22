@@ -1,7 +1,7 @@
 ---
 id: Starfield
 title: In a Void of Patterns
-header: Welcome to the Void of Patterns
+header: Welcome to the _Void of Patterns_
 sources:
 - Starfield.pde
 ---

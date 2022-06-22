@@ -3,14 +3,17 @@
 	<head>
 		<meta charset="utf-8">
 		<title>{{ page.title }}</title>
-		<link rel="stylesheet" type="text/css" href="/assets/OpenSans.css">
-		<link rel="stylesheet" type="text/css" href="/assets/styles.css">
-		<script src="/assets/processing.js"></script>
+		<link rel="stylesheet" type="text/css" href={{ "/assets/OpenSans.css" | relative_url}}>
+		<link rel="stylesheet" type="text/css" href={{ "/assets/styles.css" | relative_url}}>
+		<script src={{ "/assets/processing.js" | relative_url }}></script>
+		{% for script_src in page.additional_scripts %}
+			<script src={{ script_src | relative_url }}></script>
+		{% endfor %}
 	</head>
 	<body>
 		<header>
 			<h1>
-				{{ page.header }}
+				{{ page.header | markdownify }}
 			</h1>
 		</header>
 		<main>
