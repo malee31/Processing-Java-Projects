@@ -3,6 +3,7 @@ body {
 	color: black;
 	font-family: "Open Sans", sans-serif;
 	text-align: center;
+	margin: 0;
 }
 
 main {
@@ -12,6 +13,17 @@ main {
 }
 
 header {}
+
+.back-link {
+	position: absolute;
+	top: .5rem;
+	left: 0;
+	padding: 1rem 2rem;
+	border-radius: 5px;
+	background-color: #EEEEEE;
+	border: 1px solid #EEEEEE;
+	text-decoration: none;
+}
 
 footer {
 	font-style: italic;
